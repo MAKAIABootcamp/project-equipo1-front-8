@@ -70,7 +70,7 @@ const Register = () => {
     <main className="flex w-4/5 m-auto mt-20 font-poppins justify-between">
       <div className="flex flex-col items-center">
         <img className="w-[650px]" src="/icons/logo.svg" alt="" />
-        <h1 className="text-[70px] ml-10 text-[#00A082]">Attendy</h1>
+        <h1 className=" flex justify-center text-[70px] ml-10 text-[#00A082]">Attendy</h1>
       </div>
       <div className="flex flex-col items-center max-w-[40%]">
         <h1 className="font-oleo text-[50px] mb-5">Registrate</h1>

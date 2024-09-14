@@ -44,60 +44,98 @@ const Login = () => {
   }
 
   return (
-    <main>
-      <h1>Iniciar Sesión</h1>
-      <Formik
-        initialValues={{
-          email: "",
-          password: "",
-        }}
-        validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting }) => {
-          dispatch(loginWithEmailAndPassworThunk(values));
-          setSubmitting(false);
-        }}
-      >
-        {({ isSubmitting }) => (
-          <Form>
-            <label htmlFor="email">Correo electrónico:</label>
-            <Field
-              type="email"
-              name="email"
-              id="email"
-              placeholder="ejemplo@email.com"
-            />
-            <ErrorMessage name="email" />
-
-            <label htmlFor="password">Contraseña:</label>
-            <Field
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Ingrese su contraseña"
-            />
-            <ErrorMessage name="password" />
-
-            <button type="submit" disabled={isSubmitting}>
-              Iniciar sesión
+    <main className="flex h-screen">
+      <div className="flex flex-col justify-center items-center w-1/2 bg-[#00A082]">
+        <img className="w-[650px]" src="/icons/logoblanco.svg" alt="Logo" />
+        <h1 className="flex justify-center text-[70px] text-[#F2F2F2]">Attendy</h1>
+      </div>
+  
+      <div className="flex flex-col justify-center items-center w-1/2">
+        <h1 className="font-oleo text-[50px] mb-5">Iniciar Sesión</h1>
+        <Formik
+          initialValues={{
+            email: "",
+            password: "",
+          }}
+          validationSchema={validationSchema}
+          onSubmit={(values, { setSubmitting }) => {
+            dispatch(loginWithEmailAndPassworThunk(values));
+            setSubmitting(false);
+          }}
+        >
+          {({ isSubmitting }) => (
+            <Form className="flex flex-col items-start gap-10 mb-10 mt-5">
+              <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 w-[27rem]">
+                <Field
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="ejemplo@email.com"
+                  className="w-full"
+                />
+              </div>
+              <ErrorMessage
+                name="email"
+                component="div"
+                className="text-red-500 text-sm mt-1"
+              />
+  
+              <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 w-[27rem]">
+                <Field
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="Ingrese su contraseña"
+                  className="w-full"
+                />
+              </div>
+              <ErrorMessage
+                name="password"
+                component="div"
+                className="text-red-500 text-sm mt-1"
+              />
+  
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={`w-[27rem] p-2 bg-[#00A082] text-white font-semibold rounded-[30px] mt-4 ${
+                  isSubmitting
+                    ? "opacity-50 cursor-not-allowed"
+                    : "hover:bg-[#008D72]"
+                }`}
+              >
+                Iniciar sesión
+              </button>
+            </Form>
+          )}
+        </Formik>
+  
+        <p>
+          Si aún no tiene una cuenta, por favor dar click{" "}
+          <Link to={"/register"}>aquí!</Link>
+        </p>
+  
+        <section className="mt-10">
+          <span>o, también puedes iniciar sesión con:</span>
+          <div className="flex flex-col gap-5 mt-5">
+            <button
+              onClick={handleGoogleLogin}
+              className="w-[27rem] p-2 bg-[#00A082] text-white font-semibold rounded-[30px] hover:bg-[#008D72]"
+            >
+              Iniciar sesión con Google
             </button>
-          </Form>
-        )}
-      </Formik>
-      <p>
-        Si aún no tiene una cuenta, por favor dar click{" "}
-        <Link to={"/register"}>aquí!</Link>
-      </p>
-      <section>
-        <span>o, también puedes iniciar sesión con:</span>
-        <div>
-          <button onClick={handleGoogleLogin}>Iniciar sesión con google</button>
-          <button onClick={handleNavigatePhoneLogin}>
-            Iniciar sesión con teléfono
-          </button>
-        </div>
-      </section>
+            <button
+              onClick={handleNavigatePhoneLogin}
+              className="w-[27rem] p-2 bg-[#00A082] text-white font-semibold rounded-[30px] hover:bg-[#008D72]"
+            >
+              Iniciar sesión con Teléfono
+            </button>
+          </div>
+        </section>
+      </div>
     </main>
   );
+  
 };
 
 export default Login;
