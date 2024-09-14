@@ -1,4 +1,3 @@
-
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   createUserWithEmailAndPassword,
@@ -154,18 +153,21 @@ const authSlice = createSlice({
       .addCase(googleLoginThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
-      }).addCase(loginWithVerificationCodeThunk.pending, (state) => {
+      })
+      .addCase(loginWithVerificationCodeThunk.pending, (state) => {
         state.loading = true;
         state.error = null;
-      }).addCase(loginWithVerificationCodeThunk.fulfilled, (state, action) => {
+      })
+      .addCase(loginWithVerificationCodeThunk.fulfilled, (state, action) => {
         state.loading = false;
         state.isAuthenticated = true;
         state.user = action.payload;
         state.error = null;
-      }).addCase(loginWithVerificationCodeThunk.rejected, (state, action) => {
+      })
+      .addCase(loginWithVerificationCodeThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      })
+      });
   },
 });
 

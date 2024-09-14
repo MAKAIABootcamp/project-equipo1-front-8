@@ -2,11 +2,11 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
-import uploadFiles from "../../services/uploadFiles";
 import { useDispatch, useSelector } from "react-redux";
 import { clearError, createAccountThunk } from "../../redux/auth/authSlice";
+import { useState } from "react";
 
-const validationSchema = Yup.object().shape({
+const validationSchemaUsuario = Yup.object().shape({
   name: Yup.string()
     .min(3, "El nombre debe tener al menos 3 caracteres")
     .max(50, "El nombre no puede exceder los 50 caracteres")
@@ -19,22 +19,34 @@ const validationSchema = Yup.object().shape({
     .matches(/[a-z]/, "Debe contener al menos una letra minúscula")
     .matches(/[A-Z]/, "Debe contener al menos una letra mayúscula")
     .matches(/[0-9]/, "Debe contener al menos un número")
-    .matches(/[^a-zA-Z0-9]/, "Debe contener al menos un carácter especial")
     .required("La contraseña es obligatoria"),
   repeatPassword: Yup.string()
     .oneOf([Yup.ref("password"), null], "Las contraseñas no coinciden")
     .required("Debe confirmar la contraseña"),
-  photo: Yup.mixed()
-    .test("fileSize", "El archivo no debe exceder los 2MB", (value) => {
-      if (!value) return true; // Permitir que no se seleccione ningún archivo
-      return value && value.size <= 2 * 1024 * 1024;
-    })
-    .required("Debes seleccionar una foto de perfil"),
+});
+
+const validationSchemaEmpresa = Yup.object().shape({
+  companyName: Yup.string().required("El nombre de la empresa es obligatorio"),
+  nit: Yup.string()
+    .length(9, "El NIT debe ser 9 digitos")
+    .required("El NIT es obligatorio"),
+  address: Yup.string().required("La direccion de la empresa es obligatorio"),
+  titular: Yup.string().required("El nombre del titular es obligatorio"),
+  email: Yup.string()
+    .email("Ingrese un correo electronico válido")
+    .required("El correo es obligatorio"),
+  password: Yup.string()
+    .min(8, "La contraseña debe tener al menos 8 caracteres")
+    .required("La contraseña es obligatoria"),
+  repeatPassword: Yup.string()
+    .oneOf([Yup.ref("password"), null], "Las contraseñas no coinciden")
+    .required("Debe confirmar la contraseña"),
 });
 
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isCompany, setIsCompany] = useState(false);
 
   const { error, isAuthenticated, user } = useSelector((store) => store.auth);
 
@@ -55,90 +67,219 @@ const Register = () => {
   }
 
   return (
-    <main>
-      <h1>Crear una cuenta</h1>
-      <Formik
-        initialValues={{
-          name: "",
-          email: "",
-          password: "",
-          repeatPassword: "",
-          photo: undefined,
-        }}
-        validationSchema={validationSchema}
-        onSubmit={async (values, { setSubmitting }) => {
-          const profileImage = await uploadFiles(values.photo);
-          if (profileImage) {
-            values.photo = profileImage;
-            dispatch(createAccountThunk(values));
-          } else {
-            Swal.fire({
-              title: "Oops!",
-              text: "¡Ha ocurrido un error en la carga de tu imagen de perfil! Intenta nuevamente.",
-              icon: "error",
-            });
+    <main className="flex w-4/5 m-auto mt-20 font-poppins justify-between">
+      <div className="flex flex-col items-center">
+        <img className="w-[650px]" src="/icons/logo.svg" alt="" />
+        <h1 className="text-[70px] ml-10 text-[#00A082]">Attendy</h1>
+      </div>
+      <div className="flex flex-col items-center max-w-[40%]">
+        <h1 className="font-oleo text-[50px] mb-5">Registrate</h1>
+        <div className="mb-5">
+          <button
+            className={`py-2 px-4 rounded-[30px] w-[200px] mr-4 ${
+              !isCompany
+                ? "bg-[#00A082] text-white"
+                : "bg-white border-[1px] border-[#00A082] text-[#878787]"
+            }`}
+            onClick={() => setIsCompany(false)}
+          >
+            Usuario
+          </button>
+          <button
+            className={`py-2 px-4 rounded-[30px] w-[200px] ${
+              isCompany ? "bg-[#00A082] text-white" : "bg-white text-[#878787]"
+            }`}
+            onClick={() => setIsCompany(true)}
+          >
+            Empresa
+          </button>
+        </div>
+
+        <Formik
+          initialValues={
+            isCompany
+              ? {
+                  companyName: "",
+                  nit: "",
+                  address: "",
+                  titular: "",
+                  email: "",
+                  password: "",
+                  repeatPassword: "",
+                }
+              : { name: "", email: "", password: "", repeatPassword: "" }
           }
+          validationSchema={
+            isCompany ? validationSchemaEmpresa : validationSchemaUsuario
+          }
+          onSubmit={(values, { setSubmitting }) => {
+            if (isCompany) {
+              dispatch(
+                createAccountThunk({
+                  email: values.email,
+                  password: values.password,
+                  name: values.titular,
+                  isCompany: true,
+                  companyData: {
+                    companyName: values.companyName,
+                    nit: values.nit,
+                    address: values.address,
+                    titular: values.titular,
+                  },
+                })
+              );
+            } else {
+              dispatch(
+                createAccountThunk({
+                  email: values.email,
+                  password: values.password,
+                  name: values.name,
+                  isCompany: false,
+                })
+              );
+            }
+            setSubmitting(false);
+          }}
+        >
+          {({ isSubmitting }) => (
+            <Form>
+              {!isCompany && (
+                <>
+                  <div className="flex flex-col items-start gap-10 mb-10 mt-5">
+                    <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4">
+                      <Field
+                        type="text"
+                        name="name"
+                        id="name"
+                        placeholder="Nombre"
+                        className="w-[27rem]"
+                      />
+                    </div>
+                    <ErrorMessage name="name" />
+                    <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4">
+                      <Field
+                        type="email"
+                        name="email"
+                        id="email"
+                        placeholder="Correo Electronico"
+                        className="w-[27rem]"
+                      />
+                    </div>
+                    <ErrorMessage name="email" />
 
-          setSubmitting(false);
-        }}
-      >
-        {({ isSubmitting, setFieldValue }) => (
-          <Form>
-            <label htmlFor="name">Nombre completo</label>
-            <Field name="name" id="name" type="text" />
-            <ErrorMessage name="name" />
-
-            <label htmlFor="email">Correo electrónico:</label>
-            <Field
-              name="email"
-              id="email"
-              type="email"
-              placeholder="ejemplo@email.com"
-            />
-            <ErrorMessage name="email" />
-
-            <label htmlFor="password">Contraseña:</label>
-            <Field
-              name="password"
-              id="password"
-              type="password"
-              placeholder="xxxxxx"
-            />
-            <ErrorMessage name="password" />
-
-            <label htmlFor="repeatPassword">Confirmar contraseña:</label>
-            <Field
-              name="repeatPassword"
-              id="repeatPassword"
-              type="password"
-              placeholder="xxxxxx"
-            />
-            <ErrorMessage name="repeatPassword" />
-
-            <label htmlFor="photo">Escoja una foto de perfil</label>
-            <Field name="photo">
-              {() => (
-                <input
-                  type="file"
-                  id="photo"
-                  onChange={(event) => {
-                    setFieldValue("photo", event.currentTarget.files[0]);
-                  }}
-                />
+                    <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4">
+                      <Field
+                        name="password"
+                        id="password"
+                        type="password"
+                        placeholder="Contraseña"
+                        className="w-[27rem]"
+                      />
+                      <ErrorMessage name="password" />
+                    </div>
+                    <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4">
+                      <Field
+                        name="repeatPassword"
+                        id="repeatPassword"
+                        type="password"
+                        placeholder="Repetir contraseña"
+                        className="w-[27rem]"
+                      />
+                      <ErrorMessage name="repeatPassword" />
+                    </div>
+                  </div>
+                </>
               )}
-            </Field>
-            <ErrorMessage name="photo" />
+              {isCompany && (
+                <>
+                  <div className="flex flex-col items-start gap-10 mb-10 mt-5">
+                    <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4">
+                      <Field
+                        type="text"
+                        name="companyName"
+                        id="companyName"
+                        placeholder="Nombre de la empresa"
+                        className="w-[450px]"
+                      />
+                      <ErrorMessage name="companyName" />
+                    </div>
 
-            <button disabled={isSubmitting} type="submit">
-              Crear cuenta
-            </button>
-          </Form>
-        )}
-      </Formik>
-      <p>
-        Si ya tiene una cuenta, por favor dar click{" "}
-        <Link to={"/login"}>aqui!</Link>
-      </p>
+                    <div className="flex w-5">
+                      <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mr-2 w-[238px]">
+                        <Field
+                          type="text"
+                          name="nit"
+                          id="nit"
+                          placeholder="NIT"
+                          className="w-[212px]"
+                        />
+                        <ErrorMessage name="nit" />
+                      </div>
+                      <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 w-[238px]">
+                        <Field
+                          type="text"
+                          name="address"
+                          id="address"
+                          placeholder="Dirección"
+                          className=" w-[212px]"
+                        />
+                        <ErrorMessage name="address" />
+                      </div>
+                    </div>
+
+                    <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 ">
+                      <Field
+                        type="text"
+                        name="titular"
+                        id="titular"
+                        placeholder="Nombre completo del titular"
+                        className="w-[450px]"
+                      />
+                      <ErrorMessage name="titular" />
+                    </div>
+
+                    <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4">
+                      <Field
+                        type="email"
+                        name="email"
+                        id="email"
+                        placeholder="Correo electronico"
+                        className="w-[450px]"
+                      />
+                      <ErrorMessage name="email" />
+                    </div>
+
+                    <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4">
+                      <Field
+                        name="password"
+                        id="password"
+                        type="password"
+                        placeholder="Contraseña"
+                        className="w-[450px]"
+                      />
+                      <ErrorMessage name="password" />
+                    </div>
+
+                    <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4">
+                      <Field
+                        name="repeatPassword"
+                        id="repeatPassword"
+                        type="password"
+                        placeholder="Repetir contraseña"
+                        className="w-[450px]"
+                      />
+                      <ErrorMessage name="repeatPassword" />
+                    </div>
+                  </div>
+                </>
+              )}
+              <button disabled={isSubmitting} type="submit">
+                Crear Cuenta
+              </button>
+            </Form>
+          )}
+        </Formik>
+      </div>
     </main>
   );
 };
