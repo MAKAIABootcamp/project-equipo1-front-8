@@ -4,13 +4,15 @@ import Register from "../pages/Register/Register";
 import Login from "../pages/Login/Login";
 import PhoneLogin from "../pages/PhoneLogin/PhoneLogin";
 import VerificationCode from "../pages/VerificationCode/VerificationCode";
+import Home from "../pages/Home/Home";
 
 const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Login />} />
+          <Route path="/login" element={<Login />} />
+          <Route index element={<Home />} />
           <Route path="phoneLogin" element={<PhoneLogin />} />
           <Route
             path="verificationCode/:phoneNumber"
