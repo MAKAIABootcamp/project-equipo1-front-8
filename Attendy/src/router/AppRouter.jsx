@@ -5,8 +5,28 @@ import Login from "../pages/Login/Login";
 import PhoneLogin from "../pages/PhoneLogin/PhoneLogin";
 import VerificationCode from "../pages/VerificationCode/VerificationCode";
 import Home from "../pages/Home/Home";
+import { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../Firebase/firebaseConfig";
+import { useDispatch, useSelector } from "react-redux";
+import { restoreActiveSessionThunk } from "../redux/auth/authSlice";
 
 const AppRouter = () => {
+  const dispatch = useDispatch();
+  const { loading } = useSelector((store) => store.auth);
+  const [checking, setChecking] = useState(true);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (authUser) => {
+      if (authUser) {
+        dispatch(restoreActiveSessionThunk(authUser.uid));
+      }
+      setChecking(false);
+    });
+  }, [dispatch]);
+
+  if (loading || checking) return <div>...Cargando</div>;
+
   return (
     <BrowserRouter>
       <Routes>
@@ -19,7 +39,7 @@ const AppRouter = () => {
             element={<VerificationCode />}
           />
           <Route path="register" element={<Register />} />
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="*" element={<Navigate to={"/"} />} />
         </Route>
       </Routes>
     </BrowserRouter>
