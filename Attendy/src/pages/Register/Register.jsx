@@ -70,7 +70,9 @@ const Register = () => {
     <main className="flex w-4/5 m-auto mt-20 font-poppins justify-between">
       <div className="flex flex-col items-center">
         <img className="w-[650px]" src="/icons/logo.svg" alt="" />
-        <h1 className=" flex justify-center text-[70px] ml-10 text-[#00A082]">Attendy</h1>
+        <h1 className=" flex justify-center text-[70px] ml-10 text-[#00A082]">
+          Attendy
+        </h1>
       </div>
       <div className="flex flex-col items-center max-w-[40%]">
         <h1 className="font-oleo text-[50px] mb-5">Registrate</h1>
@@ -146,45 +148,54 @@ const Register = () => {
               {!isCompany && (
                 <>
                   <div className="flex flex-col items-start gap-10 mb-10 mt-5">
-                    <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4">
-                      <Field
-                        type="text"
-                        name="name"
-                        id="name"
-                        placeholder="Nombre"
-                        className="w-[27rem]"
-                      />
+                    <div className="flex flex-col">
+                      <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
+                        <Field
+                          type="text"
+                          name="name"
+                          id="name"
+                          placeholder="Nombre"
+                          className="w-[27rem]"
+                        />
+                      </div>
+                      <ErrorMessage name="name" />
                     </div>
-                    <ErrorMessage name="name" />
-                    <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4">
-                      <Field
-                        type="email"
-                        name="email"
-                        id="email"
-                        placeholder="Correo Electronico"
-                        className="w-[27rem]"
-                      />
+                    <div className="flex flex-col">
+                      <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
+                        <Field
+                          type="email"
+                          name="email"
+                          id="email"
+                          placeholder="Correo Electronico"
+                          className="w-[27rem]"
+                        />
+                      </div>
+                      <ErrorMessage name="email" />
                     </div>
-                    <ErrorMessage name="email" />
 
-                    <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4">
-                      <Field
-                        name="password"
-                        id="password"
-                        type="password"
-                        placeholder="Contraseña"
-                        className="w-[27rem]"
-                      />
+                    <div className="flex flex-col">
+                      <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
+                        <Field
+                          name="password"
+                          id="password"
+                          type="password"
+                          placeholder="Contraseña"
+                          className="w-[27rem]"
+                        />
+                      </div>
                       <ErrorMessage name="password" />
                     </div>
-                    <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4">
-                      <Field
-                        name="repeatPassword"
-                        id="repeatPassword"
-                        type="password"
-                        placeholder="Repetir contraseña"
-                        className="w-[27rem]"
-                      />
+
+                    <div className="flex flex-col">
+                      <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
+                        <Field
+                          name="repeatPassword"
+                          id="repeatPassword"
+                          type="password"
+                          placeholder="Repetir contraseña"
+                          className="w-[27rem]"
+                        />
+                      </div>
                       <ErrorMessage name="repeatPassword" />
                     </div>
                   </div>
@@ -193,89 +204,104 @@ const Register = () => {
               {isCompany && (
                 <>
                   <div className="flex flex-col items-start gap-10 mb-10 mt-5">
-                    <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4">
-                      <Field
-                        type="text"
-                        name="companyName"
-                        id="companyName"
-                        placeholder="Nombre de la empresa"
-                        className="w-[450px]"
-                      />
+                    <div className="flex flex-col">
+                      <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
+                        <Field
+                          type="text"
+                          name="companyName"
+                          id="companyName"
+                          placeholder="Nombre de la empresa"
+                          className="w-[450px]"
+                        />
+                      </div>
                       <ErrorMessage name="companyName" />
                     </div>
-
                     <div className="flex w-5">
-                      <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mr-2 w-[238px]">
-                        <Field
-                          type="text"
-                          name="nit"
-                          id="nit"
-                          placeholder="NIT"
-                          className="w-[212px]"
-                        />
+                      <div className="flex flex-col">
+                        <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mr-2 w-[238px] mb-2">
+                          <Field
+                            type="text"
+                            name="nit"
+                            id="nit"
+                            placeholder="NIT"
+                            className="w-[212px]"
+                          />
+                        </div>
                         <ErrorMessage name="nit" />
                       </div>
-                      <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 w-[238px]">
-                        <Field
-                          type="text"
-                          name="address"
-                          id="address"
-                          placeholder="Dirección"
-                          className=" w-[212px]"
-                        />
+                      <div className="flex flex-col">
+                        <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 w-[238px] mb-2">
+                          <Field
+                            type="text"
+                            name="address"
+                            id="address"
+                            placeholder="Dirección"
+                            className=" w-[212px]"
+                          />
+                        </div>
                         <ErrorMessage name="address" />
                       </div>
                     </div>
 
-                    <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 ">
-                      <Field
-                        type="text"
-                        name="titular"
-                        id="titular"
-                        placeholder="Nombre completo del titular"
-                        className="w-[450px]"
-                      />
+                    <div className="flex flex-col">
+                      <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
+                        <Field
+                          type="text"
+                          name="titular"
+                          id="titular"
+                          placeholder="Nombre completo del titular"
+                          className="w-[450px]"
+                        />
+                      </div>
                       <ErrorMessage name="titular" />
                     </div>
 
-                    <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4">
-                      <Field
-                        type="email"
-                        name="email"
-                        id="email"
-                        placeholder="Correo electronico"
-                        className="w-[450px]"
-                      />
+                    <div className="flex flex-col">
+                      <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
+                        <Field
+                          type="email"
+                          name="email"
+                          id="email"
+                          placeholder="Correo electronico"
+                          className="w-[450px]"
+                        />
+                      </div>
                       <ErrorMessage name="email" />
                     </div>
 
-                    <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4">
-                      <Field
-                        name="password"
-                        id="password"
-                        type="password"
-                        placeholder="Contraseña"
-                        className="w-[450px]"
-                      />
+                    <div className="flex flex-col">
+                      <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
+                        <Field
+                          name="password"
+                          id="password"
+                          type="password"
+                          placeholder="Contraseña"
+                          className="w-[450px]"
+                        />
+                      </div>
                       <ErrorMessage name="password" />
                     </div>
 
-                    <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4">
-                      <Field
-                        name="repeatPassword"
-                        id="repeatPassword"
-                        type="password"
-                        placeholder="Repetir contraseña"
-                        className="w-[450px]"
-                      />
+                    <div className="flex flex-col">
+                      <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
+                        <Field
+                          name="repeatPassword"
+                          id="repeatPassword"
+                          type="password"
+                          placeholder="Repetir contraseña"
+                          className="w-[450px]"
+                        />
+                      </div>
                       <ErrorMessage name="repeatPassword" />
                     </div>
                   </div>
                 </>
               )}
-              <button disabled={isSubmitting} type="submit">
-                Crear Cuenta
-              </button>
+              <div className="border-[1px] rounded-[30px] bg-[#00A082] py-2 px-4 text-center text-white mb-10">
+                <button disabled={isSubmitting} type="submit">
+                  Crear Cuenta
+                </button>
+              </div>
             </Form>
           )}
         </Formik>
