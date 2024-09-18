@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import { clearError, createAccountThunk } from "../../redux/auth/authSlice";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const validationSchemaUsuario = Yup.object().shape({
   name: Yup.string()
@@ -58,14 +58,15 @@ const Register = () => {
     }).then(() => dispatch(clearError()));
   }
 
-  if (isAuthenticated) {
-    Swal.fire({
-      title: `¡Excelente, ${user?.displayName}!`,
-      text: "¡Has creado exitosamente tu cuenta!",
-      icon: "success",
-    }).then(() => navigate("/"));
-  }
-
+  useEffect(() => {
+    if (isAuthenticated) {
+      Swal.fire({
+        title: "Bienvenido",
+        text: "!Has creado exitosamente la cuenta!",
+        icon: "success",
+      }).then(() => navigate("/login"));
+    }
+  }, [isAuthenticated, isCompany, user, navigate]);
   return (
     <main className="flex w-4/5 m-auto mt-20 font-poppins justify-between">
       <div className="flex flex-col items-center">
@@ -89,7 +90,9 @@ const Register = () => {
           </button>
           <button
             className={`py-2 px-4 rounded-[30px] w-[200px] ${
-              isCompany ? "bg-[#00A082] text-white" : "bg-white text-[#878787]"
+              isCompany
+                ? "bg-[#00A082] text-white"
+                : "bg-white border-[1px] border-[#00A082] text-[#878787]"
             }`}
             onClick={() => setIsCompany(true)}
           >
