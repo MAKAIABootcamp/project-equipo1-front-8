@@ -14,35 +14,47 @@ const userCollectionName = "users";
 const companyCollectionName = "companies";
 export const createAccountThunk = createAsyncThunk(
   "auth/createAccount",
-  async ({ email, password, name, nit, address, isCompany }) => {
-    const userCredentials = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    await updateProfile(auth.currentUser, {
-      displayName: name,
-    });
+  async (accountData, { rejectWithValue }) => {
+    const { email, password, name, isCompany, companyData } = accountData;
 
-    const newUser = {
-      id: userCredentials.user.uid,
-      displayName: name,
-      email: email,
-      accessToken: userCredentials.user.accessToken,
-      isAdmin: false,
-      userType: isCompany ? "company" : "user",
-      ...(isCompany && { nit, address }),
-    };
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
 
-    const collectionRef = isCompany
-      ? doc(database, companyCollectionName, userCredentials.user.uid)
-      : doc(database, userCollectionName, userCredentials.user.uid);
+      await updateProfile(user, {
+        displayName: name,
+      });
 
-    await setDoc(collectionRef, newUser);
-    return newUser;
+      if (isCompany) {
+        await setDoc(doc(database, "companies", user.uid), {
+          email,
+          titular: name,
+          companyName: companyData.companyName,
+          nit: companyData.nit,
+          address: companyData.address,
+        });
+      } else {
+        await setDoc(doc(database, "users", user.uid), {
+          email,
+          name,
+        });
+      }
+
+      return {
+        uid: user.uid,
+        email: user.email,
+        name: user.displayName,
+        isCompany,
+      };
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
   }
 );
-
 export const loginWithEmailAndPassworThunk = createAsyncThunk(
   "auth/login",
   async ({ email, password }) => {
@@ -68,7 +80,7 @@ export const logoutThunk = createAsyncThunk("auth/logout", async () => {
 
 export const googleLoginThunk = createAsyncThunk(
   "auth/googleLogin",
-  async ({ isCompany, nit, address }) => {
+  async ({ isCompany, nit, address, titular }) => {
     const googleProvider = new GoogleAuthProvider();
     const { user } = await signInWithPopup(auth, googleProvider);
     let newUser = null;
@@ -89,7 +101,7 @@ export const googleLoginThunk = createAsyncThunk(
         email: user.email,
         isAdmin: false,
         userType: isCompany ? "company" : "user",
-        ...(isCompany && { nit, address }),
+        ...(isCompany && { nit, address, titular }),
       };
       await setDoc(collectionRef, newUser);
     }
