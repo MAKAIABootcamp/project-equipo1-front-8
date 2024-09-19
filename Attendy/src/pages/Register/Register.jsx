@@ -69,9 +69,9 @@ const Register = () => {
   }, [isAuthenticated, isCompany, user, navigate]);
   return (
     <main className="flex h-screen">
-      <div className="flex flex-col justify-center items-center w-1/2 bg-[#00A082]">
-        <img className="w-[650px]" src="/icons/logoBlanco.svg" alt="Logo" />
-        <h1 className="flex justify-center text-[70px] text-[#F2F2F2]">
+      <div className="flex flex-col justify-center items-center w-1/2">
+        <img className="w-[650px]" src="/icons/logo.svg" alt="Logo" />
+        <h1 className="flex justify-center text-[70px] text-[#00A082]">
           Attendy
         </h1>
       </div>
