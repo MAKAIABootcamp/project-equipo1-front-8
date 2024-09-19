@@ -69,18 +69,18 @@ const Register = () => {
     }
   }, [isAuthenticated, isCompany, user, navigate]);
   return (
-    <main className="flex w-4/5 m-auto mt-20 font-poppins justify-between">
-      <div className="flex flex-col items-center">
-        <img className="w-[650px]" src="/icons/logo.svg" alt="" />
-        <h1 className=" flex justify-center text-[70px] ml-10 text-[#00A082]">
+    <main className="flex h-screen">
+      <div className="flex flex-col justify-center items-center w-1/2">
+        <img className="w-[650px]" src="/icons/logo.svg" alt="Logo" />
+        <h1 className="flex justify-center text-[70px] text-[#00A082]">
           Attendy
         </h1>
       </div>
-      <div className="flex flex-col items-center max-w-[40%]">
+      <div className="flex flex-col justify-center items-center w-1/2">
         <h1 className="font-oleo text-[50px] mb-5">Registrate</h1>
         <div className="mb-5">
           <button
-            className={`py-2 px-4 rounded-[30px] w-[200px] mr-4 ${
+            className={`py-2 px-4 rounded-[30px] w-[228px] mr-4 ${
               !isCompany
                 ? "bg-[#00A082] text-white"
                 : "bg-white border-[1px] border-[#00A082] text-[#878787]"
@@ -90,7 +90,7 @@ const Register = () => {
             Usuario
           </button>
           <button
-            className={`py-2 px-4 rounded-[30px] w-[200px] ${
+            className={`py-2 px-4 rounded-[30px] w-[228px] ${
               isCompany
                 ? "bg-[#00A082] text-white"
                 : "bg-white border-[1px] border-[#00A082] text-[#878787]"

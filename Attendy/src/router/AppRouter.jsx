@@ -7,6 +7,7 @@ import VerificationCode from "../pages/VerificationCode/VerificationCode";
 import Home from "../pages/Home/Home";
 import Services from "../pages/Services/Services";
 import DeliveryForm from "../pages/DeliveryForm/DeliveryForm";
+import Search from "../pages/Search/Search";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../Firebase/firebaseConfig";
@@ -43,6 +44,8 @@ const AppRouter = () => {
             element={<VerificationCode />}
           />
           <Route path="register" element={<Register />} />
+          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="search" element={<Search />} />
           <Route path="*" element={<Navigate to={"/"} />} />
         </Route>
       </Routes>

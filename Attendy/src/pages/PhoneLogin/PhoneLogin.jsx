@@ -55,10 +55,8 @@ const PhoneLogin = () => {
   return (
     <main className="flex h-screen">
       <div className="flex flex-col justify-center items-center w-1/2 bg-[#00A082]">
-        <img className="w-[650px]" src="/icons/logoblanco.svg" alt="Logo" />
-        <h1 className="text-[70px] text-[#F2F2F2]">
-          Attendy
-        </h1>
+        <img className="w-[650px]" src="/icons/logoBlanco.svg" alt="Logo" />
+        <h1 className="text-[70px] text-[#F2F2F2]">Attendy</h1>
       </div>
       <div className="flex flex-col justify-center items-center w-1/2 bg-gray-200">
         <div className="border-4  p-12 rounded-lg bg-white max-w-md mx-auto">
@@ -79,7 +77,9 @@ const PhoneLogin = () => {
           >
             {({ isSubmitting }) => (
               <Form className="flex flex-col gap-8">
-                <label htmlFor="phone" className="text-lg">Número celular:</label>
+                <label htmlFor="phone" className="text-lg">
+                  Número celular:
+                </label>
                 <Field
                   type="number"
                   name="phone"
