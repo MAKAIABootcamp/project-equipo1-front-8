@@ -46,7 +46,7 @@ const Login = () => {
   return (
     <main className="flex h-screen">
       <div className="flex flex-col justify-center items-center w-1/2 bg-[#00A082]">
-        <img className="w-[650px]" src="/icons/logoblanco.svg" alt="Logo" />
+        <img className="w-[650px]" src="/icons/logoBlanco.svg" alt="Logo" />
         <h1 className="flex justify-center text-[70px] text-[#F2F2F2]">
           Attendy
         </h1>
