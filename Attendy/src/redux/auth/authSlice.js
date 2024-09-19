@@ -51,6 +51,7 @@ export const createAccountThunk = createAsyncThunk(
         email: user.email,
         name: user.displayName,
         isCompany,
+        accountCreated: true, //
       };
     } catch (error) {
       return rejectWithValue(error.message);

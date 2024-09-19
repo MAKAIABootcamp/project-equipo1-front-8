@@ -1,10 +1,11 @@
+import { useState, useEffect } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import { clearError, createAccountThunk } from "../../redux/auth/authSlice";
-import { useState, useEffect } from "react";
+
 
 const validationSchemaUsuario = Yup.object().shape({
   name: Yup.string()
@@ -16,7 +17,7 @@ const validationSchemaUsuario = Yup.object().shape({
     .required("El correo electrónico es obligatorio"),
   password: Yup.string()
     .min(8, "La contraseña debe tener al menos 8 caracteres")
-    .matches(/[a-z]/, "Debe contener al menos una letra minúscula")
+    .matches(/[a-z]/, "Debe contener al menos una letra minúscula") 
     .matches(/[A-Z]/, "Debe contener al menos una letra mayúscula")
     .matches(/[0-9]/, "Debe contener al menos un número")
     .required("La contraseña es obligatoria"),

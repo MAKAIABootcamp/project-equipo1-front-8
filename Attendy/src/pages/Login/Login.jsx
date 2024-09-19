@@ -142,7 +142,7 @@ const Login = () => {
           </div>
         </section>
       </div>
-    </main>
+    </main> 
   );
 };
 
