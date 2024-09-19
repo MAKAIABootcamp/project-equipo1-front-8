@@ -6,6 +6,7 @@ import PhoneLogin from "../pages/PhoneLogin/PhoneLogin";
 import VerificationCode from "../pages/VerificationCode/VerificationCode";
 import Home from "../pages/Home/Home";
 import Services from "../pages/Services/Services";
+import DeliveryForm from "../pages/DeliveryForm/DeliveryForm";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../Firebase/firebaseConfig";
@@ -35,6 +36,7 @@ const AppRouter = () => {
           <Route path="/login" element={<Login />} />
           <Route index element={<Home />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/deliveryForm" element={<DeliveryForm />} />
           <Route path="phoneLogin" element={<PhoneLogin />} />
           <Route
             path="verificationCode/:phoneNumber"
