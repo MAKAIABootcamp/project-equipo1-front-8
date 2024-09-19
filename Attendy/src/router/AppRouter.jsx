@@ -5,6 +5,7 @@ import Login from "../pages/Login/Login";
 import PhoneLogin from "../pages/PhoneLogin/PhoneLogin";
 import VerificationCode from "../pages/VerificationCode/VerificationCode";
 import Home from "../pages/Home/Home";
+import Search from "../pages/Search/Search";
 
 const AppRouter = () => {
   return (
@@ -20,6 +21,7 @@ const AppRouter = () => {
           />
           <Route path="register" element={<Register />} />
           <Route path="*" element={<Navigate to="/" />} />
+          <Route path="search" element={<Search />} />
         </Route>
       </Routes>
     </BrowserRouter>

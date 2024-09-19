@@ -10,6 +10,9 @@ export default {
         oleo: ["Oleo Script", "cursive"],
         poppins: ["Poppins", "sans-serif"],
       },
+      colors: {
+        'bg-gray': '#d9d9d9'
+      },
     },
   },
   plugins: [],
