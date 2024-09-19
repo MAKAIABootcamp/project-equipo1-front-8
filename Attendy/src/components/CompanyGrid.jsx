@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { database } from '../Firebase/firebaseConfig'; // Asegúrate de que esta ruta sea correcta
+import { database } from '../Firebase/firebaseConfig'; 
 import { collection, getDocs } from 'firebase/firestore';
 
 const CompanyGrid = () => {
