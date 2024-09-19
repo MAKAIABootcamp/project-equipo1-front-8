@@ -72,7 +72,7 @@ const Login = () => {
                   type="email"
                   name="email"
                   id="email"
-                  placeholder="ejemplo@email.com"
+                  placeholder="Ingrese su correo electronico"
                   className="w-full"
                 />
               </div>
@@ -118,12 +118,19 @@ const Login = () => {
         </p>
 
         <section className="mt-10">
-          <span>o, también puedes iniciar sesión con:</span>
+          <span className="flex justify-center">
+            o, también puedes iniciar sesión con:
+          </span>
           <div className="flex flex-col gap-5 mt-5">
             <button
               onClick={handleGoogleLogin}
-              className="w-[27rem] p-2 bg-[#00A082] text-white font-semibold rounded-[30px] hover:bg-[#008D72]"
+              className="flex items-center justify-center w-[27rem] p-2 bg-white text-gray-700 font-semibold border border-gray-300 rounded-[30px] shadow-md hover:bg-gray-100 transition duration-300"
             >
+              <img
+                src="/icons/google-icon.svg"
+                alt="Google logo"
+                className="w-5 h-5 mr-3"
+              />
               Iniciar sesión con Google
             </button>
             <button

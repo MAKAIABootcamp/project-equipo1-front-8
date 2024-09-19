@@ -31,6 +31,7 @@ export const createAccountThunk = createAsyncThunk(
 
       if (isCompany) {
         await setDoc(doc(database, "companies", user.uid), {
+          id: user.uid,
           email,
           titular: name,
           companyName: companyData.companyName,
@@ -39,6 +40,7 @@ export const createAccountThunk = createAsyncThunk(
         });
       } else {
         await setDoc(doc(database, "users", user.uid), {
+          id: user.uid,
           email,
           name,
         });
