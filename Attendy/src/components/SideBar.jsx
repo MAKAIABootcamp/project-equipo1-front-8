@@ -6,7 +6,7 @@ const SideBar = () => {
           <div>
             <img
               className="w-[80px] h-[80px] mb-10"
-              src="/icons/logoBlanco.svg"
+              src="/icons/logoblanco.svg"
               alt="Logo"
             />
           </div>
