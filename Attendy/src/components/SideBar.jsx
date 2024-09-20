@@ -12,7 +12,7 @@ const SideBar = () => {
       <div className="flex flex-col h-full justify-between p-2">
         <div className="flex items-center cursor-pointer" onClick={toggleMenu}>
           <img
-            className="w-[80px] h-[80px] mb-2"
+            className="w-[80px] h-[80px] mb-4"
             src="/icons/logoBlanco.svg"
             alt="Attendy"
           />
