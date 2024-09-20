@@ -45,7 +45,7 @@ const SideBar = () => {
             src="/icons/perfil.svg"
             alt="Cuenta"
           />
-          {isOpen && <span className="font-poppins  text-white ml-2 text-lg">Cuenta</span>}
+          {isOpen && <span className="font-poppins text-white ml-2 text-lg">Cuenta</span>}
         </div>
       </div>
     </nav>
