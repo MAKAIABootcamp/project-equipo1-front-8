@@ -20,14 +20,8 @@ const SideBar = () => {
         </div>
 
         <div className="flex flex-col justify-start gap-10">
-          <div className="flex items-center">
-            <img
-              className="w-[80px] h-[80px] mb-10"
-              src="/icons/logoblanco.svg"
-              alt="Logo"
-            />
-          </div>
           <div>
+          <div className="flex items-center">
             <img
               className="w-[80px] h-[80px]"
               src="/icons/store.svg"
@@ -35,7 +29,7 @@ const SideBar = () => {
             />
             {isOpen && <span className="font-poppins text-white ml-2 text-lg">Productos</span>}
           </div>
-
+          </div>
           <div className="flex items-center">
             <img
               className="w-[80px] h-[80px] mb-2"
