@@ -15,7 +15,7 @@ const companyCollectionName = "companies";
 export const createAccountThunk = createAsyncThunk(
   "auth/createAccount",
   async (accountData, { rejectWithValue }) => {
-    const { email, password, name, isCompany, companyData } = accountData;
+    const { email, password, isCompany, companyData } = accountData;
 
     try {
       const userCredential = await createUserWithEmailAndPassword(
@@ -33,16 +33,17 @@ export const createAccountThunk = createAsyncThunk(
         await setDoc(doc(database, "companies", user.uid), {
           id: user.uid,
           email,
-          titular: name,
-          companyName: companyData.companyName,
+          name: companyData.name,
           nit: companyData.nit,
           address: companyData.address,
+          titular: companyData.titular,
+          photoUrl: companyData.photo,
         });
       } else {
         await setDoc(doc(database, "users", user.uid), {
           id: user.uid,
           email,
-          name,
+          name: accountData.name,
         });
       }
 
@@ -51,27 +52,31 @@ export const createAccountThunk = createAsyncThunk(
         email: user.email,
         name: user.displayName,
         isCompany,
-        accountCreated: true, //
+        accountCreated: true,
       };
     } catch (error) {
+      console.error("Error al crear la cuenta:", error);
       return rejectWithValue(error.message);
     }
   }
 );
 export const loginWithEmailAndPassworThunk = createAsyncThunk(
   "auth/login",
-  async ({ email, password }) => {
-    const { user } = await signInWithEmailAndPassword(auth, email, password);
-    const collectionRef = user.email.includes("@empresa.com")
-      ? doc(database, companyCollectionName, user.uid)
-      : doc(database, userCollectionName, user.uid);
+  async ({ email, password }, { rejectWithValue }) => {
+    try {
+      const { user } = await signInWithEmailAndPassword(auth, email, password);
+      const collectionRef = user.email.includes("@empresa.com")
+        ? doc(database, companyCollectionName, user.uid)
+        : doc(database, userCollectionName, user.uid);
 
-    const userDoc = await getDoc(collectionRef);
-
-    if (userDoc.exists()) {
-      return userDoc.data();
-    } else {
-      throw new Error("No se encontraron datos del usuario");
+      const userDoc = await getDoc(collectionRef);
+      if (userDoc.exists()) {
+        return userDoc.data();
+      } else {
+        throw new Error("No se encontraron datos del usuario");
+      }
+    } catch (error) {
+      return rejectWithValue(error.message || "Error en el login");
     }
   }
 );
@@ -199,10 +204,10 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(loginWithEmailAndPassworThunk.fulfilled, (state, action) => {
+      .addCase(loginWithEmailAndPassworThunk.fulfilled, (state) => {
         state.loading = false;
-        state.isAuthenticated = true;
-        state.user = action.payload;
+        state.isAuthenticated = false;
+        state.user = null;
         state.error = null;
       })
       .addCase(loginWithEmailAndPassworThunk.rejected, (state, action) => {
