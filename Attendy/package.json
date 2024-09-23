@@ -12,6 +12,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.7",
     "autoprefixer": "^10.4.20",
+    "cloudinary": "^2.5.0",
     "firebase": "^10.13.1",
     "formik": "^2.4.6",
     "postcss": "^8.4.45",
