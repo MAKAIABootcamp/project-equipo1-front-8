@@ -15,7 +15,7 @@ const companyCollectionName = "companies";
 export const createAccountThunk = createAsyncThunk(
   "auth/createAccount",
   async (accountData, { rejectWithValue }) => {
-    const { email, password, name, isCompany, companyData } = accountData;
+    const { email, password, isCompany, companyData } = accountData;
 
     try {
       const userCredential = await createUserWithEmailAndPassword(
@@ -26,23 +26,24 @@ export const createAccountThunk = createAsyncThunk(
       const user = userCredential.user;
 
       await updateProfile(user, {
-        displayName: name,
+        displayName: accountData.name,
       });
 
       if (isCompany) {
         await setDoc(doc(database, "companies", user.uid), {
           id: user.uid,
           email,
-          titular: name,
-          companyName: companyData.companyName,
+          name: companyData.name,
           nit: companyData.nit,
           address: companyData.address,
+          titular: companyData.titular,
+          photoUrl: companyData.photo,
         });
       } else {
         await setDoc(doc(database, "users", user.uid), {
           id: user.uid,
           email,
-          name,
+          name: accountData.name,
         });
       }
 
@@ -51,27 +52,31 @@ export const createAccountThunk = createAsyncThunk(
         email: user.email,
         name: user.displayName,
         isCompany,
-        accountCreated: true, //
+        accountCreated: true,
       };
     } catch (error) {
+      console.error("Error al crear la cuenta:", error);
       return rejectWithValue(error.message);
     }
   }
 );
 export const loginWithEmailAndPassworThunk = createAsyncThunk(
   "auth/login",
-  async ({ email, password }) => {
-    const { user } = await signInWithEmailAndPassword(auth, email, password);
-    const collectionRef = user.email.includes("@empresa.com")
-      ? doc(database, companyCollectionName, user.uid)
-      : doc(database, userCollectionName, user.uid);
+  async ({ email, password }, { rejectWithValue }) => {
+    try {
+      const { user } = await signInWithEmailAndPassword(auth, email, password);
+      const collectionRef = user.email.includes("@empresa.com")
+        ? doc(database, companyCollectionName, user.uid)
+        : doc(database, userCollectionName, user.uid);
 
-    const userDoc = await getDoc(collectionRef);
-
-    if (userDoc.exists()) {
-      return userDoc.data();
-    } else {
-      throw new Error("No se encontraron datos del usuario");
+      const userDoc = await getDoc(collectionRef);
+      if (userDoc.exists()) {
+        return userDoc.data();
+      } else {
+        throw new Error("No se encontraron datos del usuario");
+      }
+    } catch (error) {
+      return rejectWithValue(error.message || "Error en el login");
     }
   }
 );
@@ -170,6 +175,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     isAuthenticated: false,
+    isRegistered: false,
     user: null,
     loading: false,
     error: null,
@@ -177,6 +183,9 @@ const authSlice = createSlice({
   reducers: {
     clearError: (state) => {
       state.error = null;
+    },
+    clearRegistration: (state) => {
+      state.isRegistered = false;
     },
   },
   extraReducers: (builder) => {
@@ -187,7 +196,8 @@ const authSlice = createSlice({
       })
       .addCase(createAccountThunk.fulfilled, (state, action) => {
         state.loading = false;
-        state.isAuthenticated = true;
+        state.isRegistered = true;
+        state.isAuthenticated = false;
         state.user = action.payload;
         state.error = null;
       })
@@ -209,10 +219,10 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
-      .addCase(logoutThunk.fulfilled, (state, action) => {
+      .addCase(logoutThunk.fulfilled, (state) => {
         state.loading = false;
         state.isAuthenticated = false;
-        state.user = action.payload;
+        state.user = null;
         state.error = null;
       })
       .addCase(logoutThunk.rejected, (state, action) => {
@@ -266,4 +276,4 @@ const authSlice = createSlice({
 const authReducer = authSlice.reducer;
 export default authReducer;
 
-export const { clearError } = authSlice.actions;
+export const { clearError, clearRegistration } = authSlice.actions;

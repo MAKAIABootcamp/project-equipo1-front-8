@@ -8,6 +8,7 @@ import {
   loginWithEmailAndPassworThunk,
 } from "../../redux/auth/authSlice";
 import Swal from "sweetalert2";
+import { useEffect } from "react";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -21,6 +22,16 @@ const Login = () => {
   const dispatch = useDispatch();
   const { error, isAuthenticated } = useSelector((store) => store.auth);
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      Swal.fire({
+        title: "¡Has iniciado sesión exitosamente!",
+        text: `¡Te damos la bienvenida`,
+        icon: "success",
+      }).then(() => navigate("/"));
+    }
+  }, [isAuthenticated, navigate]);
+
   const handleGoogleLogin = () => {
     dispatch(googleLoginThunk());
   };
@@ -33,14 +44,6 @@ const Login = () => {
       text: "¡Ha ocurrido un error en el inicio de sesión! Verifique sus credenciales",
       icon: "error",
     }).then(() => dispatch(clearError()));
-  }
-
-  if (isAuthenticated) {
-    Swal.fire({
-      title: "¡Has iniciado sesión exitosamente!",
-      text: `¡Te damos la bienvenida`,
-      icon: "success",
-    }).then(() => navigate("/"));
   }
 
   return (
@@ -66,7 +69,10 @@ const Login = () => {
           }}
         >
           {({ isSubmitting }) => (
-            <Form className="flex flex-col items-start gap-10 mb-10 mt-5">
+            <Form
+              autoComplete="off"
+              className="flex flex-col items-start gap-10 mb-10 mt-5"
+            >
               <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 w-[27rem]">
                 <Field
                   type="email"
@@ -142,7 +148,7 @@ const Login = () => {
           </div>
         </section>
       </div>
-    </main> 
+    </main>
   );
 };
 

@@ -7,6 +7,8 @@ import VerificationCode from "../pages/VerificationCode/VerificationCode";
 import Home from "../pages/Home/Home";
 import Services from "../pages/Services/Services";
 import DeliveryForm from "../pages/DeliveryForm/DeliveryForm";
+import AdminPanel from "../pages/AdminPanel/AdminPanel";
+import Orders from "../pages/Orders/Orders";
 import Search from "../pages/Search/Search";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
@@ -40,11 +42,11 @@ const AppRouter = () => {
           <Route path="/services" element={<Services />} />
           <Route path="/deliveryForm" element={<DeliveryForm />} />
           <Route path="phoneLogin" element={<PhoneLogin />} />
-          <Route
-            path="verificationCode/:phoneNumber"
-            element={<VerificationCode />}
-          />
+          <Route path="verificationCode/:phoneNumber" element={<VerificationCode />} />
           <Route path="register" element={<Register />} />
+          <Route path="search" element={<Search />} />
+          <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/orders" element={<Orders />} />
           <Route path="*" element={<Navigate to="/" />} />
           <Route path="search" element={<Search />} />
           <Route path="*" element={<Navigate to={"/"} />} />

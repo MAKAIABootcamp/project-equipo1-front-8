@@ -4,8 +4,12 @@ import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
-import { clearError, createAccountThunk } from "../../redux/auth/authSlice";
-
+import {
+  clearError,
+  createAccountThunk,
+  clearRegistration,
+} from "../../redux/auth/authSlice";
+import uploadFiles from "../../services/uploadFiles";
 
 const validationSchemaUsuario = Yup.object().shape({
   name: Yup.string()
@@ -17,7 +21,7 @@ const validationSchemaUsuario = Yup.object().shape({
     .required("El correo electrónico es obligatorio"),
   password: Yup.string()
     .min(8, "La contraseña debe tener al menos 8 caracteres")
-    .matches(/[a-z]/, "Debe contener al menos una letra minúscula") 
+    .matches(/[a-z]/, "Debe contener al menos una letra minúscula")
     .matches(/[A-Z]/, "Debe contener al menos una letra mayúscula")
     .matches(/[0-9]/, "Debe contener al menos un número")
     .required("La contraseña es obligatoria"),
@@ -27,7 +31,7 @@ const validationSchemaUsuario = Yup.object().shape({
 });
 
 const validationSchemaEmpresa = Yup.object().shape({
-  companyName: Yup.string().required("El nombre de la empresa es obligatorio"),
+  name: Yup.string().required("El nombre de la empresa es obligatorio"),
   nit: Yup.string()
     .length(9, "El NIT debe ser 9 digitos")
     .required("El NIT es obligatorio"),
@@ -42,6 +46,7 @@ const validationSchemaEmpresa = Yup.object().shape({
   repeatPassword: Yup.string()
     .oneOf([Yup.ref("password"), null], "Las contraseñas no coinciden")
     .required("Debe confirmar la contraseña"),
+  photo: Yup.mixed().required("debe ser obligatorio"),
 });
 
 const Register = () => {
@@ -49,7 +54,7 @@ const Register = () => {
   const navigate = useNavigate();
   const [isCompany, setIsCompany] = useState(false);
 
-  const { error, isAuthenticated, user } = useSelector((store) => store.auth);
+  const { error, isRegistered, user } = useSelector((store) => store.auth);
 
   if (error) {
     Swal.fire({
@@ -60,14 +65,17 @@ const Register = () => {
   }
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isRegistered) {
       Swal.fire({
         title: "Bienvenido",
         text: "!Has creado exitosamente la cuenta!",
         icon: "success",
-      }).then(() => navigate("/login"));
+      }).then(() => {
+        dispatch(clearRegistration());
+        navigate("/login");
+      });
     }
-  }, [isAuthenticated, isCompany, user, navigate]);
+  }, [isRegistered, isCompany, user, navigate, dispatch]);
   return (
     <main className="flex h-screen">
       <div className="flex flex-col justify-center items-center w-1/2">
@@ -105,32 +113,49 @@ const Register = () => {
           initialValues={
             isCompany
               ? {
-                  companyName: "",
+                  name: "",
                   nit: "",
                   address: "",
                   titular: "",
                   email: "",
                   password: "",
                   repeatPassword: "",
+                  photo: "",
                 }
               : { name: "", email: "", password: "", repeatPassword: "" }
           }
           validationSchema={
             isCompany ? validationSchemaEmpresa : validationSchemaUsuario
           }
-          onSubmit={(values, { setSubmitting }) => {
+          onSubmit={async (values, { setSubmitting }) => {
+            console.log("isCompany:", isCompany);
+            let profileImage;
+            console.log(values);
+            if (isCompany && values.photo) {
+              profileImage = await uploadFiles(values.photo);
+              if (profileImage) {
+                values.photo = profileImage;
+              } else {
+                Swal.fire({
+                  title: "Error",
+                  text: "Hubo un problema al subir la imagen",
+                  icon: "error",
+                });
+                return;
+              }
+            }
             if (isCompany) {
               dispatch(
                 createAccountThunk({
                   email: values.email,
                   password: values.password,
-                  name: values.titular,
                   isCompany: true,
                   companyData: {
-                    companyName: values.companyName,
+                    name: values.name,
                     nit: values.nit,
                     address: values.address,
                     titular: values.titular,
+                    photo: profileImage || "",
                   },
                 })
               );
@@ -144,11 +169,12 @@ const Register = () => {
                 })
               );
             }
+
             setSubmitting(false);
           }}
         >
-          {({ isSubmitting }) => (
-            <Form>
+          {({ values, isSubmitting, setFieldValue }) => (
+            <Form autoComplete="off">
               {!isCompany && (
                 <>
                   <div className="flex flex-col items-start gap-10 mb-10 mt-5">
@@ -212,13 +238,13 @@ const Register = () => {
                       <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
                         <Field
                           type="text"
-                          name="companyName"
-                          id="companyName"
+                          name="name"
+                          id="name"
                           placeholder="Nombre de la empresa"
                           className="w-[450px]"
                         />
                       </div>
-                      <ErrorMessage name="companyName" />
+                      <ErrorMessage name="name" />
                     </div>
                     <div className="flex w-5">
                       <div className="flex flex-col">
@@ -227,6 +253,7 @@ const Register = () => {
                             type="text"
                             name="nit"
                             id="nit"
+                            value={values.nit || ""}
                             placeholder="NIT"
                             className="w-[212px]"
                           />
@@ -239,6 +266,7 @@ const Register = () => {
                             type="text"
                             name="address"
                             id="address"
+                            value={values.address || ""}
                             placeholder="Dirección"
                             className=" w-[212px]"
                           />
@@ -253,6 +281,7 @@ const Register = () => {
                           type="text"
                           name="titular"
                           id="titular"
+                          value={values.titular || ""}
                           placeholder="Nombre completo del titular"
                           className="w-[450px]"
                         />
@@ -266,6 +295,7 @@ const Register = () => {
                           type="email"
                           name="email"
                           id="email"
+                          value={values.email || ""}
                           placeholder="Correo electronico"
                           className="w-[450px]"
                         />
@@ -297,6 +327,24 @@ const Register = () => {
                         />
                       </div>
                       <ErrorMessage name="repeatPassword" />
+                    </div>
+
+                    <div className="flex flex-col">
+                      <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
+                        <input
+                          className="w-[450px]"
+                          type="file"
+                          name="photo"
+                          accept="image/*"
+                          onChange={(event) => {
+                            setFieldValue(
+                              "photo",
+                              event.currentTarget.files[0]
+                            );
+                          }}
+                        />
+                      </div>
+                      <ErrorMessage name="photo" />
                     </div>
                   </div>
                 </>
