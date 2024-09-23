@@ -69,7 +69,10 @@ const Login = () => {
           }}
         >
           {({ isSubmitting }) => (
-            <Form className="flex flex-col items-start gap-10 mb-10 mt-5">
+            <Form
+              autoComplete="off"
+              className="flex flex-col items-start gap-10 mb-10 mt-5"
+            >
               <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 w-[27rem]">
                 <Field
                   type="email"
