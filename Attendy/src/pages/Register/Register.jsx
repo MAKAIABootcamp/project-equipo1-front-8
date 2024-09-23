@@ -167,7 +167,7 @@ const Register = () => {
           }}
         >
           {({ values, isSubmitting, setFieldValue }) => (
-            <Form>
+            <Form autoComplete="off">
               {!isCompany && (
                 <>
                   <div className="flex flex-col items-start gap-10 mb-10 mt-5">
@@ -325,6 +325,7 @@ const Register = () => {
                     <div className="flex flex-col">
                       <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
                         <input
+                          className="w-[450px]"
                           type="file"
                           name="photo"
                           accept="image/*"
