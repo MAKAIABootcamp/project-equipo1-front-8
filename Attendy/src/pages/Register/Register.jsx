@@ -4,11 +4,7 @@ import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  clearError,
-  createAccountThunk,
-  clearRegistration,
-} from "../../redux/auth/authSlice";
+import { clearError, createAccountThunk } from "../../redux/auth/authSlice";
 import uploadFiles from "../../services/uploadFiles";
 
 const validationSchemaUsuario = Yup.object().shape({
@@ -53,8 +49,9 @@ const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isCompany, setIsCompany] = useState(false);
-
-  const { error, isRegistered, user } = useSelector((store) => store.auth);
+  const { error, isRegistered, user, isAuthenticated } = useSelector(
+    (store) => store.auth
+  );
 
   if (error) {
     Swal.fire({
@@ -65,17 +62,14 @@ const Register = () => {
   }
 
   useEffect(() => {
-    if (isRegistered) {
-      Swal.fire({
-        title: "Bienvenido",
-        text: "!Has creado exitosamente la cuenta!",
-        icon: "success",
-      }).then(() => {
-        dispatch(clearRegistration());
-        navigate("/login");
-      });
+    if (isAuthenticated) {
+      if (user.isCompany) {
+        navigate("/admin");
+      } else {
+        navigate("/search");
+      }
     }
-  }, [isRegistered, isCompany, user, navigate, dispatch]);
+  }, [isRegistered, isAuthenticated, isCompany, user, navigate, dispatch]);
   return (
     <main className="flex h-screen">
       <div className="flex flex-col justify-center items-center w-1/2">
@@ -128,9 +122,7 @@ const Register = () => {
             isCompany ? validationSchemaEmpresa : validationSchemaUsuario
           }
           onSubmit={async (values, { setSubmitting }) => {
-            console.log("isCompany:", isCompany);
             let profileImage;
-            console.log(values);
             if (isCompany && values.photo) {
               profileImage = await uploadFiles(values.photo);
               if (profileImage) {
@@ -174,7 +166,7 @@ const Register = () => {
           }}
         >
           {({ values, isSubmitting, setFieldValue }) => (
-            <Form autoComplete="off">
+            <Form>
               {!isCompany && (
                 <>
                   <div className="flex flex-col items-start gap-10 mb-10 mt-5">
