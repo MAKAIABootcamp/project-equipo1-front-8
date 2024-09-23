@@ -13,6 +13,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../Firebase/firebaseConfig";
 import { useDispatch, useSelector } from "react-redux";
 import { restoreActiveSessionThunk } from "../redux/auth/authSlice";
+import CompanyDetails from "../pages/CompanyDetails/CompanyDetails";
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -47,6 +48,8 @@ const AppRouter = () => {
           <Route path="*" element={<Navigate to="/" />} />
           <Route path="search" element={<Search />} />
           <Route path="*" element={<Navigate to={"/"} />} />
+          <Route path="companydetails" element={<CompanyDetails />} />
+          {/* <Route path="/company/:id" element={CompanyDetails} /> */}
         </Route>
       </Routes>
     </BrowserRouter>

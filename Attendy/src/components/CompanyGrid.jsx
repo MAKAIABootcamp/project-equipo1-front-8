@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { database } from '../Firebase/firebaseConfig'; 
 import { collection, getDocs } from 'firebase/firestore';
+import { Link } from 'react-router-dom';
 
 const CompanyGrid = () => {
   const [companies, setCompanies] = useState([]);
@@ -40,9 +41,11 @@ const CompanyGrid = () => {
                 </svg>
               ))}
             </div>
+            <Link to="/CompanyDetails">
             <button className="mt-4 bg-[#00A082] text-white px-16 py-1.5 rounded-3xl hover:bg-blue-600 font-oleo">
               Ver más
             </button>
+            </Link>
           </div>
         </div>
       ))}
