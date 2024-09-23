@@ -4,7 +4,11 @@ import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
-import { clearError, createAccountThunk } from "../../redux/auth/authSlice";
+import {
+  clearError,
+  createAccountThunk,
+  clearRegistration,
+} from "../../redux/auth/authSlice";
 import uploadFiles from "../../services/uploadFiles";
 
 const validationSchemaUsuario = Yup.object().shape({
@@ -50,7 +54,7 @@ const Register = () => {
   const navigate = useNavigate();
   const [isCompany, setIsCompany] = useState(false);
 
-  const { error, isAuthenticated, user } = useSelector((store) => store.auth);
+  const { error, isRegistered, user } = useSelector((store) => store.auth);
 
   if (error) {
     Swal.fire({
@@ -61,14 +65,17 @@ const Register = () => {
   }
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isRegistered) {
       Swal.fire({
         title: "Bienvenido",
         text: "!Has creado exitosamente la cuenta!",
         icon: "success",
-      }).then(() => navigate("/login"));
+      }).then(() => {
+        dispatch(clearRegistration());
+        navigate("/login");
+      });
     }
-  }, [isAuthenticated, isCompany, user, navigate]);
+  }, [isRegistered, isCompany, user, navigate, dispatch]);
   return (
     <main className="flex h-screen">
       <div className="flex flex-col justify-center items-center w-1/2">

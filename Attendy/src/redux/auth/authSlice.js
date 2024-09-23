@@ -26,7 +26,7 @@ export const createAccountThunk = createAsyncThunk(
       const user = userCredential.user;
 
       await updateProfile(user, {
-        displayName: name,
+        displayName: accountData.name,
       });
 
       if (isCompany) {
@@ -175,6 +175,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     isAuthenticated: false,
+    isRegistered: false,
     user: null,
     loading: false,
     error: null,
@@ -182,6 +183,9 @@ const authSlice = createSlice({
   reducers: {
     clearError: (state) => {
       state.error = null;
+    },
+    clearRegistration: (state) => {
+      state.isRegistered = false;
     },
   },
   extraReducers: (builder) => {
@@ -192,7 +196,8 @@ const authSlice = createSlice({
       })
       .addCase(createAccountThunk.fulfilled, (state, action) => {
         state.loading = false;
-        state.isAuthenticated = true;
+        state.isRegistered = true;
+        state.isAuthenticated = false;
         state.user = action.payload;
         state.error = null;
       })
@@ -204,20 +209,20 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(loginWithEmailAndPassworThunk.fulfilled, (state) => {
+      .addCase(loginWithEmailAndPassworThunk.fulfilled, (state, action) => {
         state.loading = false;
-        state.isAuthenticated = false;
-        state.user = null;
+        state.isAuthenticated = true;
+        state.user = action.payload;
         state.error = null;
       })
       .addCase(loginWithEmailAndPassworThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })
-      .addCase(logoutThunk.fulfilled, (state, action) => {
+      .addCase(logoutThunk.fulfilled, (state) => {
         state.loading = false;
         state.isAuthenticated = false;
-        state.user = action.payload;
+        state.user = null;
         state.error = null;
       })
       .addCase(logoutThunk.rejected, (state, action) => {
@@ -271,4 +276,4 @@ const authSlice = createSlice({
 const authReducer = authSlice.reducer;
 export default authReducer;
 
-export const { clearError } = authSlice.actions;
+export const { clearError, clearRegistration } = authSlice.actions;
