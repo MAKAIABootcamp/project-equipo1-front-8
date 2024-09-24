@@ -48,8 +48,7 @@ const AppRouter = () => {
           <Route path="*" element={<Navigate to="/" />} />
           <Route path="search" element={<Search />} />
           <Route path="*" element={<Navigate to={"/"} />} />
-          <Route path="companydetails" element={<CompanyDetails />} />
-          {/* <Route path="/company/:id" element={CompanyDetails} /> */}
+          <Route path="/companydetails/:id" element={<CompanyDetails />} />
         </Route>
       </Routes>
     </BrowserRouter>
