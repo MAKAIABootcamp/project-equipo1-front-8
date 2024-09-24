@@ -20,23 +20,21 @@ const validationSchema = Yup.object().shape({
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { error, isAuthenticated } = useSelector((store) => store.auth);
+  const { error, isAuthenticated, user } = useSelector((store) => store.auth);
 
   useEffect(() => {
     if (isAuthenticated) {
-      Swal.fire({
-        title: "¡Has iniciado sesión exitosamente!",
-        text: `¡Te damos la bienvenida`,
-        icon: "success",
-      }).then(() => navigate("/"));
+      if (user.isCompany) {
+        navigate("/admin");
+      } else {
+        navigate("/search");
+      }
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, navigate, user]);
 
   const handleGoogleLogin = () => {
-    dispatch(googleLoginThunk());
+    dispatch(googleLoginThunk({ isCompany: false }));
   };
-
-  const handleNavigatePhoneLogin = () => navigate("/phoneLogin");
 
   if (error) {
     Swal.fire({
@@ -69,10 +67,7 @@ const Login = () => {
           }}
         >
           {({ isSubmitting }) => (
-            <Form
-              autoComplete="off"
-              className="flex flex-col items-start gap-10 mb-10 mt-5"
-            >
+            <Form className="flex flex-col items-start gap-10 mb-10 mt-5">
               <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 w-[27rem]">
                 <Field
                   type="email"
@@ -138,12 +133,6 @@ const Login = () => {
                 className="w-5 h-5 mr-3"
               />
               Iniciar sesión con Google
-            </button>
-            <button
-              onClick={handleNavigatePhoneLogin}
-              className="w-[27rem] p-2 bg-[#00A082] text-white font-semibold rounded-[30px] hover:bg-[#008D72]"
-            >
-              Iniciar sesión con Teléfono
             </button>
           </div>
         </section>

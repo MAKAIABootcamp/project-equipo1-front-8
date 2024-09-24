@@ -51,11 +51,10 @@ export const createAccountThunk = createAsyncThunk(
         uid: user.uid,
         email: user.email,
         name: user.displayName,
-        isCompany,
+        isCompany: isCompany,
         accountCreated: true,
       };
     } catch (error) {
-      console.error("Error al crear la cuenta:", error);
       return rejectWithValue(error.message);
     }
   }
@@ -64,19 +63,34 @@ export const loginWithEmailAndPassworThunk = createAsyncThunk(
   "auth/login",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const { user } = await signInWithEmailAndPassword(auth, email, password);
-      const collectionRef = user.email.includes("@empresa.com")
-        ? doc(database, companyCollectionName, user.uid)
-        : doc(database, userCollectionName, user.uid);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
 
-      const userDoc = await getDoc(collectionRef);
-      if (userDoc.exists()) {
-        return userDoc.data();
-      } else {
-        throw new Error("No se encontraron datos del usuario");
+      // Aquí deberías recuperar el documento de la base de datos para verificar si es empresa
+      const userDoc = await getDoc(doc(database, "users", user.uid));
+      const companyDoc = await getDoc(doc(database, "companies", user.uid));
+
+      if (companyDoc.exists()) {
+        return {
+          uid: user.uid,
+          email: user.email,
+          name: user.displayName,
+          isCompany: true, // Asigna true si es empresa
+        };
+      } else if (userDoc.exists()) {
+        return {
+          uid: user.uid,
+          email: user.email,
+          name: user.displayName,
+          isCompany: false, // Asigna false si no es empresa
+        };
       }
     } catch (error) {
-      return rejectWithValue(error.message || "Error en el login");
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -88,47 +102,17 @@ export const logoutThunk = createAsyncThunk("auth/logout", async () => {
 
 export const googleLoginThunk = createAsyncThunk(
   "auth/googleLogin",
-  async ({ isCompany, nit, address, titular }) => {
-    const googleProvider = new GoogleAuthProvider();
-    const { user } = await signInWithPopup(auth, googleProvider);
-    let newUser = null;
-
-    const collectionRef = isCompany
-      ? doc(database, companyCollectionName, user.uid)
-      : doc(database, userCollectionName, user.uid);
-
-    const userDoc = await getDoc(collectionRef);
-
-    if (userDoc.exists()) {
-      newUser = userDoc.data();
-    } else {
-      newUser = {
-        id: user.uid,
-        displayName: user.displayName,
-        accessToken: user.accessToken,
-        email: user.email,
-        isAdmin: false,
-        userType: isCompany ? "company" : "user",
-        ...(isCompany && { nit, address, titular }),
-      };
-      await setDoc(collectionRef, newUser);
-    }
-    return newUser;
-  }
-);
-
-export const loginWithVerificationCodeThunk = createAsyncThunk(
-  "auth/loginWithVerificationCode",
-  async (code, { rejectWithValue }) => {
+  async ({ isCompany, nit, address, titular }, thunkAPI) => {
     try {
-      const confirmationResult = window.confirmationResult;
-      if (!confirmationResult) {
-        throw new Error("No hay resultado de confirmación disponible");
-      }
-      const { user } = await confirmationResult.confirm(code);
+      const googleProvider = new GoogleAuthProvider();
+      const { user } = await signInWithPopup(auth, googleProvider);
       let newUser = null;
-      const userRef = doc(database, userCollectionName, user.uid);
-      const userDoc = await getDoc(userRef);
+
+      const collectionRef = isCompany
+        ? doc(database, companyCollectionName, user.uid)
+        : doc(database, userCollectionName, user.uid);
+
+      const userDoc = await getDoc(collectionRef);
 
       if (userDoc.exists()) {
         newUser = userDoc.data();
@@ -138,16 +122,16 @@ export const loginWithVerificationCodeThunk = createAsyncThunk(
           displayName: user.displayName,
           accessToken: user.accessToken,
           email: user.email,
-          phoneNumber: user.phoneNumber,
           isAdmin: false,
-          city: null,
+          userType: isCompany ? "company" : "user",
+          ...(isCompany && { nit, address, titular }),
         };
-        await setDoc(userRef, newUser);
+        await setDoc(collectionRef, newUser);
       }
 
       return newUser;
     } catch (error) {
-      return rejectWithValue(error.message || "Error en la verificación");
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
@@ -196,8 +180,8 @@ const authSlice = createSlice({
       })
       .addCase(createAccountThunk.fulfilled, (state, action) => {
         state.loading = false;
+        state.isAuthenticated = true;
         state.isRegistered = true;
-        state.isAuthenticated = false;
         state.user = action.payload;
         state.error = null;
       })
@@ -241,20 +225,6 @@ const authSlice = createSlice({
       .addCase(googleLoginThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
-      })
-      .addCase(loginWithVerificationCodeThunk.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(loginWithVerificationCodeThunk.fulfilled, (state, action) => {
-        state.loading = false;
-        state.isAuthenticated = true;
-        state.user = action.payload;
-        state.error = null;
-      })
-      .addCase(loginWithVerificationCodeThunk.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
       })
       .addCase(restoreActiveSessionThunk.pending, (state) => {
         state.loading = true;
