@@ -8,6 +8,7 @@ import DeliveryForm from "../pages/DeliveryForm/DeliveryForm";
 import AdminPanel from "../pages/AdminPanel/AdminPanel";
 import Orders from "../pages/Orders/Orders";
 import Search from "../pages/Search/Search";
+import OrdersPending from "../pages/Orders/OrdersPending";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../Firebase/firebaseConfig";
@@ -43,6 +44,7 @@ const AppRouter = () => {
           <Route path="search" element={<Search />} />
           <Route path="/admin" element={<AdminPanel />} />
           <Route path="/orders" element={<Orders />} />
+          <Route path="/ordersPending" element={<OrdersPending />} />
           <Route path="*" element={<Navigate to="/" />} />
           <Route path="search" element={<Search />} />
           <Route path="*" element={<Navigate to={"/"} />} />
