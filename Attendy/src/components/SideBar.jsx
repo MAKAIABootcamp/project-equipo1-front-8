@@ -13,7 +13,7 @@ const SideBar = () => {
         <div className="flex items-center cursor-pointer" onClick={toggleMenu}>
           <img
             className="w-[80px] h-[80px] mb-4"
-            src="/icons/logoBlanco.svg"
+            src="/icons/logoblanco.svg"
             alt="Attendy"
           />
           {isOpen && <span className="font-bold font-poppins text-white ml-2 text-3xl ">Attendy</span>}
