@@ -7,9 +7,12 @@ const Header = () => {
   const handleClicklogin = () => {
     navigate('/Login'); 
   };
+  const handleClick = () => {
+    navigate('/Home'); 
+  };
   return (
     <div className="bg-[#E1E1E1] flex justify-between p-3">
-        <div className="flex items-center">
+        <div className="flex items-center" onClick={handleClick}>
             <p className="text-[#00A082] font-poppins text-2xl">Attendy</p>
             <img className="w-[50px]" src="/icons/logo.svg" alt="Logo" />
         </div>
