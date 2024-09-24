@@ -1,6 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import SideBar from "../../components/SideBar";
 
 const Orders = () => {
+  const navigate = useNavigate();
+
+  const handleViewDetails = () => {
+    navigate("/ordersPending"); 
+  };
+
   return (
     <div className="flex">
       <SideBar />
@@ -18,7 +25,10 @@ const Orders = () => {
           <div className="bg-[#E1E1E1] rounded-lg shadow-md p-4 mb-4">
             <div className="flex justify-between items-center mb-2">
               <h3 className="text-lg font-medium">Orden 1</h3>
-              <button className="bg-[#00A082] text-white px-4 py-2 rounded-md">
+              <button
+                className="bg-[#00A082] text-white px-4 py-2 rounded-md"
+                onClick={handleViewDetails}
+              >
                 Ver detalle &gt;
               </button>
             </div>
@@ -26,9 +36,7 @@ const Orders = () => {
           <div className="bg-white rounded-lg shadow-md p-4 mb-4">
             <div className="flex justify-between items-center mb-2">
               <h3 className="text-lg font-medium">Orden 1</h3>
-              <p className="text-gray-500">
-                Estado: Recibido 
-              </p>
+              <p className="text-gray-500">Estado: Recibido</p>
             </div>
             <div className="flex justify-between items-center mb-2">
               <p className="text-gray-700">dd/mm/aaaa</p>
