@@ -1,25 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { database } from "../Firebase/firebaseConfig";
-import { collection, getDocs } from "firebase/firestore";
+import React from "react";
 import { Link } from "react-router-dom";
 
-const CompanyGrid = () => {
-  const [companies, setCompanies] = useState([]);
-
-  useEffect(() => {
-    const fetchCompanies = async () => {
-      const companyRef = collection(database, "companies");
-      const resp = await getDocs(companyRef);
-      const companiesData = resp.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setCompanies(companiesData);
-    };
-
-    fetchCompanies();
-  }, []);
-
+const CompanyGrid = ({ companies }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 p-6">
       {companies.map((company) => (

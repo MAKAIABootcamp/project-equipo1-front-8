@@ -7,5 +7,6 @@ import "./index.css";
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <AppRouter />
-  </Provider>
+  </Provider>,
+  document.getElementById('root')
 );
