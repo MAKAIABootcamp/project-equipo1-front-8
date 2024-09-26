@@ -244,7 +244,6 @@ const authSlice = createSlice({
 
 export const selectUser = (state) => state.auth.user;
 
-// Exporta el hook useAuth
 export const useAuth = () => {
   const user = useSelector(selectUser);
   return user;
