@@ -1,4 +1,15 @@
+import { useLocation, useNavigate } from "react-router-dom";
 const Services = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { companyId } = location.state || {};
+  const handleOrder = () => {
+    if (companyId) {
+      navigate("/deliveryForm", { state: { companyId } });
+    } else {
+      console.log("No se encontró el companyId");
+    }
+  };
   return (
     <div className="w-[80%] m-auto">
       <h1 className="font-oleo text-[40px] text-center mt-5">
@@ -12,7 +23,10 @@ const Services = () => {
             src="/icons/domiBasicos.svg"
             alt=""
           />
-          <button className="py-2 px-4 rounded-[30px] w-[200px] transition-all duration-300 hover:bg-[#00A082] hover:text-white border-[1px] border-[#00A082]">
+          <button
+            className="py-2 px-4 rounded-[30px] w-[200px] transition-all duration-300 hover:bg-[#00A082] hover:text-white border-[1px] border-[#00A082]"
+            onClick={handleOrder}
+          >
             Domicilios básicos
           </button>
         </div>
@@ -23,7 +37,10 @@ const Services = () => {
             src="/icons/pagoServicios.svg"
             alt=""
           />
-          <button className="py-2 px-4 rounded-[30px] w-[200px] transition-all duration-300 hover:bg-[#00A082] hover:text-white border-[1px] border-[#00A082]">
+          <button
+            className="py-2 px-4 rounded-[30px] w-[200px] transition-all duration-300 hover:bg-[#00A082] hover:text-white border-[1px] border-[#00A082]"
+            onClick={handleOrder}
+          >
             Pago de Servicios
           </button>
         </div>
@@ -34,7 +51,10 @@ const Services = () => {
             src="/icons/consignaciones.svg"
             alt=""
           />
-          <button className="py-2 px-4 rounded-[30px] w-[200px] transition-all duration-300 hover:bg-[#00A082] hover:text-white border-[1px] border-[#00A082] ">
+          <button
+            className="py-2 px-4 rounded-[30px] w-[200px] transition-all duration-300 hover:bg-[#00A082] hover:text-white border-[1px] border-[#00A082]"
+            onClick={handleOrder}
+          >
             Consignaciones
           </button>
         </div>
@@ -45,7 +65,10 @@ const Services = () => {
             src="/icons/servicioTiempo.svg"
             alt=""
           />
-          <button className="py-2 px-4 rounded-[30px] w-[200px] transition-all duration-300 hover:bg-[#00A082] hover:text-white border-[1px] border-[#00A082]">
+          <button
+            className="py-2 px-4 rounded-[30px] w-[200px] transition-all duration-300 hover:bg-[#00A082] hover:text-white border-[1px] border-[#00A082]"
+            onClick={handleOrder}
+          >
             Servicio de tiempo
           </button>
         </div>
@@ -56,7 +79,10 @@ const Services = () => {
             src="/icons/tramitesBancarios.svg"
             alt=""
           />
-          <button className="py-2 px-4 rounded-[30px] w-[200px] transition-all duration-300 hover:bg-[#00A082] hover:text-white border-[1px] border-[#00A082]">
+          <button
+            className="py-2 px-4 rounded-[30px] w-[200px] transition-all duration-300 hover:bg-[#00A082] hover:text-white border-[1px] border-[#00A082]"
+            onClick={handleOrder}
+          >
             Tramites bancarios
           </button>
         </div>
@@ -67,7 +93,10 @@ const Services = () => {
             src="/icons/compras.svg"
             alt=""
           />
-          <button className="py-2 px-4 rounded-[30px] w-[200px] transition-all duration-300 hover:bg-[#00A082] hover:text-white border-[1px] border-[#00A082]">
+          <button
+            className="py-2 px-4 rounded-[30px] w-[200px] transition-all duration-300 hover:bg-[#00A082] hover:text-white border-[1px] border-[#00A082]"
+            onClick={handleOrder}
+          >
             Compras
           </button>
         </div>
