@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { database } from "../../Firebase/firebaseConfig";
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
@@ -9,6 +10,7 @@ const CompanyDetails = () => {
   const { id } = useParams();
   const [company, setCompany] = useState(null);
   const [otherCompanies, setOtherCompanies] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCompanyDetails = async () => {
@@ -39,7 +41,14 @@ const CompanyDetails = () => {
 
   if (!company) return <div>Cargando...</div>;
 
-  const filteredCompanies = otherCompanies.filter((otherCompany) => otherCompany.id !== id);
+  const filteredCompanies = otherCompanies.filter(
+    (otherCompany) => otherCompany.id !== id
+  );
+
+  const handleOrder = (companyId) => {
+    navigate("/services", { state: { companyId } });
+    console.log("ID de la empresa:", companyId);
+  };
 
   return (
     <main>
@@ -85,7 +94,10 @@ const CompanyDetails = () => {
           architecto incidunt illo, perferendis porro labore provident quos!
         </p>
         <div className="flex justify-center mt-5 pt-5">
-          <button className="bg-[#00A082] text-white py-1 px-6 rounded-full hover:bg-blue-600 font-oleo">
+          <button
+            className="bg-[#00A082] text-white py-1 px-6 rounded-full hover:bg-blue-600 font-oleo"
+            onClick={() => handleOrder(company.id)}
+          >
             Hacer Pedido
           </button>
         </div>
@@ -97,7 +109,10 @@ const CompanyDetails = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-32 p-0 m-4">
           {filteredCompanies.length > 0 ? (
             filteredCompanies.map((otherCompany) => (
-              <div key={otherCompany.id} className="bg-bg-gray shadow-lg flex items-center transform transition-transform duration-300 hover:scale-105">
+              <div
+                key={otherCompany.id}
+                className="bg-bg-gray shadow-lg flex items-center transform transition-transform duration-300 hover:scale-105"
+              >
                 <img
                   src={otherCompany.photoUrl}
                   alt={otherCompany.name}
@@ -106,7 +121,9 @@ const CompanyDetails = () => {
                 <div className="p-4">
                   <h2 className="text-lg font-poppins">{otherCompany.name}</h2>
                   <p>Horario: 8:00 am a 10:00 pm</p>
-                  <p className="text-black mt-2 font-poppins">{otherCompany.schedule}</p>
+                  <p className="text-black mt-2 font-poppins">
+                    {otherCompany.schedule}
+                  </p>
                   <div className="flex items-center mt-1">
                     {[...Array(5)].map((_, index) => (
                       <svg
@@ -121,10 +138,10 @@ const CompanyDetails = () => {
                     ))}
                   </div>
                   <Link to={`/companydetails/${otherCompany.id}`}>
-              <button className="mt-4 bg-[#00A082] text-white px-16 py-1.5 rounded-3xl hover:bg-blue-600 font-oleo">
-                Ver más
-              </button>
-              </Link>
+                    <button className="mt-4 bg-[#00A082] text-white px-16 py-1.5 rounded-3xl hover:bg-blue-600 font-oleo">
+                      Ver más
+                    </button>
+                  </Link>
                 </div>
               </div>
             ))
@@ -139,4 +156,3 @@ const CompanyDetails = () => {
 };
 
 export default CompanyDetails;
-

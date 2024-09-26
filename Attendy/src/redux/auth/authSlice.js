@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -69,8 +70,6 @@ export const loginWithEmailAndPassworThunk = createAsyncThunk(
         password
       );
       const user = userCredential.user;
-
-      // Aquí deberías recuperar el documento de la base de datos para verificar si es empresa
       const userDoc = await getDoc(doc(database, "users", user.uid));
       const companyDoc = await getDoc(doc(database, "companies", user.uid));
 
@@ -242,6 +241,14 @@ const authSlice = createSlice({
       });
   },
 });
+
+export const selectUser = (state) => state.auth.user;
+
+// Exporta el hook useAuth
+export const useAuth = () => {
+  const user = useSelector(selectUser);
+  return user;
+};
 
 const authReducer = authSlice.reducer;
 export default authReducer;

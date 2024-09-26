@@ -1,7 +1,22 @@
 import SideBar from "../../components/SideBar";
+import { createOrder } from "../../services/FirestoreService";
+import { useLocation } from "react-router-dom";
+import { useState } from "react";
+import { useAuth } from "../../redux/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 
 const DeliveryForm = () => {
+  const location = useLocation();
+  const companyId = location.state?.companyId;
+  const user = useAuth();
+  const userName = user?.name || "Usuario Anónimo";
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const navigate = useNavigate();
+
+  const handleViewOrders = () => {
+    navigate("/orders");
+  };
   return (
     <div>
       <nav>
@@ -9,8 +24,11 @@ const DeliveryForm = () => {
       </nav>
       <div className="flex flex-col w-4/5 m-auto justify-center h-[100vh] items-center gap-10">
         <h1 className="font-poppins text-[#00A082] text-[40px] mb-20">
-          Por favor ingresa los datos para entregar tu producto
+          Por favor ingresa los datos para tu pedido
         </h1>
+        {isSubmitted && (
+          <div className="text-[#00A082] mb-4">!Pedido enviado con éxtio!</div>
+        )}
 
         <Formik
           initialValues={{
@@ -18,24 +36,39 @@ const DeliveryForm = () => {
             PhoneNumber: "",
             Description: "",
           }}
-          onSubmit={(values) => {
-            console.log("Formulario enviado:", values);
+          onSubmit={async (values, { setSubmitting, resetForm }) => {
+            try {
+              await createOrder(companyId, {
+                name: userName,
+                address: values.Address,
+                phoneNumber: values.PhoneNumber,
+                description: values.Description,
+                createdAt: new Date(),
+              });
+              setIsSubmitted(true);
+              resetForm();
+              setTimeout(() => setIsSubmitted(false), 3000);
+            } catch (err) {
+              console.error("Error al enviar los datos", err);
+            } finally {
+              setSubmitting(false);
+            }
           }}
         >
-          {() => (
+          {({ isSubmitting }) => (
             <Form className="w-full max-w-[63%]">
               <div className="flex flex-col mb-4">
                 <div className="border-[1px] border-[#00A082] py-2 px-4 mb-2">
                   <Field
                     type="text"
-                    name="address"
+                    name="Address"
                     id="address"
                     placeholder="Ingresa aquí tu dirección"
                     className="w-full min-h-[30px] py-2 px-4 resize-none"
                   />
                 </div>
                 <ErrorMessage
-                  name="address"
+                  name="Address"
                   component="div"
                   className="text-red-500"
                 />
@@ -60,24 +93,37 @@ const DeliveryForm = () => {
                 <div className="border-[1px] border-[#00A082] py-2 px-4 mb-2">
                   <Field
                     as="textarea"
-                    name="description"
+                    name="Description"
                     id="description"
                     placeholder="Descripción del pedido"
                     className="w-full min-h-[100px] py-2 px-4 resize-none"
                   />
                 </div>
                 <ErrorMessage
-                  name="description"
+                  name="Description"
                   component="div"
                   className="text-red-500"
                 />
               </div>
-              <button
-                type="submit"
-                className="py-2 px-4 border-[1px] bg-[#00A082] text-white rounded-[30px] w-[10rem]"
-              >
-                Enviar
-              </button>
+              <div className="flex justify-between">
+                <div>
+                  <button
+                    type="submit"
+                    className="py-2 px-4 border-[1px] bg-[#00A082] text-white rounded-[30px] w-[10rem]"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Enviando..." : "Enviar"}
+                  </button>
+                </div>
+                <div>
+                  <button
+                    className="py-2 px-4 border-[1px] bg-[#00A082] text-white rounded-[30px] w-[10rem]"
+                    onClick={handleViewOrders}
+                  >
+                    ver pedidos
+                  </button>
+                </div>
+              </div>
             </Form>
           )}
         </Formik>
