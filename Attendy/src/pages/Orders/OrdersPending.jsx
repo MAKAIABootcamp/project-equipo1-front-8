@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { collection, getDocs, query, where } from "firebase/firestore"; // Asegúrate de importar Firebase
-import { database } from "../../Firebase/firebaseConfig"; // Tu configuración Firebase
+import { collection, getDocs, query, where } from "firebase/firestore"; 
+import { database } from "../../Firebase/firebaseConfig"; 
 import SideBar from "../../components/SideBar";
 
 const OrdersPending = () => {
@@ -18,10 +18,10 @@ const OrdersPending = () => {
 
       try {
         const ordersArray = [];
-        // Suponiendo que el usuario autenticado es una empresa
+
         const ordersQuery = query(
-          collection(database, `companies/${user.companyId}/orders`),
-          where("status", "==", "pending") // Filtra solo las órdenes pendientes
+          collection(database, `companies/${user.id}/orders`),
+          where("status", "==", "pending") 
         );
 
         const ordersSnapshot = await getDocs(ordersQuery);
@@ -68,16 +68,14 @@ const OrdersPending = () => {
               >
                 <div className="flex justify-between">
                   <div>
-                    <h3 className="text-lg font-bold mb-2">Orden {order.id}</h3>
+                    <h3 className="text-lg font-bold mb-2">Orden De {order.name}</h3>
                     <p className="text-gray-700">
                       Fecha:{" "}
                       {order.createdAt
                         ? order.createdAt.toDate().toLocaleDateString()
                         : "Fecha no disponible"}
                     </p>
-                    <p className="text-gray-700">
-                      Usuario: {order.name || "Nombre no disponible"}
-                    </p>
+                  
                     <p className="text-gray-700">
                       Dirección: {order.address || "Sin dirección"}
                     </p>
