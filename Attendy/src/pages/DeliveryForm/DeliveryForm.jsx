@@ -17,6 +17,7 @@ const DeliveryForm = () => {
   const handleViewOrders = () => {
     navigate("/orders");
   };
+
   return (
     <div>
       <nav>
@@ -27,7 +28,7 @@ const DeliveryForm = () => {
           Por favor ingresa los datos para tu pedido
         </h1>
         {isSubmitted && (
-          <div className="text-[#00A082] mb-4">!Pedido enviado con éxtio!</div>
+          <div className="text-[#00A082] mb-4">¡Pedido enviado con éxito!</div>
         )}
 
         <Formik
@@ -43,7 +44,6 @@ const DeliveryForm = () => {
                 address: values.Address,
                 phoneNumber: values.PhoneNumber,
                 description: values.Description,
-                createdAt: new Date(),
               });
               setIsSubmitted(true);
               resetForm();
@@ -120,7 +120,7 @@ const DeliveryForm = () => {
                     className="py-2 px-4 border-[1px] bg-[#00A082] text-white rounded-[30px] w-[10rem]"
                     onClick={handleViewOrders}
                   >
-                    ver pedidos
+                    Ver pedidos
                   </button>
                 </div>
               </div>

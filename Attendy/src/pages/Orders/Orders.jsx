@@ -17,10 +17,7 @@ const Orders = () => {
 
       try {
         const ordersArray = [];
-
-        const companiesSnapshot = await getDocs(
-          collection(database, "companies")
-        );
+        const companiesSnapshot = await getDocs(collection(database, "companies"));
 
         for (const companyDoc of companiesSnapshot.docs) {
           const ordersQuery = query(
@@ -31,9 +28,10 @@ const Orders = () => {
           const ordersSnapshot = await getDocs(ordersQuery);
 
           ordersSnapshot.forEach((orderDoc) => {
+            const orderData = orderDoc.data();
             ordersArray.push({
               id: orderDoc.id,
-              ...orderDoc.data(),
+              ...orderData,
               companyId: companyDoc.id,
               companyName: companyDoc.data().name,
             });
@@ -74,7 +72,12 @@ const Orders = () => {
               >
                 <div className="flex justify-between items-center mb-2">
                   <p className="text-gray-700">
-                    Estado:{" "}
+                    Estado: {order.status || "Sin estado"}
+                  </p>
+                </div>
+                <div className="flex justify-between items-center mb-2">
+                  <p className="text-gray-700">
+                    Fecha:{" "}
                     {order.createdAt
                       ? order.createdAt.toDate().toLocaleDateString()
                       : "Fecha no disponible"}
@@ -82,17 +85,17 @@ const Orders = () => {
                 </div>
                 <div className="flex justify-between items-center mb-2">
                   <p className="text-gray-700">
-                    Dirección: {order.address || "Sin direccion"}
+                    Dirección: {order.address || "Sin dirección"}
                   </p>
                 </div>
                 <div className="flex justify-between items-center mb-2">
                   <p className="text-gray-700">
-                    Celular: {order.phoneNumber || "Sin numero"}
+                    Celular: {order.phoneNumber || "Sin número"}
                   </p>
                 </div>
                 <div className="flex justify-between items-center mb-2">
                   <p className="text-gray-700">
-                    Description: {order.description || "Sin description"}
+                    Descripción: {order.description || "Sin descripción"}
                   </p>
                 </div>
               </div>
