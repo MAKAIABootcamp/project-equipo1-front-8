@@ -53,7 +53,7 @@ const CompanyDetails = () => {
   return (
     <main>
       <Header />
-      <div className="p-9 m-16 bg-bg-gray">
+      <div className="p-9 m-14 rounded-2xl bg-bg-gray ">
         <h1 className="text-3xl font-oleo mb-2 flex justify-center">
           {company.name}
         </h1>
@@ -61,7 +61,7 @@ const CompanyDetails = () => {
           <div className="flex mb-5 justify-center items-center text-center">
             <img
               src={company.photoUrl}
-              className="w-40 h-40 mr-5"
+              className="w-40 h-40 mr-5 rounded-2xl"
               alt={company.name}
             />
             <div className="flex flex-col justify-center items-center">
@@ -85,40 +85,43 @@ const CompanyDetails = () => {
             </div>
           </div>
         </div>
-        <p className="mb-5 font-poppins text-justify text-xl">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt eius
-          veniam placeat odit ullam beatae possimus nulla adipisci doloribus ut
-          numquam omnis debitis perferendis, consequuntur sit repellat atque
-          neque quae iusto similique deserunt incidunt hic. Excepturi officia
-          aperiam illum aspernatur? Corrupti velit ratione reprehenderit
-          architecto incidunt illo, perferendis porro labore provident quos!
-        </p>
-        <div className="flex justify-center mt-5 pt-5">
-          <button
-            className="bg-[#00A082] text-white py-1 px-6 rounded-full hover:bg-blue-600 font-oleo"
-            onClick={() => handleOrder(company.id)}
-          >
-            Hacer Pedido
-          </button>
+        <div className="">
+          <p className="m-10 font-poppins text-justify text-[30px]">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt eius
+            veniam placeat odit ullam beatae possimus nulla adipisci doloribus
+            ut numquam omnis debitis perferendis, consequuntur sit repellat
+            atque neque quae iusto similique deserunt incidunt hic. Excepturi
+            officia aperiam illum aspernatur? Corrupti velit ratione
+            reprehenderit architecto incidunt illo, perferendis porro labore
+            provident quos!
+          </p>
+          <div className="flex justify-center pt-5 text-[20px]">
+            <button
+              className="bg-[#00A082] text-white py-1 px-6 rounded-full hover:text-black font-oleo"
+              onClick={() => handleOrder(company.id)}
+            >
+              Hacer Pedido
+            </button>
+          </div>
         </div>
       </div>
-      <div className="p-1 m-11">
+      <div className="p-1 m-11 ">
         <h1 className="text-4xl font-oleo mb-5 flex justify-center">
           Más aliados
         </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-32 p-0 m-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-32 p-0 w-[80%] m-auto">
           {filteredCompanies.length > 0 ? (
             filteredCompanies.map((otherCompany) => (
               <div
                 key={otherCompany.id}
-                className="bg-bg-gray shadow-lg flex items-center transform transition-transform duration-300 hover:scale-105"
+                className="bg-bg-gray shadow-lg flex items-center transform transition-transform duration-300 hover:scale-105 rounded-2xl justify-between max-w-[100%] p-3"
               >
                 <img
                   src={otherCompany.photoUrl}
                   alt={otherCompany.name}
-                  className="w-36 h-36 object-cover ml-2 p-1"
+                  className="w-[60%] h-[175px] ml-3 p-1 rounded-2xl"
                 />
-                <div className="p-4">
+                <div className="p-4 flex flex-col ">
                   <h2 className="text-lg font-poppins">{otherCompany.name}</h2>
                   <p>Horario: 8:00 am a 10:00 pm</p>
                   <p className="text-black mt-2 font-poppins">
@@ -138,7 +141,7 @@ const CompanyDetails = () => {
                     ))}
                   </div>
                   <Link to={`/companydetails/${otherCompany.id}`}>
-                    <button className="mt-4 bg-[#00A082] text-white px-16 py-1.5 rounded-3xl hover:bg-blue-600 font-oleo">
+                    <button className="mt-4 bg-[#00A082] text-white px-16 py-1.5 rounded-3xl hover:text-black font-oleo">
                       Ver más
                     </button>
                   </Link>
