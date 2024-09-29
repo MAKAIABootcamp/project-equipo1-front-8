@@ -39,7 +39,7 @@ const Search = () => {
       <Header />
       <div className="w-full flex items-center justify-center">
         <img
-          className="w-4/5 h-auto object-contain"
+          className="w-[25%] h-auto object-contain"
           src="/public/images/delivery.png"
           alt="OrderImage"
         />

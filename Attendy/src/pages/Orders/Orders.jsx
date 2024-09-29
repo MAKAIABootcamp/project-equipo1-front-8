@@ -17,7 +17,9 @@ const Orders = () => {
 
       try {
         const ordersArray = [];
-        const companiesSnapshot = await getDocs(collection(database, "companies"));
+        const companiesSnapshot = await getDocs(
+          collection(database, "companies")
+        );
 
         for (const companyDoc of companiesSnapshot.docs) {
           const ordersQuery = query(
@@ -50,8 +52,8 @@ const Orders = () => {
   return (
     <div className="flex">
       <SideBar />
-      <div className={`flex-grow flex flex-col ml-16`}>
-        <div className="bg-[#E1E1E1] h-20 p-6 flex justify-between items-center">
+      <div className="flex-grow flex flex-col ml-16">
+        <div className="bg-[#E1E1E1] w-[100%] m-0 h-20 p-6 flex justify-between items-center mt-0">
           <p className="text-[#00A082] text-2xl font-poppins ml-44">
             Tus órdenes
           </p>

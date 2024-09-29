@@ -1,19 +1,23 @@
-import { useDispatch, useSelector } from "react-redux";
-import { logoutThunk } from "../redux/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate('/Home'); 
+    navigate("/Home");
   };
   return (
-    <div className="bg-[#00A082] flex justify-between p-3 items-center">
+    <div className="bg-[#00A082] p-3 items-center">
+      <div className="flex justify-between w-[95%] m-auto">
         <div className="flex items-center" onClick={handleClick}>
-            <p className="text-[#F2F2F2] font-poppins text-2xl">Attendy</p>
-            <img className="w-[50px]" src="/icons/logoblanco.svg" alt="Logo" />
+          <img className="w-[40px]" src="/icons/logoblanco.svg" alt="Logo" />
+          <p className="text-[#F2F2F2] font-poppins text-2xl">Attendy</p>
         </div>
-        <p className="text-[#F2F2F2]">© 2024 Attendy Inc. All rights reserved.</p>
+        <div className="flex items-center">
+          <p className="text-[#F2F2F2]">
+            © 2024 Attendy Inc. All rights reserved.
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

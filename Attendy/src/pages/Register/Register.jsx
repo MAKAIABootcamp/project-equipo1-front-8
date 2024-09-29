@@ -74,7 +74,7 @@ const Register = () => {
     <main className="flex h-screen">
       <div className="flex flex-col justify-center items-center w-1/2">
         <img className="w-[650px]" src="/icons/logo.svg" alt="Logo" />
-        <h1 className="flex justify-center text-[70px] text-[#00A082]">
+        <h1 className="flex justify-center text-[70px] text-[#00A082] font-oleo">
           Attendy
         </h1>
       </div>

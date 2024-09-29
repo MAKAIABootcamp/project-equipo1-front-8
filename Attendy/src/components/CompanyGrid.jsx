@@ -1,21 +1,20 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 const CompanyGrid = ({ companies }) => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 p-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-10 p-6 mb-7">
       {companies.map((company) => (
         <div
           key={company.id}
-          className="bg-bg-gray shadow-lg flex max-w-xl mx-auto items-center p-4 transform transition-transform duration-300 hover:scale-105"
+          className="bg-bg-gray shadow-lg flex max-w-xl mx-auto items-center p-4 transform transition-transform duration-300 hover:scale-105 w-[80%] rounded-2xl"
         >
           <img
             src={company.photoUrl}
             alt={company.name}
-            className="w-40 h-40 object-cover ml-2"
+            className="w-40 h-40 object-cover ml-2 mr-10 rounded-2xl"
           />
-          <div className="p-4">
-            <h2 className="text-lg font-poppins">{company.name}</h2>
+          <div className="p-4 item flex flex-col">
+            <h2 className="text-[30px] font-oleo">{company.name}</h2>
             <p className="text-black mt-2 font-poppins">8:00 am a 10:00 pm</p>
             <div className="flex items-center mt-1">
               {[...Array(5)].map((_, index) => (
@@ -31,7 +30,7 @@ const CompanyGrid = ({ companies }) => {
               ))}
             </div>
             <Link to={`/companydetails/${company.id}`}>
-              <button className="mt-4 bg-[#00A082] text-white px-16 py-1.5 rounded-3xl hover:bg-blue-600 font-oleo">
+              <button className="mt-4 bg-[#00A082] text-white px-16 py-1.5 rounded-3xl hover:text-black font-oleo">
                 Ver más
               </button>
             </Link>

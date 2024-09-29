@@ -48,7 +48,7 @@ const Login = () => {
     <main className="flex h-screen">
       <div className="flex flex-col justify-center items-center w-1/2 bg-[#00A082]">
         <img className="w-[650px]" src="/icons/logoblanco.svg" alt="Logo" />
-        <h1 className="flex justify-center text-[70px] text-[#F2F2F2]">
+        <h1 className="flex justify-center text-[70px] text-[#F2F2F2] font-oleo">
           Attendy
         </h1>
       </div>
@@ -115,10 +115,15 @@ const Login = () => {
 
         <p>
           Si aún no tiene una cuenta, por favor dar click{" "}
-          <Link to={"/register"}>aquí!</Link>
+          <Link
+            className=" rounded-2xl text-[#00A082] font-oleo"
+            to={"/register"}
+          >
+            AQUÍ
+          </Link>
         </p>
 
-        <section className="mt-10">
+        <section className="">
           <span className="flex justify-center">
             o, también puedes iniciar sesión con:
           </span>
