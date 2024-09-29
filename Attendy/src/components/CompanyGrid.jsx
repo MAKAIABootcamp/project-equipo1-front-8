@@ -30,7 +30,7 @@ const CompanyGrid = ({ companies }) => {
               ))}
             </div>
             <Link to={`/companydetails/${company.id}`}>
-              <button className="mt-4 bg-[#00A082] text-white px-16 py-1.5 rounded-3xl hover:text-black font-oleo">
+              <button className="mt-4 py-2 px-4 font-semibold rounded-[30px] w-[200px] transition-all duration-300 hover:bg-[#00A082] hover:text-white border-[1px] border-[#00A082]">
                 Ver más
               </button>
             </Link>
