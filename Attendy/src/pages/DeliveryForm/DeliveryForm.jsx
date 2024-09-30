@@ -2,10 +2,21 @@ import SideBar from "../../components/SideBar";
 import { createOrder } from "../../services/FirestoreService";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
+import * as Yup from "yup";
 import { useAuth } from "../../redux/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 
+const validationSchema = Yup.object().shape({
+  Address: Yup.string().required("La direccion de la empresa es obligatorio"),
+  PhoneNumber: Yup.string().length(
+    10,
+    "El numero de telefono debe ser de 10 digitos"
+  ),
+  Description: Yup.string().required(
+    "La descripcion del pedido es obligatoria"
+  ),
+});
 const DeliveryForm = () => {
   const location = useLocation();
   const companyId = location.state?.companyId;
@@ -37,6 +48,7 @@ const DeliveryForm = () => {
             PhoneNumber: "",
             Description: "",
           }}
+          validationSchema={validationSchema}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             try {
               await createOrder(companyId, {

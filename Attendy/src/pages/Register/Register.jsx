@@ -36,8 +36,14 @@ const validationSchemaEmpresa = Yup.object().shape({
   email: Yup.string()
     .email("Ingrese un correo electronico válido")
     .required("El correo es obligatorio"),
+  description: Yup.string().required(
+    "La descripcion del pedido es obligatoria"
+  ),
   password: Yup.string()
     .min(8, "La contraseña debe tener al menos 8 caracteres")
+    .matches(/[a-z]/, "Debe contener al menos una letra minúscula")
+    .matches(/[A-Z]/, "Debe contener al menos una letra mayúscula")
+    .matches(/[0-9]/, "Debe contener al menos un número")
     .required("La contraseña es obligatoria"),
   repeatPassword: Yup.string()
     .oneOf([Yup.ref("password"), null], "Las contraseñas no coinciden")
