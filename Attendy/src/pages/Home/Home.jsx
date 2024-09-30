@@ -9,7 +9,7 @@ const Home = () => {
   };
 
   return (
-    <main className="">
+    <main>
       <Header></Header>
       <div className="mb-10">
         <button
@@ -24,12 +24,12 @@ const Home = () => {
           alt="Logo"
         />
       </div>
-      <div className="flex p-5 m-10">
+      <div className="flex p-5 w-4/5 m-auto mt-16 mb-16">
         <div className="px-10 flex flex-col justify-center">
-          <h2 className="text-[#3C3C3C] text-[85px] font-oleo">
+          <h2 className="text-[#3C3C3C] text-[75px] font-oleo">
             ¿Quienes somos?
           </h2>
-          <p className="text-[30px] text-[#3C3C3C] py-4 font-poppins text-justify">
+          <p className="text-[25px] text-[#3C3C3C] py-4 font-poppins text-justify">
             Somos una empresa comprometida en brindar a nuestros clientes un
             lugar confiable para realizar sus pedidos, mientras apoyamos y
             conectamos a microempresas de todos los rincones del país para que
@@ -43,11 +43,11 @@ const Home = () => {
         />
       </div>
       <div className="flex p-5 bg-[#00A082] text-center">
-        <div className="px-10 m-10">
-          <h2 className="text-[#f2f2f2] text-[85px] font-oleo">
+        <div className="px-10 w-4/5 m-auto mt-16 mb-16">
+          <h2 className="text-[#f2f2f2] text-[75px] font-oleo">
             UNETE A NOSOTROS
           </h2>
-          <p className="text-[30px] text-[#f2f2f2] py-4 font-poppins text-justify mb-5">
+          <p className="text-[25px] text-[#f2f2f2] py-4 font-poppins text-justify mb-5">
             ¿Te gustaría hacer crecer tu empresa y aumentar tu alcance llegando
             a más clientes? Únete a nosotros y aprovecha la oportunidad de
             expandir tu red de domicilios, mejorando la visibilidad de tu
@@ -70,11 +70,11 @@ const Home = () => {
           src="/gif/truc_delivery.gif"
           alt=""
         />
-        <div className="px-10 flex flex-col justify-center m-10">
-          <h2 className="text-[#3C3C3C] text-[85px] font-oleo text-center ">
+        <div className="px-10 flex flex-col justify-center w-4/5 m-auto mt-16 mb-16">
+          <h2 className="text-[#3C3C3C] text-[75px] font-oleo text-center ">
             Nuestra Propuesta de Valor
           </h2>
-          <p className="text-4xl text-[#3C3C3C] py-4 font-poppins text-justify text-[30px]">
+          <p className="text-[25px] text-[#3C3C3C] py-4 font-poppins text-justify">
             Con nuestra plataforma, conectamos empresas con clientes y
             facilitamos la gestión eficiente de pedidos. Ofrecemos herramientas
             tecnológicas que optimizan el proceso de entrega, permitiendo que

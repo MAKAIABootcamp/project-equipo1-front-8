@@ -112,6 +112,7 @@ const Register = () => {
                   address: "",
                   titular: "",
                   email: "",
+                  description: "",
                   password: "",
                   repeatPassword: "",
                   photo: "",
@@ -146,6 +147,7 @@ const Register = () => {
                     name: values.name,
                     nit: values.nit,
                     address: values.address,
+                    description: values.description,
                     titular: values.titular,
                     photo: profileImage || "",
                   },
@@ -293,6 +295,19 @@ const Register = () => {
                         />
                       </div>
                       <ErrorMessage name="email" />
+                    </div>
+
+                    <div className="flex flex-col">
+                      <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
+                        <Field
+                          name="description"
+                          id="description"
+                          as="textarea"
+                          placeholder="Descripción de la empresa"
+                          className="w-[450px]"
+                        />
+                      </div>
+                      <ErrorMessage name="repeatPassword" />
                     </div>
 
                     <div className="flex flex-col">

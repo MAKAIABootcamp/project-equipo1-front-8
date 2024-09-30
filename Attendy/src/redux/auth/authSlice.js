@@ -37,6 +37,7 @@ export const createAccountThunk = createAsyncThunk(
           name: companyData.name,
           nit: companyData.nit,
           address: companyData.address,
+          description: companyData.description,
           titular: companyData.titular,
           photoUrl: companyData.photo,
         });
@@ -78,14 +79,14 @@ export const loginWithEmailAndPassworThunk = createAsyncThunk(
           uid: user.uid,
           email: user.email,
           name: user.displayName,
-          isCompany: true, // Asigna true si es empresa
+          isCompany: true,
         };
       } else if (userDoc.exists()) {
         return {
           uid: user.uid,
           email: user.email,
           name: user.displayName,
-          isCompany: false, // Asigna false si no es empresa
+          isCompany: false,
         };
       }
     } catch (error) {

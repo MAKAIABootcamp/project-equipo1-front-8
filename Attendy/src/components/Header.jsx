@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 const Header = () => {
   const navigate = useNavigate();
+  const { user } = useSelector((store) => store.auth);
 
   const handleClicklogin = () => {
     navigate("/Login");
@@ -19,8 +21,8 @@ const Header = () => {
           className="bg-[#00A082] text-white px-5 rounded-2xl flex items-center"
           onClick={handleClicklogin}
         >
-          <img className="w-[2rem]" src="/icons/user.svg" alt="" />
-          Iniciar Sesion
+          <img className="w-[3rem]" src="/icons/userBlanco.svg" alt="" />
+          {user ? user.name : "Iniciar sesion"}
         </button>
       </div>
     </div>

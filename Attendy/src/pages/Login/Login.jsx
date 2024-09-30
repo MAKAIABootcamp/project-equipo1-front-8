@@ -116,10 +116,10 @@ const Login = () => {
         <p>
           Si aún no tiene una cuenta, por favor dar click{" "}
           <Link
-            className=" rounded-2xl text-[#00A082] font-oleo"
+            className=" rounded-2xl text-[#00A082] font-poppins font-bold"
             to={"/register"}
           >
-            AQUÍ
+            AQUI
           </Link>
         </p>
 

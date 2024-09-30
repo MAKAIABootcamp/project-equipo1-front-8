@@ -85,15 +85,9 @@ const CompanyDetails = () => {
             </div>
           </div>
         </div>
-        <div className="">
-          <p className="m-10 font-poppins text-justify text-[30px]">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt eius
-            veniam placeat odit ullam beatae possimus nulla adipisci doloribus
-            ut numquam omnis debitis perferendis, consequuntur sit repellat
-            atque neque quae iusto similique deserunt incidunt hic. Excepturi
-            officia aperiam illum aspernatur? Corrupti velit ratione
-            reprehenderit architecto incidunt illo, perferendis porro labore
-            provident quos!
+        <div className="flex flex-col items-center">
+          <p className="m-10 font-poppins text-justify  text-[30px]">
+            {company.description}
           </p>
           <div className="flex justify-center pt-5 text-[20px]">
             <button
