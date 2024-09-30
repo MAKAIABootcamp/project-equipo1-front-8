@@ -99,7 +99,7 @@ const CompanyDetails = () => {
           </div>
         </div>
       </div>
-      <div className="p-1 m-11 ">
+      <div className="p-1 m-11">
         <h1 className="text-4xl font-oleo mb-5 flex justify-center">
           Más aliados
         </h1>
