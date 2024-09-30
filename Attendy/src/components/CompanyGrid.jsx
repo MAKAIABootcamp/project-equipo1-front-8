@@ -6,7 +6,7 @@ const CompanyGrid = ({ companies }) => {
       {companies.map((company) => (
         <div
           key={company.id}
-          className="bg-bg-gray shadow-lg flex max-w-xl mx-auto items-center p-4 transform transition-transform duration-300 hover:scale-105 w-[80%] rounded-2xl"
+          className="bg-bg-gray shadow-lg flex max-w-xl w-full marker:mx-auto items-center p-4 transform transition-transform duration-300 hover:scale-105 rounded-2xl"
         >
           <img
             src={company.photoUrl}
@@ -15,7 +15,7 @@ const CompanyGrid = ({ companies }) => {
           />
           <div className="p-4 item flex flex-col">
             <h2 className="text-[30px] font-oleo">{company.name}</h2>
-            <p className="text-black mt-2 font-poppins">8:00 am a 10:00 pm</p>
+            <p className="text-black mt-2 font-poppins">Horario: 8:00 am a 10:00 pm</p>
             <div className="flex items-center mt-1">
               {[...Array(5)].map((_, index) => (
                 <svg
