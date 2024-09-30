@@ -35,16 +35,16 @@ const Search = () => {
   }, [query, companies]);
 
   return (
-    <main>
+    <main className="flex flex-col min-h-screen">
       <Header />
-      <div className="w-full flex items-center justify-center">
+      <div className="flex items-center justify-center">
         <img
-          className="w-[25%] h-auto object-contain"
-          src="/public/images/delivery.png"
+          className="w-full max-w-[35%] h-auto object-contain m-4 mt-7"
+          src="/public/images/motico.png"
           alt="OrderImage"
         />
       </div>
-      <h1 className="text-4xl text-[#00A082] py-4 font-oleo text-center p-0">
+      <h1 className="text-2xl sm:text-4xl text-[#00A082] py-4 font-oleo text-center">
         Nuestros aliados
       </h1>
       <SearchBar />

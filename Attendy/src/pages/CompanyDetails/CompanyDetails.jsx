@@ -97,7 +97,7 @@ const CompanyDetails = () => {
           </p>
           <div className="flex justify-center pt-5 text-[20px]">
             <button
-              className="mt-4 py-2 px-4 font-semibold rounded-[30px] w-[200px] transition-all duration-300 hover:bg-[#00A082] hover:text-white border-[1px] border-[#00A082]"
+              className="mt-4 py-2 px-4 font-semibold rounded-[30px] w-[200px] transition-all duration-300 bg-bg-gray text-[#00A082] hover:bg-[#00A082] hover:text-white border-[1px] border-[#00A082]"
               onClick={() => handleOrder(company.id)}
             >
               Hacer Pedido
@@ -141,7 +141,7 @@ const CompanyDetails = () => {
                     ))}
                   </div>
                   <Link to={`/companydetails/${otherCompany.id}`}>
-                    <button className="mt-4 py-2 font-semibold px-4 rounded-[30px] w-[200px] transition-all duration-300 hover:bg-[#00A082] hover:text-white border-[1px] border-[#00A082]">
+                    <button className="mt-4 py-2 px-4 font-semibold rounded-[30px] w-[200px] transition-all duration-300 bg-bg-gray text-[#00A082] hover:bg-[#00A082] hover:text-white border-[1px] border-[#00A082]">
                       Ver más
                     </button>
                   </Link>
