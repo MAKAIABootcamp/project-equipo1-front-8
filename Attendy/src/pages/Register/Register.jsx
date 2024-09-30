@@ -77,18 +77,20 @@ const Register = () => {
     }
   }, [isRegistered, isAuthenticated, isCompany, user, navigate, dispatch]);
   return (
-    <main className="flex h-screen">
-      <div className="flex flex-col justify-center items-center w-1/2">
+    <main className="flex lg:flex-row flex-col h-screen items-center">
+      <div className="flex flex-col justify-center items-center lg:w-1/2 w-[40%]">
         <img className="w-[650px]" src="/icons/logo.svg" alt="Logo" />
-        <h1 className="flex justify-center text-[70px] text-[#00A082] font-oleo">
+        <h1 className="lg:flex justify-center text-[70px] text-[#00A082] font-oleo hidden">
           Attendy
         </h1>
       </div>
       <div className="flex flex-col justify-center items-center w-1/2">
-        <h1 className="font-oleo text-[50px] mb-5">Registrate</h1>
-        <div className="mb-5">
+        <h1 className="font-oleo lg:text-[50px] text-[40px] mb-5">
+          Registrate
+        </h1>
+        <div className="flex mb-5">
           <button
-            className={`py-2 px-4 rounded-[30px] w-[228px] mr-4 ${
+            className={`py-2 px-4 rounded-[30px] lg:w-[228px] w-[150px] mr-4 ${
               !isCompany
                 ? "bg-[#00A082] text-white"
                 : "bg-white border-[1px] border-[#00A082] text-[#878787]"
@@ -98,7 +100,7 @@ const Register = () => {
             Usuario
           </button>
           <button
-            className={`py-2 px-4 rounded-[30px] w-[228px] ${
+            className={`py-2 px-4 rounded-[30px] lg:w-[228px] w-[150px] ${
               isCompany
                 ? "bg-[#00A082] text-white"
                 : "bg-white border-[1px] border-[#00A082] text-[#878787]"
@@ -177,7 +179,7 @@ const Register = () => {
             <Form>
               {!isCompany && (
                 <>
-                  <div className="flex flex-col items-start gap-10 mb-10 mt-5">
+                  <div className="flex flex-col items-center gap-10 mb-10 mt-5">
                     <div className="flex flex-col">
                       <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
                         <Field
@@ -185,7 +187,7 @@ const Register = () => {
                           name="name"
                           id="name"
                           placeholder="Nombre"
-                          className="w-[27rem]"
+                          className="lg:w-[27rem] w-[20rem]"
                         />
                       </div>
                       <ErrorMessage name="name" />
@@ -197,7 +199,7 @@ const Register = () => {
                           name="email"
                           id="email"
                           placeholder="Correo Electronico"
-                          className="w-[27rem]"
+                          className="lg:w-[27rem] w-[20rem]"
                         />
                       </div>
                       <ErrorMessage name="email" />
@@ -210,7 +212,7 @@ const Register = () => {
                           id="password"
                           type="password"
                           placeholder="Contraseña"
-                          className="w-[27rem]"
+                          className="lg:w-[27rem] w-[20rem]"
                         />
                       </div>
                       <ErrorMessage name="password" />
@@ -223,7 +225,7 @@ const Register = () => {
                           id="repeatPassword"
                           type="password"
                           placeholder="Repetir contraseña"
-                          className="w-[27rem]"
+                          className="lg:w-[27rem] w-[20rem]"
                         />
                       </div>
                       <ErrorMessage name="repeatPassword" />
@@ -233,7 +235,7 @@ const Register = () => {
               )}
               {isCompany && (
                 <>
-                  <div className="flex flex-col items-start gap-10 mb-10 mt-5">
+                  <div className="flex flex-col lg:items-start items-start gap-10 mb-10 mt-5">
                     <div className="flex flex-col">
                       <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
                         <Field
@@ -241,34 +243,34 @@ const Register = () => {
                           name="name"
                           id="name"
                           placeholder="Nombre de la empresa"
-                          className="w-[450px]"
+                          className="lg:w-[450px] w-[20rem]"
                         />
                       </div>
                       <ErrorMessage name="name" />
                     </div>
                     <div className="flex w-5">
                       <div className="flex flex-col">
-                        <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mr-2 w-[238px] mb-2">
+                        <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mr-2 lg:w-[238px] w-[170px] mb-2">
                           <Field
                             type="text"
                             name="nit"
                             id="nit"
                             value={values.nit || ""}
                             placeholder="NIT"
-                            className="w-[212px]"
+                            className="lg:w-[212px] w-[150px]"
                           />
                         </div>
                         <ErrorMessage name="nit" />
                       </div>
                       <div className="flex flex-col">
-                        <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 w-[238px] mb-2">
+                        <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 lg:w-[238px] w-[175px] mb-2">
                           <Field
                             type="text"
                             name="address"
                             id="address"
                             value={values.address || ""}
                             placeholder="Dirección"
-                            className=" w-[212px]"
+                            className="lg:w-[212px] w-[150px]"
                           />
                         </div>
                         <ErrorMessage name="address" />
@@ -283,7 +285,7 @@ const Register = () => {
                           id="titular"
                           value={values.titular || ""}
                           placeholder="Nombre completo del titular"
-                          className="w-[450px]"
+                          className="lg:w-[450px] w-[20rem]"
                         />
                       </div>
                       <ErrorMessage name="titular" />
@@ -297,7 +299,7 @@ const Register = () => {
                           id="email"
                           value={values.email || ""}
                           placeholder="Correo electronico"
-                          className="w-[450px]"
+                          className="lg:w-[450px] w-[20rem]"
                         />
                       </div>
                       <ErrorMessage name="email" />
@@ -310,7 +312,7 @@ const Register = () => {
                           id="description"
                           as="textarea"
                           placeholder="Descripción de la empresa"
-                          className="w-[450px]"
+                          className="lg:w-[450px] w-[20rem]"
                         />
                       </div>
                       <ErrorMessage name="repeatPassword" />
@@ -323,7 +325,7 @@ const Register = () => {
                           id="password"
                           type="password"
                           placeholder="Contraseña"
-                          className="w-[450px]"
+                          className="lg:w-[450px] w-[20rem]"
                         />
                       </div>
                       <ErrorMessage name="password" />
@@ -336,7 +338,7 @@ const Register = () => {
                           id="repeatPassword"
                           type="password"
                           placeholder="Repetir contraseña"
-                          className="w-[450px]"
+                          className="lg:w-[450px] w-[20rem]"
                         />
                       </div>
                       <ErrorMessage name="repeatPassword" />
@@ -345,7 +347,7 @@ const Register = () => {
                     <div className="flex flex-col">
                       <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
                         <input
-                          className="w-[450px]"
+                          className="lg:w-[450px] w-[20rem]"
                           type="file"
                           name="photo"
                           accept="image/*"
