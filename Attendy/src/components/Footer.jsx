@@ -13,7 +13,7 @@ const Footer = () => {
           <p className="text-[#F2F2F2] font-poppins text-2xl">Attendy</p>
         </div>
         <div className="flex items-center">
-          <p className="text-[#F2F2F2]">
+          <p className="text-[#F2F2F2] text-end	">
             © 2024 Attendy Inc. All rights reserved.
           </p>
         </div>

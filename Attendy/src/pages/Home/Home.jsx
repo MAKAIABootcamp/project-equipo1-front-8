@@ -13,7 +13,7 @@ const Home = () => {
       <Header></Header>
       <div className="mb-10">
         <button
-          className="bg-[#00A082] text-white hover:text-black absolute p-4 rounded-2xl mt-60	ml-40 z-10 px-10 text-2xl font-oleo"
+          className="bg-[#00A082] text-white hover:text-black absolute p-4 rounded-2xl mt-60 max-md:ml-60	md:ml-40 z-10 px-10 text-2xl font-oleo"
           onClick={handleClicklogin}
         >
           Pedir domicilio
@@ -24,8 +24,8 @@ const Home = () => {
           alt="Logo"
         />
       </div>
-      <div className="flex p-5 w-4/5 m-auto mt-16 mb-16">
-        <div className="px-10 flex flex-col justify-center">
+      <div className="md:flex p-5 w-4/5 m-auto mt-16 mb-16">
+        <div className="md:px-10 flex flex-col justify-center">
           <h2 className="text-[#3C3C3C] text-[75px] font-oleo">
             ¿Quienes somos?
           </h2>
@@ -43,7 +43,7 @@ const Home = () => {
         />
       </div>
       <div className="flex p-5 bg-[#00A082] text-center">
-        <div className="px-10 w-4/5 m-auto mt-16 mb-16">
+        <div className="md:px-10 w-4/5 m-auto mt-16 mb-16">
           <h2 className="text-[#f2f2f2] text-[75px] font-oleo">
             UNETE A NOSOTROS
           </h2>
@@ -64,25 +64,20 @@ const Home = () => {
           </button>
         </div>
       </div>
-      <div className="flex p-5 m-10 justify-center">
+      <div className="md:flex p-5 m-10 justify-center">
         <img
           className="w-[30rem] h-full self-center rounded-2xl"
           src="/gif/truc_delivery.gif"
           alt=""
         />
-        <div className="px-10 flex flex-col justify-center w-4/5 m-auto mt-16 mb-16">
-          <h2 className="text-[#3C3C3C] text-[75px] font-oleo text-center ">
-            Nuestra Propuesta de Valor
-          </h2>
-          <p className="text-[25px] text-[#3C3C3C] py-4 font-poppins text-justify">
-            Con nuestra plataforma, conectamos empresas con clientes y
-            facilitamos la gestión eficiente de pedidos. Ofrecemos herramientas
-            tecnológicas que optimizan el proceso de entrega, permitiendo que
-            negocios de cualquier tamaño compitan y crezcan ofreciendo un
-            servicio de calidad. Con cada pedido, fortaleces tu relación con los
-            clientes y haces crecer tu empresa de manera sostenible.
-          </p>
-        </div>
+      <div className="md:px-10 md:flex lg:flex-col md:justify-center w-4/5 m-auto mt-16 mb-16">
+        <h2 className="text-[#3C3C3C] text-[75px] font-oleo text-center">
+          Nuestra Propuesta de Valor
+        </h2>
+        <p className="text-[25px] text-[#3C3C3C] py-4 font-poppins text-justify">
+          Con nuestra plataforma, conectamos empresas con clientes y facilitamos la gestión eficiente de pedidos. Ofrecemos herramientas tecnológicas que optimizan el proceso de entrega, permitiendo que negocios de cualquier tamaño compitan y crezcan ofreciendo un servicio de calidad. Con cada pedido, fortaleces tu relación con los clientes y haces crecer tu empresa de manera sostenible.
+        </p>
+      </div>
       </div>
       <Footer></Footer>
     </main>
