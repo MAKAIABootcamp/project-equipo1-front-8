@@ -2,20 +2,24 @@ import { Link } from "react-router-dom";
 
 const CompanyGrid = ({ companies }) => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-10 p-6 mb-7">
+    <div className="grid grid-cols-1 lg:grid-cols-2 md:grid-cols-2 gap-10 p-6 mb-7">
       {companies.map((company) => (
         <div
           key={company.id}
-          className="bg-bg-gray shadow-lg flex max-w-xl w-full marker:mx-auto items-center p-4 transform transition-transform duration-300 hover:scale-105 rounded-2xl"
+          className="bg-bg-gray shadow-lg flex lg:flex-row flex-col max-w-xl w-full marker:mx-auto items-center p-4 transform transition-transform duration-300 hover:scale-105 rounded-2xl"
         >
           <img
             src={company.photoUrl}
             alt={company.name}
-            className="w-40 h-40 object-cover ml-2 mr-10 rounded-2xl"
+            className="w-40 h-40 object-cover lg:ml-2 lg:mr-10 rounded-2xl"
           />
           <div className="p-4 item flex flex-col">
-            <h2 className="text-[30px] font-oleo">{company.name}</h2>
-            <p className="text-black mt-2 font-poppins">Horario: 8:00 am a 10:00 pm</p>
+            <h2 className="text-[30px] text-center lg:text-start font-oleo">
+              {company.name}
+            </h2>
+            <p className="text-black mt-2 font-poppins">
+              Horario: 8:00 am a 10:00 pm
+            </p>
             <div className="flex items-center mt-1">
               {[...Array(5)].map((_, index) => (
                 <svg
@@ -42,4 +46,3 @@ const CompanyGrid = ({ companies }) => {
 };
 
 export default CompanyGrid;
-

@@ -57,10 +57,10 @@ const CompanyDetails = () => {
         <h1 className="text-3xl font-oleo mb-2 flex justify-center">
           {company.name}
         </h1>
-        <div className="flex items-center justify-center m-5">
+        <div className="flex lg:flex-row flex-col items-center justify-center m-5">
           <img
             src={company.photoUrl}
-            className="w-40 h-40 mr-5 rounded-2xl"
+            className="w-40 h-40 lg:mr-5 rounded-2xl lg:mb-0 mb-5"
             alt={company.name}
           />
           <div className="flex flex-col justify-center items-center">
@@ -83,8 +83,8 @@ const CompanyDetails = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-center">
-          <p className="m-10 font-poppins text-justify text-[30px]">
+        <div className="flex flex-col items-center ">
+          <p className="lg:m-10 font-poppins lg:text-justify text-center text-wrap lg:text-[25px] text-[15px]">
             {company.description}
           </p>
           <div className="flex justify-center pt-5 text-[20px]">
@@ -101,21 +101,25 @@ const CompanyDetails = () => {
         <h1 className="text-4xl font-oleo mb-5 flex justify-center">
           Más aliados
         </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-10 p-6 mb-7 w-[80%] m-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 md:grid-cols-2 gap-10 p-6 mb-7">
           {filteredCompanies.length > 0 ? (
             filteredCompanies.map((otherCompany) => (
               <div
                 key={otherCompany.id}
-                className="bg-bg-gray shadow-lg flex max-w-xl mx-auto items-center p-4 transform transition-transform duration-300 hover:scale-105 w-full rounded-2xl"
+                className="bg-bg-gray shadow-lg flex lg:flex-row flex-col max-w-xl mx-auto items-center p-4 transform transition-transform duration-300 hover:scale-105 w-full rounded-2xl "
               >
                 <img
                   src={otherCompany.photoUrl}
                   alt={otherCompany.name}
-                  className="w-40 h-40 object-cover ml-2 mr-10 rounded-2xl"
+                  className="w-40 h-40 object-cover lg:ml-2 lg:mr-10 rounded-2xl"
                 />
                 <div className="p-4 flex flex-col">
-                  <h2 className="text-2xl font-oleo">{otherCompany.name}</h2>
-                  <p className="text-black mt-2 font-poppins">Horario: 8:00 am a 10:00 pm</p>
+                  <h2 className="text-[30px] lg:text-start text-center font-oleo">
+                    {otherCompany.name}
+                  </h2>
+                  <p className="text-black mt-2 font-poppins">
+                    Horario: 8:00 am a 10:00 pm
+                  </p>
                   <div className="flex items-center mt-1">
                     {[...Array(5)].map((_, index) => (
                       <svg
