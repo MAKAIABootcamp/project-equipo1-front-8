@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutThunk } from "../redux/auth/authSlice";
+import { CiLogout } from "react-icons/ci";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -36,7 +37,8 @@ const Header = () => {
               className="bg-[#00A082] text-white px-5 p-2 rounded-2xl flex items-center"
               onClick={handleLogout}
             >
-              Cerrar sesión
+              <span className="hidden md:inline">Cerrar sesión</span>
+              <CiLogout className="w-5 h-5 md:hidden"/>
             </button>
           </div>
         ) : (
