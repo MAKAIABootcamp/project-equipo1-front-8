@@ -35,23 +35,25 @@ const Search = () => {
   }, [query, companies]);
 
   return (
-    <main className="flex flex-col min-h-screen">
+    <main className="flex flex-col min-h-screen lg:w-full ">
       <Header />
-      <div className="flex items-center justify-center">
-        <img
-          className="w-full max-w-[35%] h-auto m-4 mt-7"
-          src="/public/images/motico.png"
-          alt="OrderImage"
-        />
+      <div className="w-4/5 m-auto">
+        <div className="flex items-center justify-center">
+          <img
+            className="w-full lg:max-w-[35%] h-auto m-4 mt-7"
+            src="/public/images/motico.png"
+            alt="OrderImage"
+          />
+        </div>
+        <h1 className="text-2xl sm:text-4xl text-[#00A082] py-4 font-oleo text-center">
+          Nuestros aliados
+        </h1>
+        <SearchBar />
+        <div className="container mx-auto p-4">
+          <CompanyGrid companies={filteredCompanies} />
+        </div>
+        <Footer />
       </div>
-      <h1 className="text-2xl sm:text-4xl text-[#00A082] py-4 font-oleo text-center">
-        Nuestros aliados
-      </h1>
-      <SearchBar />
-      <div className="container mx-auto p-4">
-        <CompanyGrid companies={filteredCompanies} />
-      </div>
-      <Footer />
     </main>
   );
 };

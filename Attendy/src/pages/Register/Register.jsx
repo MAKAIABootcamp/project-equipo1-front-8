@@ -77,7 +77,7 @@ const Register = () => {
     }
   }, [isRegistered, isAuthenticated, isCompany, user, navigate, dispatch]);
   return (
-    <main className="flex lg:flex-row flex-col h-screen items-center">
+    <main className="flex lg:flex-row flex-col  items-center overflow-y-auto">
       <div className="flex flex-col justify-center items-center lg:w-1/2 w-[40%]">
         <img className="w-[650px]" src="/icons/logo.svg" alt="Logo" />
         <h1 className="lg:flex justify-center text-[70px] text-[#00A082] font-oleo hidden">
@@ -176,7 +176,7 @@ const Register = () => {
           }}
         >
           {({ values, isSubmitting, setFieldValue }) => (
-            <Form>
+            <Form className="h-auto">
               {!isCompany && (
                 <>
                   <div className="flex flex-col items-center gap-10 mb-10 mt-5">

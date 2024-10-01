@@ -35,7 +35,7 @@ const DeliveryForm = () => {
         <SideBar />
       </nav>
       <div className="flex flex-col w-4/5 m-auto justify-center h-[100vh] items-center gap-10">
-        <h1 className="font-poppins text-[#00A082] text-[40px] mb-20">
+        <h1 className="font-poppins text-[#00A082] lg:text-[40px] text-[30px] mb-20 text-center">
           Por favor ingresa los datos para tu pedido
         </h1>
         {isSubmitted && (
@@ -68,7 +68,7 @@ const DeliveryForm = () => {
           }}
         >
           {({ isSubmitting }) => (
-            <Form className="w-full max-w-[63%]">
+            <Form className="w-full lg:max-w-[63%]">
               <div className="flex flex-col mb-4">
                 <div className="border-[1px] border-[#00A082] py-2 px-4 mb-2">
                   <Field

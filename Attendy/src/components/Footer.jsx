@@ -10,7 +10,9 @@ const Footer = () => {
       <div className="flex justify-between w-[95%] m-auto">
         <div className="flex items-center" onClick={handleClick}>
           <img className="w-[40px]" src="/icons/logoblanco.svg" alt="Logo" />
-          <p className="text-[#F2F2F2] font-poppins text-2xl">Attendy</p>
+          <p className="text-[#F2F2F2] font-poppins text-2xl lg:block hidden">
+            Attendy
+          </p>
         </div>
         <div className="flex items-center">
           <p className="text-[#F2F2F2] text-end	">

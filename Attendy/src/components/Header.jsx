@@ -44,8 +44,11 @@ const Header = () => {
             className="bg-[#00A082] text-white px-5 rounded-2xl flex items-center"
             onClick={handleClickLogin}
           >
-            <img className="w-[3rem]" src="/icons/userBlanco.svg" alt="Login" />
-            {user ? user.name : "Iniciar sesión"}
+            <img className="w-[35px]" src="/icons/userBlanco.svg" alt="Login" />
+
+            <span className="ml-2 hidden lg:block">
+              {user ? user.name : "Iniciar sesión"}
+            </span>
           </button>
         )}
       </div>
