@@ -1,13 +1,21 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { collection, getDocs, query, where, doc, deleteDoc, updateDoc } from "firebase/firestore"; 
-import { database } from "../../Firebase/firebaseConfig"; 
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  doc,
+  deleteDoc,
+  updateDoc,
+} from "firebase/firestore";
+import { database } from "../../Firebase/firebaseConfig";
 import SideBar from "../../components/SideBar";
 
 const AdminPanel = () => {
   const { user } = useSelector((store) => store.auth);
   const [isOpen, setIsOpen] = useState(false);
-  const [orders, setOrders] = useState([]); 
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     const fetchPendingOrders = async () => {
@@ -45,7 +53,9 @@ const AdminPanel = () => {
     try {
       if (newStatus === "Entregado") {
         await deleteDoc(orderRef);
-        setOrders((prevOrders) => prevOrders.filter((order) => order.id !== orderId));
+        setOrders((prevOrders) =>
+          prevOrders.filter((order) => order.id !== orderId)
+        );
       } else {
         await updateDoc(orderRef, { status: newStatus });
         setOrders((prevOrders) =>
@@ -75,24 +85,37 @@ const AdminPanel = () => {
         <div className="flex-grow ml-64 mr-28 mt-10">
           {orders.length > 0 ? (
             orders.map((order) => (
-              <div key={order.id} className="bg-white border border-gray-300 rounded-lg shadow-md p-4 mb-4">
+              <div
+                key={order.id}
+                className="bg-white border border-gray-300 rounded-lg shadow-md p-4 mb-4"
+              >
                 <div className="flex justify-between">
                   <div>
-                    <h3 className="text-lg font-bold mb-2">Orden De {order.name}</h3>
+                    <h3 className="text-lg font-bold mb-2">
+                      Orden De {order.name}
+                    </h3>
                     <p className="text-gray-700">
                       Fecha:{" "}
                       {order.createdAt
                         ? order.createdAt.toDate().toLocaleDateString()
                         : "Fecha no disponible"}
                     </p>
-                    <p className="text-gray-700">Dirección: {order.address || "Sin dirección"}</p>
-                    <p className="text-gray-700">Celular: {order.phoneNumber || "Sin número"}</p>
-                    <p className="text-gray-700">Descripcion: {order.description || "Sin descripcion"}</p>
+                    <p className="text-gray-700">
+                      Dirección: {order.address || "Sin dirección"}
+                    </p>
+                    <p className="text-gray-700">
+                      Celular: {order.phoneNumber || "Sin número"}
+                    </p>
+                    <p className="text-gray-700">
+                      Descripcion: {order.description || "Sin descripcion"}
+                    </p>
                   </div>
                   <div>
-                    <select 
+                    <select
                       className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md"
-                      onChange={(e) => handleChangeStatus(order.id, e.target.value)}
+                      onChange={(e) =>
+                        handleChangeStatus(order.id, e.target.value)
+                      }
                     >
                       <option value="">Actualizar estado</option>
                       <option value="Confirmado">Confirmado</option>

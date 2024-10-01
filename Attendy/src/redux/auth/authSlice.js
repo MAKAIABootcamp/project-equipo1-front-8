@@ -75,11 +75,13 @@ export const loginWithEmailAndPassworThunk = createAsyncThunk(
       const companyDoc = await getDoc(doc(database, "companies", user.uid));
 
       if (companyDoc.exists()) {
+        const companyData = companyDoc.data();
         return {
           uid: user.uid,
           email: user.email,
           name: user.displayName,
           isCompany: true,
+          ...companyData,
         };
       } else if (userDoc.exists()) {
         return {
