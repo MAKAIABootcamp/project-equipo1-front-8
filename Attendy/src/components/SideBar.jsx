@@ -48,7 +48,7 @@ const SideBar = () => {
 
       <nav
         className={`fixed z-10 top-0 left-0 bottom-0 bg-[#00A082] transition-all duration-300 cursor-pointer ${
-          isOpen ? "lg:w-[300px]" : "-translate-x-full"
+          isOpen ? "lg:w-[250px]" : "-translate-x-full"
         } lg:translate-x-0 lg:w-[120px] lg:h-[100vh] lg:border-r-2`}
         onClick={toggleMenu}
       >
