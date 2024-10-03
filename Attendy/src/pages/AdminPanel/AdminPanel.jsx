@@ -65,7 +65,7 @@ const AdminPanel = () => {
         );
       }
     } catch (error) {
-      console.error("Error al actualizar el estado de la orden:", error);
+      console.error("Error al actualizar el estado de la orden:", error); 
     }
   };
 
@@ -73,8 +73,8 @@ const AdminPanel = () => {
     <div className="flex">
       <SideBar isOpen={isOpen} toggleMenu={() => setIsOpen(!isOpen)} />
       <div className="flex-grow flex flex-col">
-        <div className="bg-[#E1E1E1] h-20 p-6 flex justify-between items-center">
-          <p className={`text-[#00A082] text-2xl font-poppins ml-60`}>
+        <div className="bg-[#E1E1E1] lg:h-20 lg:p-6 p-6 flex lg:justify-between lg:items-center ">
+          <p className={`text-[#00A082] text-2xl font-poppins lg:ml-60`}>
             Bienvenido, {user ? user.name : "Usuario"}
           </p>
           <button className="bg-[#00A082] text-white px-5 rounded-2xl flex items-center">
