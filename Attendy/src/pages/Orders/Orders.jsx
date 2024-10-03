@@ -52,17 +52,23 @@ const Orders = () => {
   return (
     <div className="flex">
       <SideBar />
-      <div className="flex-grow flex flex-col ml-16">
-        <div className="bg-[#E1E1E1] w-[100%] m-0 h-20 p-6 flex justify-between items-center mt-0">
-          <p className="text-[#00A082] text-2xl font-poppins ml-44">
+      <div className="flex-grow flex flex-col lg:ml-16">
+        <div className="bg-[#E1E1E1] w-full lg:h-20 h-[70px] lg:p-6 flex justify-between items-center ">
+          <p className="text-[#00A082] lg:text-2xl font-poppins lg:ml-[230px] ml-20">
             Tus órdenes
           </p>
-          <button className="bg-[#00A082] text-white px-5 rounded-2xl flex items-center">
-            <img className="w-[3rem]" src="/icons/userBlanco.svg" alt="" />
-            {user && user.name ? user.name : "Nombre de usuario"}
+          <button className="bg-[#00A082] text-white px-5 rounded-2xl flex items-center mr-5">
+            <img
+              className="lg:w-[3rem] w-[40px]"
+              src="/icons/userBlanco.svg"
+              alt=""
+            />
+            <span className="lg:block hidden">
+              {user ? user.name : "Usuario"}
+            </span>
           </button>
         </div>
-        <div className="flex-grow ml-24 p-24">
+        <div className="flex flex-col lg:ml-64 lg:mr-28 mt-10 w-4/5 m-auto gap-10">
           <div className="flex justify-between items-center mb-2">
             <h3 className="text-lg font-medium">Pedidos:</h3>
           </div>

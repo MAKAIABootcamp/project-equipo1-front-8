@@ -65,7 +65,7 @@ const AdminPanel = () => {
         );
       }
     } catch (error) {
-      console.error("Error al actualizar el estado de la orden:", error); 
+      console.error("Error al actualizar el estado de la orden:", error);
     }
   };
 
@@ -73,46 +73,65 @@ const AdminPanel = () => {
     <div className="flex">
       <SideBar isOpen={isOpen} toggleMenu={() => setIsOpen(!isOpen)} />
       <div className="flex-grow flex flex-col">
-        <div className="bg-[#E1E1E1] lg:h-20 lg:p-6 p-6 flex lg:justify-between lg:items-center ">
-          <p className={`text-[#00A082] text-2xl font-poppins lg:ml-60`}>
+        <div className="bg-[#E1E1E1] lg:h-20 h-[70px] lg:p-6 p-6 flex justify-between items-center w-full">
+          <p
+            className={`text-[#00A082] lg:text-2xl font-poppins lg:ml-[230px] ml-12`}
+          >
             Bienvenido, {user ? user.name : "Usuario"}
           </p>
           <button className="bg-[#00A082] text-white px-5 rounded-2xl flex items-center">
-            <img className="w-[3rem]" src="/icons/userBlanco.svg" alt="" />
-            {user ? user.name : "Usuario"}
+            <img
+              className="lg:w-[3rem] w-[40px]"
+              src="/icons/userBlanco.svg"
+              alt=""
+            />
+            <span className="lg:block hidden">
+              {user ? user.name : "Usuario"}
+            </span>
           </button>
         </div>
-        <div className="flex-grow ml-64 mr-28 mt-10">
+        <div className="flex flex-col lg:ml-64 lg:mr-28 mt-10 w-4/5 m-auto gap-10">
           {orders.length > 0 ? (
             orders.map((order) => (
               <div
                 key={order.id}
-                className="bg-white border border-gray-300 rounded-lg shadow-md p-4 mb-4"
+                className="bg-white border border-gray-300 rounded-lg shadow-md p-4"
               >
                 <div className="flex justify-between">
                   <div>
-                    <h3 className="text-lg font-bold mb-2">
+                    <h3 className="lg:text-[18px] text-[] font-bold mb-2">
                       Orden De {order.name}
                     </h3>
                     <p className="text-gray-700">
-                      Fecha:{" "}
+                      <span className="text-[#00A082] font-semibold">
+                        Fecha:
+                      </span>{" "}
                       {order.createdAt
                         ? order.createdAt.toDate().toLocaleDateString()
                         : "Fecha no disponible"}
                     </p>
                     <p className="text-gray-700">
-                      Dirección: {order.address || "Sin dirección"}
+                      <span className="text-[#00A082] font-semibold">
+                        Dirección:
+                      </span>{" "}
+                      {order.address || "Sin dirección"}
                     </p>
                     <p className="text-gray-700">
-                      Celular: {order.phoneNumber || "Sin número"}
+                      <span className="text-[#00A082] font-semibold">
+                        Celular:
+                      </span>{" "}
+                      {order.phoneNumber || "Sin número"}
                     </p>
                     <p className="text-gray-700">
-                      Descripcion: {order.description || "Sin descripcion"}
+                      <span className="text-[#00A082] font-semibold">
+                        Descripcion:
+                      </span>{" "}
+                      {order.description || "Sin descripcion"}
                     </p>
                   </div>
                   <div>
                     <select
-                      className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md"
+                      className="bg-bg-gray lg:px-4 py-2 rounded-md "
                       onChange={(e) =>
                         handleChangeStatus(order.id, e.target.value)
                       }
