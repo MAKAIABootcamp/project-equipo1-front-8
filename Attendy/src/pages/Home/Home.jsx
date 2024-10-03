@@ -11,9 +11,9 @@ const Home = () => {
   return (
     <main>
       <Header></Header>
-      <div className="mb-10">
+      <div className="mb-10 flex items-center lg:justify-start justify-center">
         <button
-          className="bg-[#00A082] text-white hover:text-black absolute p-4 rounded-2xl mt-60 max-md:ml-60	md:ml-40 z-10 px-10 text-2xl font-oleo"
+          className="bg-[#00A082] text-white text-center hover:text-black absolute p-4 rounded-2xl mt-[150px] max-md:ml-60 lg:ml-40 z-10 lg:px-10 lg:text-2xl text-[20px] lg:w-[14rem] w-[30%] font-oleo"
           onClick={handleClicklogin}
         >
           Pedir domicilio
@@ -24,12 +24,12 @@ const Home = () => {
           alt="Logo"
         />
       </div>
-      <div className="md:flex p-5 w-4/5 m-auto mt-16 mb-16">
+      <div className="md:flex p-5 w-4/5 m-auto lg:mt-16 mb-16">
         <div className="md:px-10 flex flex-col justify-center">
-          <h2 className="text-[#3C3C3C] text-[75px] font-oleo">
+          <h2 className="text-[#3C3C3C] lg:text-[75px] text-[48px] font-oleo">
             ¿Quienes somos?
           </h2>
-          <p className="text-[25px] text-[#3C3C3C] py-4 font-poppins text-justify">
+          <p className="lg:text-[25px] text-[20px] text-[#3C3C3C] py-4 font-poppins lg:text-justify text-center">
             Somos una empresa comprometida en brindar a nuestros clientes un
             lugar confiable para realizar sus pedidos, mientras apoyamos y
             conectamos a microempresas de todos los rincones del país para que
@@ -44,10 +44,10 @@ const Home = () => {
       </div>
       <div className="flex p-5 bg-[#00A082] text-center">
         <div className="md:px-10 w-4/5 m-auto mt-16 mb-16">
-          <h2 className="text-[#f2f2f2] text-[75px] font-oleo">
+          <h2 className="text-[#f2f2f2] lg:text-[75px] text-[48px] font-oleo">
             UNETE A NOSOTROS
           </h2>
-          <p className="text-[25px] text-[#f2f2f2] py-4 font-poppins text-justify mb-5">
+          <p className="lg:text-[25px] text-[20px] text-[#f2f2f2] py-4 font-poppins lg:text-justify mb-5">
             ¿Te gustaría hacer crecer tu empresa y aumentar tu alcance llegando
             a más clientes? Únete a nosotros y aprovecha la oportunidad de
             expandir tu red de domicilios, mejorando la visibilidad de tu
@@ -70,14 +70,19 @@ const Home = () => {
           src="/gif/truc_delivery.gif"
           alt=""
         />
-      <div className="md:px-10 md:flex lg:flex-col md:justify-center w-4/5 m-auto mt-16 mb-16">
-        <h2 className="text-[#3C3C3C] text-[75px] font-oleo text-center">
-          Nuestra Propuesta de Valor
-        </h2>
-        <p className="text-[25px] text-[#3C3C3C] py-4 font-poppins text-justify">
-          Con nuestra plataforma, conectamos empresas con clientes y facilitamos la gestión eficiente de pedidos. Ofrecemos herramientas tecnológicas que optimizan el proceso de entrega, permitiendo que negocios de cualquier tamaño compitan y crezcan ofreciendo un servicio de calidad. Con cada pedido, fortaleces tu relación con los clientes y haces crecer tu empresa de manera sostenible.
-        </p>
-      </div>
+        <div className="md:px-10 md:flex lg:flex-col md:justify-center w-4/5 m-auto mt-16 lg:mb-16">
+          <h2 className="text-[#3C3C3C] lg:text-[75px] text-[48px] font-oleo text-center">
+            Nuestra Propuesta de Valor
+          </h2>
+          <p className="lg:text-[25px] text-[20px] text-[#3C3C3C] py-4 font-poppins lg:text-justify text-center">
+            Con nuestra plataforma, conectamos empresas con clientes y
+            facilitamos la gestión eficiente de pedidos. Ofrecemos herramientas
+            tecnológicas que optimizan el proceso de entrega, permitiendo que
+            negocios de cualquier tamaño compitan y crezcan ofreciendo un
+            servicio de calidad. Con cada pedido, fortaleces tu relación con los
+            clientes y haces crecer tu empresa de manera sostenible.
+          </p>
+        </div>
       </div>
       <Footer></Footer>
     </main>
