@@ -39,8 +39,10 @@ const CompanyDetails = () => {
     fetchOtherCompanies();
   }, [id]);
 
-  if (!company) return <div>
-    <div>
+  if (!company)
+    return (
+      <div>
+        <div>
           <div className="w-full absolute py-8 text-center">
             <h2 className=" text-[2rem] text-[#00A082]">Loading</h2>
             <svg
@@ -61,7 +63,8 @@ const CompanyDetails = () => {
             </svg>
           </div>
         </div>
-  </div>;
+      </div>
+    );
 
   const filteredCompanies = otherCompanies.filter(
     (otherCompany) => otherCompany.id !== id
@@ -123,12 +126,12 @@ const CompanyDetails = () => {
         <h1 className="text-4xl font-oleo mb-5 flex justify-center">
           Más aliados
         </h1>
-        <div className="grid grid-cols-1 lg:grid-cols-2 md:grid-cols-2 gap-10 p-6 mb-7">
+        <div className="grid grid-cols-1 lg:grid-cols-2 md:grid-cols-2 gap-10 p-6 mb-7 text-center">
           {filteredCompanies.length > 0 ? (
             filteredCompanies.map((otherCompany) => (
               <div
                 key={otherCompany.id}
-                className="bg-bg-gray shadow-lg flex lg:flex-row flex-col max-w-xl mx-auto items-center p-4 transform transition-transform duration-300 hover:scale-105 w-full rounded-2xl "
+                className="bg-bg-gray shadow-lg flex lg:flex-row flex-col max-w-xl mx-auto items-center p-4 transform transition-transform duration-300 hover:scale-105 w-full rounded-2xl pt-10"
               >
                 <img
                   src={otherCompany.photoUrl}
