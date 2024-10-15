@@ -37,7 +37,7 @@ const Search = () => {
   return (
     <main className="flex flex-col min-h-screen lg:w-full ">
       <Header />
-      <div className="w-4/5 m-auto">
+      <div className="lg:w-full w-4/5 m-auto">
         <div className="flex items-center justify-center">
           <img
             className="w-full lg:max-w-[35%] h-auto m-4 mt-7"
@@ -52,8 +52,8 @@ const Search = () => {
         <div className="container mx-auto p-4">
           <CompanyGrid companies={filteredCompanies} />
         </div>
-        <Footer />
       </div>
+      <Footer />
     </main>
   );
 };
