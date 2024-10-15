@@ -1,7 +1,12 @@
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleClickHome = () => {
+    navigate("/");
+  };
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -52,7 +57,7 @@ const SideBar = () => {
         } lg:translate-x-0 lg:w-[120px] lg:h-[100vh] lg:border-r-2`}
         onClick={toggleMenu}
       >
-        <div className="flex flex-col h-full p-4 justify-between lg:p-2 ">
+        <div className="flex flex-col h-full p-4 justify-between lg:p-2 items-center">
           <div className="flex items-center mb-10 lg:mt-0 mt-10">
             <img
               className="w-[80px] h-[80px] mb-2"
@@ -60,9 +65,12 @@ const SideBar = () => {
               alt="Attendy"
             />
             {isOpen && (
-              <span className="font-bold font-poppins text-white ml-2 text-3xl">
+              <button
+                className="font-bold font-poppins text-white ml-2 text-3xl"
+                onClick={handleClickHome}
+              >
                 Attendy
-              </span>
+              </button>
             )}
           </div>
 
@@ -73,7 +81,7 @@ const SideBar = () => {
               alt="Cuenta"
             />
             {isOpen && (
-              <span className="font-poppins text-white ml-2 text-lg">
+              <span className="font-poppins text-white ml-2 text-3xl">
                 Cuenta
               </span>
             )}

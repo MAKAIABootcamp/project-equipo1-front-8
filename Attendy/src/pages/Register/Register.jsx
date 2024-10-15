@@ -77,7 +77,7 @@ const Register = () => {
     }
   }, [isRegistered, isAuthenticated, isCompany, user, navigate, dispatch]);
   return (
-    <main className="flex lg:flex-row flex-col  items-center overflow-y-auto">
+    <main className="flex lg:flex-row flex-col items-center overflow-y-auto">
       <div className="flex flex-col justify-center items-center lg:w-1/2 w-[40%]">
         <img className="w-[650px]" src="/icons/logo.svg" alt="Logo" />
         <h1 className="lg:flex justify-center text-[70px] text-[#00A082] font-oleo hidden">
@@ -180,7 +180,7 @@ const Register = () => {
               {!isCompany && (
                 <>
                   <div className="flex flex-col items-center gap-10 mb-10 mt-5">
-                    <div className="flex flex-col">
+                    <div className="flex flex-col items-center">
                       <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
                         <Field
                           type="text"
@@ -190,9 +190,13 @@ const Register = () => {
                           className="lg:w-[27rem] w-[20rem]"
                         />
                       </div>
-                      <ErrorMessage name="name" />
+                      <ErrorMessage
+                        name="name"
+                        component="div"
+                        className="text-red-500 text-sm"
+                      />
                     </div>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col items-center">
                       <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
                         <Field
                           type="email"
@@ -202,10 +206,14 @@ const Register = () => {
                           className="lg:w-[27rem] w-[20rem]"
                         />
                       </div>
-                      <ErrorMessage name="email" />
+                      <ErrorMessage
+                        name="email"
+                        component="div"
+                        className="text-red-500 text-sm"
+                      />
                     </div>
 
-                    <div className="flex flex-col">
+                    <div className="flex flex-col items-center">
                       <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
                         <Field
                           name="password"
@@ -215,10 +223,14 @@ const Register = () => {
                           className="lg:w-[27rem] w-[20rem]"
                         />
                       </div>
-                      <ErrorMessage name="password" />
+                      <ErrorMessage
+                        name="password"
+                        component="div"
+                        className="text-red-500 text-sm"
+                      />
                     </div>
 
-                    <div className="flex flex-col">
+                    <div className="flex flex-col items-center">
                       <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
                         <Field
                           name="repeatPassword"
@@ -228,15 +240,19 @@ const Register = () => {
                           className="lg:w-[27rem] w-[20rem]"
                         />
                       </div>
-                      <ErrorMessage name="repeatPassword" />
+                      <ErrorMessage
+                        name="repeatPassword"
+                        component="div"
+                        className="text-red-500 text-sm"
+                      />
                     </div>
                   </div>
                 </>
               )}
               {isCompany && (
                 <>
-                  <div className="flex flex-col lg:items-start items-start gap-10 mb-10 mt-5">
-                    <div className="flex flex-col">
+                  <div className="flex flex-col items-start gap-10 mb-10 mt-5">
+                    <div className="flex flex-col items-center">
                       <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
                         <Field
                           type="text"
@@ -246,10 +262,14 @@ const Register = () => {
                           className="lg:w-[450px] w-[20rem]"
                         />
                       </div>
-                      <ErrorMessage name="name" />
+                      <ErrorMessage
+                        name="name"
+                        component="div"
+                        className="text-red-500 text-sm"
+                      />
                     </div>
                     <div className="flex w-5">
-                      <div className="flex flex-col">
+                      <div className="flex flex-col items-center">
                         <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mr-2 lg:w-[238px] w-[170px] mb-2">
                           <Field
                             type="text"
@@ -260,9 +280,13 @@ const Register = () => {
                             className="lg:w-[212px] w-[150px]"
                           />
                         </div>
-                        <ErrorMessage name="nit" />
+                        <ErrorMessage
+                          name="nit"
+                          component="div"
+                          className="text-red-500 text-sm"
+                        />
                       </div>
-                      <div className="flex flex-col">
+                      <div className="flex flex-col items-center">
                         <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 lg:w-[238px] w-[175px] mb-2">
                           <Field
                             type="text"
@@ -273,11 +297,15 @@ const Register = () => {
                             className="lg:w-[212px] w-[150px]"
                           />
                         </div>
-                        <ErrorMessage name="address" />
+                        <ErrorMessage
+                          name="address"
+                          component="div"
+                          className="text-red-500 text-sm"
+                        />
                       </div>
                     </div>
 
-                    <div className="flex flex-col">
+                    <div className="flex flex-col items-center">
                       <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
                         <Field
                           type="text"
@@ -288,10 +316,14 @@ const Register = () => {
                           className="lg:w-[450px] w-[20rem]"
                         />
                       </div>
-                      <ErrorMessage name="titular" />
+                      <ErrorMessage
+                        name="titular"
+                        component="div"
+                        className="text-red-500 text-sm"
+                      />
                     </div>
 
-                    <div className="flex flex-col">
+                    <div className="flex flex-col items-center">
                       <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
                         <Field
                           type="email"
@@ -302,10 +334,14 @@ const Register = () => {
                           className="lg:w-[450px] w-[20rem]"
                         />
                       </div>
-                      <ErrorMessage name="email" />
+                      <ErrorMessage
+                        name="email"
+                        component="div"
+                        className="text-red-500 text-sm"
+                      />
                     </div>
 
-                    <div className="flex flex-col">
+                    <div className="flex flex-col items-center">
                       <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
                         <Field
                           name="description"
@@ -315,10 +351,14 @@ const Register = () => {
                           className="lg:w-[450px] w-[20rem]"
                         />
                       </div>
-                      <ErrorMessage name="repeatPassword" />
+                      <ErrorMessage
+                        name="description"
+                        component="div"
+                        className="text-red-500 text-sm"
+                      />
                     </div>
 
-                    <div className="flex flex-col">
+                    <div className="flex flex-col items-center">
                       <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
                         <Field
                           name="password"
@@ -328,10 +368,14 @@ const Register = () => {
                           className="lg:w-[450px] w-[20rem]"
                         />
                       </div>
-                      <ErrorMessage name="password" />
+                      <ErrorMessage
+                        name="password"
+                        component="div"
+                        className="text-red-500 text-sm mt-1"
+                      />
                     </div>
 
-                    <div className="flex flex-col">
+                    <div className="flex flex-col items-center">
                       <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
                         <Field
                           name="repeatPassword"
@@ -341,10 +385,14 @@ const Register = () => {
                           className="lg:w-[450px] w-[20rem]"
                         />
                       </div>
-                      <ErrorMessage name="repeatPassword" />
+                      <ErrorMessage
+                        name="repeatPassword"
+                        component="div"
+                        className="text-red-500 text-sm mt-1"
+                      />
                     </div>
 
-                    <div className="flex flex-col">
+                    <div className="flex flex-col items-center">
                       <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
                         <input
                           className="lg:w-[450px] w-[20rem]"
@@ -359,7 +407,11 @@ const Register = () => {
                           }}
                         />
                       </div>
-                      <ErrorMessage name="photo" />
+                      <ErrorMessage
+                        name="photo"
+                        component="div"
+                        className="text-red-500 text-sm"
+                      />
                     </div>
                   </div>
                 </>

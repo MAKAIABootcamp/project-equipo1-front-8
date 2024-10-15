@@ -69,8 +69,11 @@ const DeliveryForm = () => {
         >
           {({ isSubmitting }) => (
             <Form className="w-full lg:max-w-[63%]">
-              <div className="flex flex-col mb-4">
-                <div className="border-[1px] border-[#00A082] py-2 px-4 mb-2">
+              <div className="flex flex-col mb-4 ">
+                <label className="ml-2 mb-2 font-bold font-poppins text-[#00A082] lg:text-start text-center">
+                  Ingresa la dirección de destino
+                </label>
+                <div className="border-[1px] border-[#00A082] py-2 px-4 mb-2 rounded-[30px]">
                   <Field
                     type="text"
                     name="Address"
@@ -86,7 +89,10 @@ const DeliveryForm = () => {
                 />
               </div>
               <div className="flex flex-col mb-4">
-                <div className="border-[1px] border-[#00A082] py-2 px-4 mb-2">
+                <label className="ml-2 mb-2 font-bold font-poppins text-[#00A082] lg:text-start text-center">
+                  Ingresa numero de contacto
+                </label>
+                <div className="border-[1px] border-[#00A082] py-2 px-4 mb-2 rounded-[30px]">
                   <Field
                     type="number"
                     name="PhoneNumber"
@@ -102,7 +108,10 @@ const DeliveryForm = () => {
                 />
               </div>
               <div className="flex flex-col mb-4">
-                <div className="border-[1px] border-[#00A082] py-2 px-4 mb-2">
+                <label className="ml-2 mb-2 font-bold font-poppins text-[#00A082] lg:text-start text-center">
+                  Ingresa la descripcion del pedido
+                </label>
+                <div className="border-[1px] border-[#00A082] py-2 px-4 mb-2 rounded-[30px]">
                   <Field
                     as="textarea"
                     name="Description"
@@ -117,7 +126,7 @@ const DeliveryForm = () => {
                   className="text-red-500"
                 />
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between mt-7">
                 <div>
                   <button
                     type="submit"

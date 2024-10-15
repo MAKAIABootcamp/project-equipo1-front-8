@@ -81,36 +81,38 @@ const Login = () => {
         >
           {({ isSubmitting }) => (
             <Form className="flex flex-col lg:items-start items-center gap-10 mb-10 mt-5 lg:w-[60%] lg:m-0">
-              <div className="border-[1px] rounded-[30px] bg-white border-gray-500 py-2 lg:px-4 px-3 lg:mx-20 lg:w-[27rem] w-[360px]">
-                <Field
-                  type="email"
+              <div className="flex flex-col items-center">
+                <div className="border-[1px] rounded-[30px] bg-white border-gray-500 py-2 lg:px-4 px-3 lg:mx-20 lg:w-[27rem] w-[360px] mb-3">
+                  <Field
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="Ingrese su correo electronico"
+                    className="lg:w-56 w-[300px]"
+                  />
+                </div>
+                <ErrorMessage
                   name="email"
-                  id="email"
-                  placeholder="Ingrese su correo electronico"
-                  className="lg:w-56 w-[300px]"
+                  component="div"
+                  className="text-red-500 text-sm"
                 />
               </div>
-              <ErrorMessage
-                name="email"
-                component="div"
-                className="text-red-500 text-sm mt-1"
-              />
-
-              <div className="border-[1px] rounded-[30px] bg-white border-gray-500 py-2 lg:px-4 px-3 lg:mx-20 lg:w-[27rem] w-[360px]">
-                <Field
-                  type="password"
+              <div className="flex flex-col items-center">
+                <div className="border-[1px] rounded-[30px] bg-white border-gray-500 py-2 lg:px-4 px-3 lg:mx-20 lg:w-[27rem] w-[360px] mb-3">
+                  <Field
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="Ingrese su contraseña"
+                    className="lg:w-56 w-[300px]"
+                  />
+                </div>
+                <ErrorMessage
                   name="password"
-                  id="password"
-                  placeholder="Ingrese su contraseña"
-                  className="lg:w-56 w-[300px]"
+                  component="div"
+                  className="text-red-500 text-sm mt-1"
                 />
               </div>
-              <ErrorMessage
-                name="password"
-                component="div"
-                className="text-red-500 text-sm mt-1"
-              />
-
               <button
                 type="submit"
                 disabled={isSubmitting}
