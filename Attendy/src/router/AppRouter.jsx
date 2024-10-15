@@ -15,7 +15,7 @@ import { auth } from "../Firebase/firebaseConfig";
 import { useDispatch, useSelector } from "react-redux";
 import { restoreActiveSessionThunk } from "../redux/auth/authSlice";
 import CompanyDetails from "../pages/CompanyDetails/CompanyDetails";
-
+import Geolocalizacion from "../components/Geolocalizacion";
 const AppRouter = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((store) => store.auth);
@@ -63,27 +63,26 @@ const AppRouter = () => {
       </div>
     );
 
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="/login" element={<Login />} />
-          <Route index element={<Home />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/deliveryForm" element={<DeliveryForm />} />
-          <Route path="register" element={<Register />} />
-          <Route path="search" element={<Search />} />
-          <Route path="/admin" element={<AdminPanel />} />
-          <Route path="/orders" element={<Orders />} />
-          <Route path="/ordersPending" element={<OrdersPending />} />
-          <Route path="*" element={<Navigate to="/" />} />
-          <Route path="search" element={<Search />} />
-          <Route path="*" element={<Navigate to={"/"} />} />
-          <Route path="/companydetails/:id" element={<CompanyDetails />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
-};
+    return (
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route path="/login" element={<Login />} />
+            <Route index element={<Home />} />
+            <Route path="/geolocalizacion" element={<Geolocalizacion />} /> 
+            <Route path="/services" element={<Services />} />
+            <Route path="/deliveryForm" element={<DeliveryForm />} />
+            <Route path="register" element={<Register />} />
+            <Route path="search" element={<Search />} />
+            <Route path="/admin" element={<AdminPanel />} />
+            <Route path="/orders" element={<Orders />} />
+            <Route path="/ordersPending" element={<OrdersPending />} />
+            <Route path="*" element={<Navigate to="/" />} />
+            <Route path="/companydetails/:id" element={<CompanyDetails />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    );
+  };
 
 export default AppRouter;
