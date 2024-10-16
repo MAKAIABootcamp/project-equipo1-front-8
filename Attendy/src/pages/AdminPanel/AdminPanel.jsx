@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
+import { writeBatch } from "firebase/firestore";
 import { useSelector } from "react-redux";
 import {
   collection,
+  getDoc,
   getDocs,
   query,
   where,
   doc,
   deleteDoc,
   updateDoc,
+  addDoc,
 } from "firebase/firestore";
 import { database } from "../../Firebase/firebaseConfig";
 import SideBar from "../../components/SideBar";
@@ -16,6 +19,8 @@ const AdminPanel = () => {
   const { user } = useSelector((store) => store.auth);
   const [isOpen, setIsOpen] = useState(false);
   const [orders, setOrders] = useState([]);
+  const [completedOrders, setCompletedOrders] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const fetchPendingOrders = async () => {
@@ -51,8 +56,21 @@ const AdminPanel = () => {
   const handleChangeStatus = async (orderId, newStatus) => {
     const orderRef = doc(database, `companies/${user.id}/orders`, orderId);
     try {
+      const orderSnapshot = await getDoc(orderRef);
+      const orderData = orderSnapshot.data();
+
       if (newStatus === "Entregado") {
+        const completedOrdersRef = collection(
+          database,
+          `companies/${user.id}/completedOrders`
+        );
+        await addDoc(completedOrdersRef, {
+          ...orderData,
+          completedAt: new Date(),
+        });
+
         await deleteDoc(orderRef);
+
         setOrders((prevOrders) =>
           prevOrders.filter((order) => order.id !== orderId)
         );
@@ -69,8 +87,50 @@ const AdminPanel = () => {
     }
   };
 
+  const fetchCompletedOrders = async () => {
+    if (!user) return;
+
+    try {
+      const completedOrdersArray = [];
+      const completedOrdersRef = collection(
+        database,
+        `companies/${user.id}/completedOrders`
+      );
+      const completedOrdersSnapshot = await getDocs(completedOrdersRef);
+      completedOrdersSnapshot.forEach((doc) => {
+        completedOrdersArray.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+
+      setCompletedOrders(completedOrdersArray);
+    } catch (error) {
+      console.error("Error al obtener las órdenes completadas:", error);
+    }
+  };
+
+  const handleClearHistory = async () => {
+    try {
+      const completedOrdersRef = collection(
+        database,
+        `companies/${user.id}/completedOrders`
+      );
+      const completedOrdersSnapshot = await getDocs(completedOrdersRef);
+      const batch = writeBatch(database);
+      completedOrdersSnapshot.forEach((doc) => {
+        batch.delete(doc.ref);
+      });
+
+      await batch.commit();
+      setCompletedOrders([]);
+    } catch (err) {
+      console.error("Error al limpiar el historial de órdenes:", err);
+    }
+  };
+
   return (
-    <div className="flex">
+    <div className="flex flex-col">
       <SideBar isOpen={isOpen} toggleMenu={() => setIsOpen(!isOpen)} />
       <div className="flex-grow flex flex-col">
         <div className="bg-[#E1E1E1] lg:h-20 h-[70px] lg:p-6 p-6 flex justify-between items-center w-full">
@@ -90,6 +150,69 @@ const AdminPanel = () => {
             </span>
           </button>
         </div>
+        <div className="flex justify-start w-[73%] m-auto mt-5">
+          <button
+            onClick={() => {
+              setShowModal(true);
+              fetchCompletedOrders();
+            }}
+            className="bg-[#00A082] text-white rounded-[30px] px-5 py-2"
+          >
+            Ver historial de órdenes
+          </button>
+
+          {showModal && (
+            <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center font-poppins">
+              <div className="bg-white p-8 rounded-lg w-[23%] max-h-[80vh] relative">
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="absolute top-2 right-4 text-[#00A082] text-3xl focus:outline-none"
+                >
+                  &times;
+                </button>
+
+                <h2 className="text-[25px] text-[#00A082] mb-4 text-center">
+                  Historial de Órdenes Completadas
+                </h2>
+
+                <div className="overflow-y-auto max-h-[60vh] mb-10 scrollable">
+                  {completedOrders.length > 0 ? (
+                    completedOrders.map((order) => (
+                      <div
+                        key={order.id}
+                        className="bg-gray-100 p-4 mb-5 rounded-lg"
+                      >
+                        <h3 className="font-bold">{order.name}</h3>
+                        <p>
+                          Fecha:{" "}
+                          {order.completedAt
+                            ? order.completedAt.toDate().toLocaleDateString()
+                            : "N/A"}
+                        </p>
+                        <p className="truncate">
+                          Descripción: {order.description || "Sin descripción"}
+                        </p>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-center mt-5">
+                      No hay órdenes completadas.
+                    </p>
+                  )}
+                </div>
+                <div className="absolute bottom-4 right-4">
+                  <button
+                    onClick={handleClearHistory}
+                    className=" text-[#00A082] rounded-lg py-2 w-[150px]"
+                  >
+                    Limpiar historial
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
         <div className="flex flex-col lg:ml-64 lg:mr-28 mt-10 w-4/5 m-auto gap-10">
           {orders.length > 0 ? (
             orders.map((order) => (
