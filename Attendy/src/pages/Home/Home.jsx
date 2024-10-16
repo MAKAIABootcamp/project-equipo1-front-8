@@ -1,25 +1,19 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { fetchGeolocation } from "../../redux/geolocation/geolocationSlice";
-import Geolocalizacion from "../../components/Geolocalizacion"; 
+import React, { useEffect } from "react"; 
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const handleClicklogin = () => {
     navigate("/Login");
   };
-  useEffect(() => {
-    dispatch(fetchGeolocation());
-  }, [dispatch]);
 
   return (
     <main>
       <Header></Header>
-      <Geolocalizacion />
+    
       <div className="mb-10 flex items-center lg:justify-start justify-center">
         <button
           className="bg-[#00A082] text-white text-center hover:text-black absolute p-4 rounded-2xl mt-[150px] max-md:ml-60 lg:ml-40 z-10 lg:px-10 lg:text-2xl text-[20px] lg:w-[14rem] w-[30%] font-oleo"
