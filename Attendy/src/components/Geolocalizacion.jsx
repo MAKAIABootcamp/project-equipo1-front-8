@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";  
+import 'react-toastify/dist/ReactToastify.css'; 
 
 const Geolocalizacion = () => {
-  const [ubicacion, setUbicacion] = useState(null);
-  const [error, setError] = useState(null);
-
   const API_KEY = "AIzaSyD2EwFdFxAVgJsMEtHrDjM19fGSkdRlPkg";
 
   useEffect(() => {
@@ -15,48 +14,33 @@ const Geolocalizacion = () => {
             const latitud = position.coords.latitude;
             const longitud = position.coords.longitude;
 
-            const response = await axios.get(
-              `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitud},${longitud}&key=${API_KEY}`
-            );
-            if (response.data.results.length > 0) {
-              const datosUbicacion =
-                response.data.results[0].address_components;
-              setUbicacion(datosUbicacion);
-            } else {
-              setError("No se pudo obtener la dirección");
+            try {
+              const response = await axios.get(
+                `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitud},${longitud}&key=${API_KEY}`
+              );
+
+              if (response.data.results.length > 0) {
+                toast.success("Ubicación obtenida correctamente", {
+                  autoClose: 1000,
+                });
+              }
+            } catch (error) {
+              console.error("Error al obtener la ubicación desde la API de Google:", error);
             }
           },
           (error) => {
-            setError("Error al obtener la ubicación: " + error.message);
+            console.error("Error al obtener la ubicación:", error.message);
           }
         );
       } else {
-        setError("La geolocalización no está soportada en este navegador.");
+        console.error("La geolocalización no está soportada en este navegador.");
       }
     };
 
     obtenerUbicacion();
   }, []);
 
-  return (
-    <div>
-      {error && <p>{error}</p>}
-      {ubicacion ? (
-        <div>
-          <h3>Ubicación:</h3>
-          <ul>
-            {ubicacion.map((componente, index) => (
-              <li key={index}>
-                {componente.long_name} ({componente.types.join(", ")})
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : (
-        <p>Obteniendo ubicación...</p>
-      )}
-    </div>
-  );
+  return null; 
 };
 
 export default Geolocalizacion;

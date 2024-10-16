@@ -2,15 +2,18 @@ import { useState, useEffect } from "react";
 import SearchBar from "../../components/SearchBar";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { database } from "../../Firebase/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import CompanyGrid from "../../components/CompanyGrid";
+import Geolocalizacion from "../../components/Geolocalizacion";
+import { ToastContainer } from "react-toastify";  
 
 const Search = () => {
   const [companies, setCompanies] = useState([]);
   const [filteredCompanies, setFilteredCompanies] = useState([]);
   const query = useSelector((state) => state.search.query);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchCompanies = async () => {
@@ -35,8 +38,9 @@ const Search = () => {
   }, [query, companies]);
 
   return (
-    <main className="flex flex-col min-h-screen lg:w-full ">
+    <main className="flex flex-col min-h-screen lg:w-full">
       <Header />
+      <Geolocalizacion />  
       <div className="lg:w-full w-4/5 m-auto">
         <div className="flex items-center justify-center">
           <img
@@ -54,6 +58,7 @@ const Search = () => {
         </div>
       </div>
       <Footer />
+      <ToastContainer />  
     </main>
   );
 };
