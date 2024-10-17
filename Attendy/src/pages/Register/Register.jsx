@@ -120,6 +120,7 @@ const Register = () => {
                   nit: "",
                   address: "",
                   city: "",
+                  department: "",
                   titular: "",
                   email: "",
                   description: "",
@@ -158,6 +159,7 @@ const Register = () => {
                     nit: values.nit,
                     address: values.address,
                     city: values.city,
+                    department: values.department,
                     description: values.description,
                     titular: values.titular,
                     photo: profileImage || "",
@@ -308,22 +310,41 @@ const Register = () => {
                       </div>
                     </div>
 
-                    <div className="flex flex-col items-center">
-                      <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
-                        <Field
-                          type="text"
+                    <div className="flex w-5">
+                      <div className="flex flex-col items-center">
+                        <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mr-2 lg:w-[238px] w-[170px] mb-2">
+                          <Field
+                            type="text"
+                            name="city"
+                            id="city"
+                            value={values.city || ""}
+                            placeholder="Ciudad"
+                            className="lg:w-[212px] w-[150px]"
+                          />
+                        </div>
+                        <ErrorMessage
                           name="city"
-                          id="city"
-                          value={values.city || ""}
-                          placeholder="Ciudad"
-                          className="lg:w-[450px] w-[20rem]"
+                          component="div"
+                          className="text-red-500 text-sm"
                         />
                       </div>
-                      <ErrorMessage
-                        name="city"
-                        component="div"
-                        className="text-red-500 text-sm"
-                      />
+                      <div className="flex flex-col items-center">
+                        <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 lg:w-[238px] w-[175px] mb-2">
+                          <Field
+                            type="text"
+                            name="department"
+                            id="department"
+                            value={values.department || ""}
+                            placeholder="Departamento"
+                            className="lg:w-[212px] w-[150px]"
+                          />
+                        </div>
+                        <ErrorMessage
+                          name="department"
+                          component="div"
+                          className="text-red-500 text-sm"
+                        />
+                      </div>
                     </div>
                     <div className="flex flex-col items-center">
                       <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
