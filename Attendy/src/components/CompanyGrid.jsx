@@ -11,7 +11,7 @@ const CompanyGrid = ({ companies }) => {
           <img
             src={company.photoUrl}
             alt={company.name}
-            className="w-40 h-40 object-cover lg:ml-2 lg:mr-10 rounded-2xl mt-3"
+            className="w-40 h-40 object-cover lg:ml-2 lg:mr-10 rounded-2xl"
           />
           <div className="p-4 item flex flex-col">
             <h2 className="text-[30px] text-center lg:text-start font-oleo">

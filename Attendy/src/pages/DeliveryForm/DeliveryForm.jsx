@@ -1,5 +1,6 @@
 import SideBar from "../../components/SideBar";
 import { createOrder } from "../../services/FirestoreService";
+import { v4 as uuidv4 } from "uuid";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import * as Yup from "yup";
@@ -51,7 +52,9 @@ const DeliveryForm = () => {
           validationSchema={validationSchema}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             try {
+              const orderId = uuidv4();
               await createOrder(companyId, {
+                id: orderId,
                 name: userName,
                 address: values.Address,
                 phoneNumber: values.PhoneNumber,
