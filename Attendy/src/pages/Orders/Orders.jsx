@@ -68,7 +68,7 @@ const Orders = () => {
             </span>
           </button>
         </div>
-        <div className="flex flex-col lg:ml-64 lg:mr-28 mt-10 w-4/5 m-auto gap-10">
+        <div className="flex flex-col lg:ml-64 lg:mr-28 mt-10 w-4/5 m-auto gap-10 font-poppins">
           <div className="flex justify-between items-center mb-2">
             <h3 className="text-lg font-medium">Pedidos:</h3>
           </div>
@@ -79,13 +79,26 @@ const Orders = () => {
                 className="bg-white rounded-lg shadow-md p-4 mb-4"
               >
                 <div className="flex justify-between items-center mb-2">
-                  <p className="text-gray-700">
-                    Estado: {order.status || "Sin estado"}
+                  <p>
+                    <span className="text-[#00A082] font-semibold">
+                      Estado:
+                    </span>{" "}
+                    {order.status || "Sin estado"}
                   </p>
                 </div>
                 <div className="flex justify-between items-center mb-2">
                   <p className="text-gray-700">
-                    Fecha:{" "}
+                    <span className="text-[#00A082] font-semibold">
+                      Servicio solictado a:{" "}
+                    </span>
+                    {order.companyName || "Sin empresa asociada"}
+                  </p>
+                </div>
+                <div className="flex justify-between items-center mb-2">
+                  <p className="text-gray-700">
+                    <span className="text-[#00A082] font-semibold">
+                      Fecha:{" "}
+                    </span>
                     {order.createdAt
                       ? order.createdAt.toDate().toLocaleDateString()
                       : "Fecha no disponible"}
@@ -93,17 +106,26 @@ const Orders = () => {
                 </div>
                 <div className="flex justify-between items-center mb-2">
                   <p className="text-gray-700">
-                    Dirección: {order.address || "Sin dirección"}
+                    <span className="text-[#00A082] font-semibold">
+                      Dirección:
+                    </span>{" "}
+                    {order.address || "Sin dirección"}
                   </p>
                 </div>
                 <div className="flex justify-between items-center mb-2">
                   <p className="text-gray-700">
-                    Celular: {order.phoneNumber || "Sin número"}
+                    <span className="text-[#00A082] font-semibold">
+                      Celular:
+                    </span>{" "}
+                    {order.phoneNumber || "Sin número"}
                   </p>
                 </div>
                 <div className="flex justify-between items-center mb-2">
                   <p className="text-gray-700">
-                    Descripción: {order.description || "Sin descripción"}
+                    <span className="text-[#00A082] font-semibold">
+                      Descripción:
+                    </span>{" "}
+                    {order.description || "Sin descripción"}
                   </p>
                 </div>
               </div>
