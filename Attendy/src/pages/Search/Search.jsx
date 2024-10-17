@@ -52,7 +52,7 @@ const Search = () => {
           Nuestros aliados
         </h1>
         <SearchBar />
-        <div className="container mx-auto p-4">
+        <div className="container lg:w-[70%] mx-auto p-4">
           <CompanyGrid companies={filteredCompanies} />
         </div>
       </div>
