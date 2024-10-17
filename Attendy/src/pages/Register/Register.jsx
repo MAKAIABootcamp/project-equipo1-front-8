@@ -32,6 +32,7 @@ const validationSchemaEmpresa = Yup.object().shape({
     .length(9, "El NIT debe ser 9 digitos")
     .required("El NIT es obligatorio"),
   address: Yup.string().required("La direccion de la empresa es obligatorio"),
+  city: Yup.string().required("La ciudad es obligatorio"),
   titular: Yup.string().required("El nombre del titular es obligatorio"),
   email: Yup.string()
     .email("Ingrese un correo electronico válido")
@@ -118,6 +119,7 @@ const Register = () => {
                   name: "",
                   nit: "",
                   address: "",
+                  city: "",
                   titular: "",
                   email: "",
                   description: "",
@@ -155,6 +157,7 @@ const Register = () => {
                     name: values.name,
                     nit: values.nit,
                     address: values.address,
+                    city: values.city,
                     description: values.description,
                     titular: values.titular,
                     photo: profileImage || "",
@@ -309,6 +312,23 @@ const Register = () => {
                       <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
                         <Field
                           type="text"
+                          name="city"
+                          id="city"
+                          value={values.city || ""}
+                          placeholder="Ciudad"
+                          className="lg:w-[450px] w-[20rem]"
+                        />
+                      </div>
+                      <ErrorMessage
+                        name="city"
+                        component="div"
+                        className="text-red-500 text-sm"
+                      />
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
+                        <Field
+                          type="text"
                           name="titular"
                           id="titular"
                           value={values.titular || ""}
@@ -358,38 +378,40 @@ const Register = () => {
                       />
                     </div>
 
-                    <div className="flex flex-col items-center">
-                      <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
-                        <Field
+                    <div className="flex w-5">
+                      <div className="flex flex-col items-center">
+                        <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mr-2 lg:w-[238px] w-[170px] mb-2">
+                          <Field
+                            name="password"
+                            id="password"
+                            type="password"
+                            placeholder="Contraseña"
+                            className="lg:w-[212px] w-[150px]"
+                          />
+                        </div>
+                        <ErrorMessage
                           name="password"
-                          id="password"
-                          type="password"
-                          placeholder="Contraseña"
-                          className="lg:w-[450px] w-[20rem]"
+                          component="div"
+                          className="text-red-500 text-sm mt-1"
                         />
                       </div>
-                      <ErrorMessage
-                        name="password"
-                        component="div"
-                        className="text-red-500 text-sm mt-1"
-                      />
-                    </div>
 
-                    <div className="flex flex-col items-center">
-                      <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mb-2">
-                        <Field
+                      <div className="flex flex-col items-center">
+                        <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 lg:w-[238px] w-[175px] mb-2">
+                          <Field
+                            name="repeatPassword"
+                            id="repeatPassword"
+                            type="password"
+                            placeholder="Repetir contraseña"
+                            className="lg:w-[212px] w-[150px]"
+                          />
+                        </div>
+                        <ErrorMessage
                           name="repeatPassword"
-                          id="repeatPassword"
-                          type="password"
-                          placeholder="Repetir contraseña"
-                          className="lg:w-[450px] w-[20rem]"
+                          component="div"
+                          className="text-red-500 text-sm mt-1"
                         />
                       </div>
-                      <ErrorMessage
-                        name="repeatPassword"
-                        component="div"
-                        className="text-red-500 text-sm mt-1"
-                      />
                     </div>
 
                     <div className="flex flex-col items-center">
