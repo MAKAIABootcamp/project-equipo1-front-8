@@ -33,6 +33,7 @@ const validationSchemaEmpresa = Yup.object().shape({
     .required("El NIT es obligatorio"),
   address: Yup.string().required("La direccion de la empresa es obligatorio"),
   city: Yup.string().required("La ciudad es obligatorio"),
+  department: Yup.string().required("La ciudad es obligatorio"),
   titular: Yup.string().required("El nombre del titular es obligatorio"),
   email: Yup.string()
     .email("Ingrese un correo electronico válido")
