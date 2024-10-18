@@ -78,10 +78,19 @@ const Register = () => {
       }
     }
   }, [isRegistered, isAuthenticated, isCompany, user, navigate, dispatch]);
+
+  const handleClickHome = () => {
+    navigate("/");
+  };
   return (
     <main className="flex lg:flex-row flex-col items-center overflow-y-auto">
       <div className="flex flex-col justify-center items-center lg:w-1/2 w-[40%]">
-        <img className="w-[650px]" src="/icons/logo.svg" alt="Logo" />
+        <img
+          className="w-[650px] cursor-pointer"
+          src="/icons/logo.svg"
+          alt="Logo"
+          onClick={handleClickHome}
+        />
         <h1 className="lg:flex justify-center text-[70px] text-[#00A082] font-oleo hidden">
           Attendy
         </h1>

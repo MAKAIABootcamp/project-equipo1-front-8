@@ -36,7 +36,10 @@ const Header = () => {
   return (
     <div className="bg-[#E1E1E1] p-3">
       <div className="flex justify-between w-[95%] m-auto">
-        <div className="flex items-center" onClick={handleClickHome}>
+        <div
+          className="flex items-center cursor-pointer"
+          onClick={handleClickHome}
+        >
           <img className="w-[40px]" src="/icons/logo.svg" alt="Logo" />
           <p className="text-[#00A082] font-poppins text-2xl">Attendy</p>
         </div>

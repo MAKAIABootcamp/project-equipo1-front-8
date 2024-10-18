@@ -36,6 +36,10 @@ const Login = () => {
     dispatch(googleLoginThunk({ isCompany: false }));
   };
 
+  const handleClickHome = () => {
+    navigate("/");
+  };
+
   if (error) {
     Swal.fire({
       title: "Oops!",
@@ -46,11 +50,12 @@ const Login = () => {
 
   return (
     <main className="lg:flex h-screen flex lg:flex-row flex-col items-center lg:bg-white overflow-y-auto">
-      <div className="flex flex-col justify-center items-center lg:w-1/2 lg:h-full lg:bg-[#00A082]">
+      <div className="flex flex-col justify-center items-center lg:w-1/2 lg:h-full lg:bg-[#00A082] ">
         <img
-          className="hidden lg:block lg:w-[650px] w-[40%]"
+          className="hidden lg:block lg:w-[650px] w-[40%] cursor-pointer"
           src="/icons/logoblanco.svg"
           alt="Logo"
+          onClick={handleClickHome}
         />
 
         <img
@@ -88,7 +93,7 @@ const Login = () => {
                     name="email"
                     id="email"
                     placeholder="Ingrese su correo electronico"
-                    className="lg:w-56 w-[300px]"
+                    className="lg:w-full w-[300px]"
                   />
                 </div>
                 <ErrorMessage
@@ -104,7 +109,7 @@ const Login = () => {
                     name="password"
                     id="password"
                     placeholder="Ingrese su contraseña"
-                    className="lg:w-56 w-[300px]"
+                    className="lg:w-full w-[300px]"
                   />
                 </div>
                 <ErrorMessage
