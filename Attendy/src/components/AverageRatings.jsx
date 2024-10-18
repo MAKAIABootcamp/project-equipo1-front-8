@@ -1,70 +1,52 @@
-import React, { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import { database } from "../Firebase/firebaseConfig";
+import { collection, query, where, getDocs } from "firebase/firestore";
 
 const AverageRatings = ({ companyId }) => {
-  const [averageRating, setAverageRating] = useState(0);
+  const [average, setAverage] = useState(0);
 
   useEffect(() => {
-    const fetchRatings = async () => {
-      try {
-        console.log(`Obteniendo ratings para empresa ID: ${companyId}`);
-        const ratingsRef = collection(database, `companies/${companyId}/ratings`);
-        const ratingsSnapshot = await getDocs(ratingsRef);
-
-        if (ratingsSnapshot.empty) {
-          console.log("No se encontraron calificaciones para esta empresa."); 
-          return;
-        }
-
-        console.log(`Ratings Snapshot:`, ratingsSnapshot.docs);
-        let totalRating = 0;
-        let count = 0;
-
-        ratingsSnapshot.forEach((doc) => {
-          const data = doc.data();
-          console.log(`Datos de la calificación ${doc.id}:`, data);
-          if (data.rating) {
-            totalRating += data.rating;
-            count++;
-          }
-        });
-
-        if (count === 0) {
-          console.log("No hay calificaciones válidas.");
-        }
-
-        const average = count > 0 ? totalRating / count : 0;
-        console.log(`Total: ${totalRating}, Conteo: ${count}, Promedio: ${average}`);
-        console.log(`Promedio para la empresa ${companyId}: ${average}`);
-        setAverageRating(average);
-      } catch (error) {
-        console.error("Error al obtener las calificaciones:", error);
+    const fetchAverageRating = async () => {
+      const ratingsRef = collection(database, "ratings");
+      const q = query(ratingsRef, where("companyId", "==", companyId));
+      const querySnapshot = await getDocs(q);
+      const ratings = querySnapshot.docs.map(doc => doc.data().rating);
+      
+      if (ratings.length > 0) {
+        const avg = ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length;
+        setAverage(avg.toFixed(1));
       }
     };
 
-    fetchRatings();
+    fetchAverageRating();
   }, [companyId]);
 
-  const renderStars = (rating) => (
-    <div className="flex items-center mt-1">
-      {[...Array(5)].map((_, index) => (
-        <svg
-          key={index}
-          className={`w-5 h-5 ${index < Math.round(rating) ? "text-yellow-500" : "text-gray-300"}`}
-          fill={index < Math.round(rating) ? "currentColor" : "none"}
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M10 15.27L16.18 19 14.54 12.97 20 8.24l-8.19-.69L10 2 8.19 7.55 0 8.24l5.46 4.73L3.82 19z" />
-        </svg>
-      ))}
-    </div>
-  );
+  const renderStars = () => {
+    const fullStars = Math.floor(average);
+    const halfStar = average % 1 >= 0.5 ? 1 : 0;
+    const emptyStars = 5 - fullStars - halfStar;
+
+    return (
+      <div className="flex">
+        {[...Array(fullStars)].map((_, index) => (
+          <span key={`full-${index}`} className="text-yellow-500 text-2xl">★</span>
+        ))}
+        {halfStar === 1 && (
+          <span className="relative text-2xl">
+            <span className="text-yellow-500 absolute left-0 w-1/2 overflow-hidden">★</span>
+            <span className="text-gray-300 absolute left-0 w-1/2">★</span>
+          </span>
+        )}
+        {[...Array(emptyStars)].map((_, index) => (
+          <span key={`empty-${index}`} className="text-gray-300 text-2xl">★</span>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <div>
-      {renderStars(averageRating)}
+      {renderStars()}
     </div>
   );
 };
