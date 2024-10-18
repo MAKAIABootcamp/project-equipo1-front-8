@@ -4,10 +4,9 @@ import {
   collection,
   getDocs,
   query,
-  updateDoc,
   where,
   doc,
-  setDoc
+  setDoc,
 } from "firebase/firestore";
 import { database } from "../../Firebase/firebaseConfig";
 import SideBar from "../../components/SideBar";
@@ -67,17 +66,22 @@ const Orders = () => {
   const handleRate = async (rating) => {
     if (!selectedOrder) return;
 
-  const ratingsRef = collection(database, `companies/${selectedOrder.companyId}/orders/${selectedOrder.id}/ratings`);
-  const newRatingRef = doc(ratingsRef);
+    const ratingsRef = collection(
+      database,
+      `companies/${selectedOrder.companyId}/orders/${selectedOrder.id}/ratings`
+    );
+    const newRatingRef = doc(ratingsRef);
 
-  try {
-    await setDoc(newRatingRef, { rating, userId: user.id });
-    console.log(`Calificación guardada para ${selectedOrder.companyName}: ${rating}`);
-  } catch (error) {
-    console.error("Error al guardar la calificación", error);
-  }
-  setModalOpen(false);
-};
+    try {
+      await setDoc(newRatingRef, { rating, userId: user.id });
+      console.log(
+        `Calificación guardada para ${selectedOrder.companyName}: ${rating}`
+      );
+    } catch (error) {
+      console.error("Error al guardar la calificación", error);
+    }
+    setModalOpen(false);
+  };
   return (
     <div className="flex">
       <SideBar />
