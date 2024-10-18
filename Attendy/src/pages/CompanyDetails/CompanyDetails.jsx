@@ -5,6 +5,7 @@ import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import AverageRatings from "../../components/AverageRatings";
 
 const CompanyDetails = () => {
   const { id } = useParams();
@@ -94,17 +95,7 @@ const CompanyDetails = () => {
               <p>Horario: 8:00 am a 10:00 pm</p>
             </div>
             <div className="flex items-center mr-2">
-              {[...Array(5)].map((_, index) => (
-                <svg
-                  key={index}
-                  className={"w-5 h-5 text-yellow-500"}
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M10 15.27L16.18 19 14.54 12.97 20 8.24l-8.19-.69L10 2 8.19 7.55 0 8.24l5.46 4.73L3.82 19z" />
-                </svg>
-              ))}
+              <AverageRatings/>
             </div>
           </div>
         </div>
@@ -146,17 +137,7 @@ const CompanyDetails = () => {
                     Horario: 8:00 am a 10:00 pm
                   </p>
                   <div className="flex items-center mt-1">
-                    {[...Array(5)].map((_, index) => (
-                      <svg
-                        key={index}
-                        className="w-5 h-5 text-yellow-500"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M10 15.27L16.18 19 14.54 12.97 20 8.24l-8.19-.69L10 2 8.19 7.55 0 8.24l5.46 4.73L3.82 19z" />
-                      </svg>
-                    ))}
+                    <AverageRatings/>
                   </div>
                   <Link to={`/companydetails/${otherCompany.id}`}>
                     <button className="mt-4 py-2 px-4 font-semibold rounded-[30px] w-[200px] transition-all duration-300 bg-bg-gray text-[#00A082] hover:bg-[#00A082] hover:text-white border-[1px] border-[#00A082]">
