@@ -10,7 +10,6 @@ import {
 } from "firebase/firestore";
 import { database } from "../../Firebase/firebaseConfig";
 import SideBar from "../../components/SideBar";
-import RatingModal from "../../components/RatingModal";
 
 const Orders = () => {
   const { user } = useSelector((store) => store.auth);
@@ -109,7 +108,7 @@ const Orders = () => {
             orders.map((order) => (
               <div
                 key={order.id}
-                className="bg-white rounded-lg shadow-md p-4 mb-4 cursor-pointer"
+                className="bg-white rounded-lg shadow-md p-4 mb-4"
                 onClick={() => handleOrderClick(order)}
               >
                 <div className="flex justify-between items-center mb-2">
@@ -169,11 +168,6 @@ const Orders = () => {
           )}
         </div>
       </div>
-      <RatingModal
-        isOpen={isModalOpen}
-        onClose={() => setModalOpen(false)}
-        onRate={handleRate}
-      />
     </div>
   );
 };
