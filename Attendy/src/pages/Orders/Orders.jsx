@@ -1,12 +1,23 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+  doc,
+  setDoc
+} from "firebase/firestore";
 import { database } from "../../Firebase/firebaseConfig";
 import SideBar from "../../components/SideBar";
+import RatingModal from "../../components/RatingModal";
 
 const Orders = () => {
   const { user } = useSelector((store) => store.auth);
   const [orders, setOrders] = useState([]);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState(null);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -49,6 +60,24 @@ const Orders = () => {
     fetchOrders();
   }, [user]);
 
+  const handleOrderClick = (order) => {
+    setSelectedOrder(order);
+    setModalOpen(true);
+  };
+  const handleRate = async (rating) => {
+    if (!selectedOrder) return;
+
+  const ratingsRef = collection(database, `companies/${selectedOrder.companyId}/orders/${selectedOrder.id}/ratings`);
+  const newRatingRef = doc(ratingsRef);
+
+  try {
+    await setDoc(newRatingRef, { rating, userId: user.id });
+    console.log(`Calificación guardada para ${selectedOrder.companyName}: ${rating}`);
+  } catch (error) {
+    console.error("Error al guardar la calificación", error);
+  }
+  setModalOpen(false);
+};
   return (
     <div className="flex">
       <SideBar />
@@ -76,7 +105,8 @@ const Orders = () => {
             orders.map((order) => (
               <div
                 key={order.id}
-                className="bg-white rounded-lg shadow-md p-4 mb-4"
+                className="bg-white rounded-lg shadow-md p-4 mb-4 cursor-pointer"
+                onClick={() => handleOrderClick(order)}
               >
                 <div className="flex justify-between items-center mb-2">
                   <p>
@@ -135,6 +165,11 @@ const Orders = () => {
           )}
         </div>
       </div>
+      <RatingModal
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        onRate={handleRate}
+      />
     </div>
   );
 };
