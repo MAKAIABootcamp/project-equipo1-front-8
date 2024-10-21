@@ -35,7 +35,6 @@ const AppRouter = () => {
   if (loading || checking)
     return (
       <div>
-        {/* Spinner de carga */}
         <div className="w-full absolute py-8 text-center">
           <h2 className=" text-[2rem] text-[#00A082]">Loading</h2>
           <svg
