@@ -33,12 +33,12 @@ const AverageRatings = ({ companyId }) => {
         ))}
         {halfStar === 1 && (
           <span className="relative text-2xl">
-            <span className="text-yellow-500 absolute left-0 w-1/2 overflow-hidden">★</span>
-            <span className="text-gray-300 absolute left-0 w-1/2">★</span>
+            <span className="text-yellow-400 absolute left-0 w-1/2 overflow-hidden">★</span>
+            <span className="text-gray-400 absolute left-0 w-1/2">★</span>
           </span>
         )}
         {[...Array(emptyStars)].map((_, index) => (
-          <span key={`empty-${index}`} className="text-gray-300 text-2xl">★</span>
+          <span key={`empty-${index}`} className="text-gray-400 text-2xl">★</span>
         ))}
       </div>
     );

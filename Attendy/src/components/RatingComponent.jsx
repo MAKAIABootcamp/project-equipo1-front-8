@@ -71,7 +71,9 @@ const RatingComponent = ({ companyId, userId }) => {
         <span
           key={star}
           onClick={() => handleRating(star)}
-          style={{ cursor: "pointer", color: star <= rating ? "#FFD700" : "#ddd", fontSize: "24px" }}
+          style={{ 
+            cursor: "pointer", color: star <= rating ? "#FFD700" : "#A1A1AA", fontSize: "24px",
+          }}
         >
           ★
         </span>
