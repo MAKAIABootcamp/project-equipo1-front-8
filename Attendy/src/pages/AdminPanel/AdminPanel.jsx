@@ -146,21 +146,9 @@ const AdminPanel = () => {
             >
               Bienvenido, {user ? user.name : "Usuario"}
             </p>
-            {/* <button className="bg-[#00A082] text-white px-5 rounded-2xl flex items-center">
-              <img
-                className="lg:w-[3rem] w-[40px]"
-                src="/icons/userBlanco.svg"
-                alt=""
-              />
-              <span className="lg:block hidden">
-                {user ? user.name : "Usuario"}
-              </span>
-            </button> */}
             {isAuthenticated ? (
               <div className="flex items-center">
-                <span className="text-[#00A082] font-poppins text-lg mr-4 text-end">
-                  {/* {isMobile ? user.name.trim().split(/\s+/)[0] : user.name} */}
-                </span>
+                <span className="text-[#00A082] font-poppins text-lg mr-4 text-end"></span>
                 <button
                   className="bg-[#00A082] text-white px-5 p-2 rounded-2xl flex items-center"
                   onClick={handleLogout}
