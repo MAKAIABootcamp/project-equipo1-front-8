@@ -50,7 +50,7 @@
 ### Gestión del estado
 - Redux
 ### Base de datos, autenticación de usuarios
--Firebase - FireStore
+- Firebase
 ### Almacenamiento de imágenes
 - Cloudinary
 ### Servicio de geolocalización 
