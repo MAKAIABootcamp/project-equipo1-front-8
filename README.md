@@ -1,8 +1,9 @@
-# Attendy
-
 <p align="center">
   <img src="https://github.com/user-attachments/assets/79870fb0-105d-46b7-946c-4ef2fe49b158" alt="Logo de Attendy" />
 </p> 
+
+# Attendy
+
 
 **Attendy** es una aplicación web que permite a las empresas de domicilios dar a conocer sus servicios, aasí como recibir y gestionar sus pedidos. Al mismo tiempo, ofrece a los clientes un servicio amigable, rápido efectivo y seguro.
 
