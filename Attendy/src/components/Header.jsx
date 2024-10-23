@@ -19,7 +19,9 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    dispatch(logoutThunk());
+    dispatch(logoutThunk()).then(() => {
+      navigate("/");
+    });
   };
 
   const handleResize = () => {

@@ -37,7 +37,7 @@ const Search = () => {
   }, [query, companies]);
 
   return (
-    <main className="flex flex-col min-h-screen lg:w-full">
+    <main className="flex flex-col min-h-screen lg:w-full font-poppins">
       <Header />
       <Geolocalizacion />
       <div className="lg:w-full w-4/5 m-auto">
