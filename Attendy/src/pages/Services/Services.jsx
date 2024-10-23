@@ -16,10 +16,10 @@ const Services = () => {
         ¿Qué quieres hacer hoy?
       </h1>
 
-      <div className="grid lg:grid-cols-3 mt-20 h-[80vh] gap-20 justify-items-center text-[#00A082] font-poppins">
-        <div className="flex flex-col gap-5 ">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 mt-20 h-[80vh] gap-20 justify-items-center text-[#00A082] font-poppins">
+        <div className="flex flex-col gap-5 items-center">
           <img
-            className="w-[200px] h-[200px]"
+            className="lg:w-[200px] lg:h-[200px] md:w-[150px] w-[130px]"
             src="/icons/domiBasicos.svg"
             alt=""
           />
@@ -31,9 +31,9 @@ const Services = () => {
           </button>
         </div>
 
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-5 items-center">
           <img
-            className="w-[200px] h-[200px]"
+            className="lg:w-[200px] lg:h-[200px] md:w-[150px] w-[130px]"
             src="/icons/pagoServicios.svg"
             alt=""
           />
@@ -45,9 +45,9 @@ const Services = () => {
           </button>
         </div>
 
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-5 items-center">
           <img
-            className="w-[200px] h-[200px]"
+            className="lg:w-[200px] lg:h-[200px] md:w-[150px] w-[130px]"
             src="/icons/consignaciones.svg"
             alt=""
           />
@@ -59,9 +59,9 @@ const Services = () => {
           </button>
         </div>
 
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-5 items-center">
           <img
-            className="w-[200px] h-[200px]"
+            className="lg:w-[200px] lg:h-[200px] md:w-[150px] w-[130px]"
             src="/icons/servicioTiempo.svg"
             alt=""
           />
@@ -73,9 +73,9 @@ const Services = () => {
           </button>
         </div>
 
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-5 items-center">
           <img
-            className="w-[200px] h-[200px]"
+            className="lg:w-[200px] lg:h-[200px] md:w-[150px] w-[130px]"
             src="/icons/tramitesBancarios.svg"
             alt=""
           />
@@ -87,9 +87,9 @@ const Services = () => {
           </button>
         </div>
 
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-5 items-center">
           <img
-            className="w-[200px] h-[200px]"
+            className="lg:w-[200px] lg:h-[200px] md:w-[150px] w-[130px]"
             src="/icons/compras.svg"
             alt=""
           />

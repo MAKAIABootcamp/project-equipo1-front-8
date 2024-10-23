@@ -49,19 +49,20 @@ const Login = () => {
   }
 
   return (
-    <main className="lg:flex h-screen flex lg:flex-row flex-col items-center lg:bg-white overflow-y-auto">
+    <main className="lg:flex h-screen flex lg:flex-row flex-col items-center lg:bg-white overflow-y-auto lg:w-full md:w-4/5 md:m-auto lg:mt-0 justify-center">
       <div className="flex flex-col justify-center items-center lg:w-1/2 lg:h-full lg:bg-[#00A082] ">
         <img
-          className="hidden lg:block lg:w-[650px] w-[40%] cursor-pointer"
+          className="hidden lg:block lg:w-[550px] w-[40%] cursor-pointer"
           src="/icons/logoblanco.svg"
           alt="Logo"
           onClick={handleClickHome}
         />
 
         <img
-          className="lg:hidden block w-[40%] lg:w-[650px]"
+          className="lg:hidden block w-[40%] lg:w-[650px] md:w-[200px]"
           src="/icons/logo.svg"
           alt="Logo"
+          onClick={handleClickHome}
         />
 
         <h1 className="lg:flex justify-center text-[70px] text-[#F2F2F2] font-oleo hidden">
@@ -69,7 +70,7 @@ const Login = () => {
         </h1>
       </div>
 
-      <div className="flex flex-col lg:justify-center lg:items-center lg:w-1/2 w-4/5">
+      <div className="flex flex-col justify-center items-center lg:w-1/2 w-4/5">
         <h1 className="font-oleo lg:text-[50px] text-[40px] text-center text-black pt-6 mb-5">
           Iniciar Sesión
         </h1>
