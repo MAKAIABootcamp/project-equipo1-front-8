@@ -44,12 +44,13 @@
 
 ## Tech Stack
 ### Desarrollo Front-End
+- React
 - Vite
-- SASS
+- JavaScript
 ### Gestión del estado
 - Redux
 ### Base de datos, autenticación de usuarios
--Firebase 
+-Firebase - FireStore
 ### Almacenamiento de imágenes
 - Cloudinary
 ### Servicio de geolocalización 
