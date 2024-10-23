@@ -1,21 +1,32 @@
-import { useDispatch, useSelector } from "react-redux";
+import {useSelector } from "react-redux";
 
 const ModalProfile = ({ isOpen, onClose }) => {
-  if (!isOpen) return null; // Si no está abierto, no se muestra nada
-  const { user, isAuthenticated } = useSelector((store) => store.auth);
-
+  if (!isOpen) return null; 
+  const { user} = useSelector((store) => store.auth);
+  
   return (
     <div className="fixed inset-0 z-30 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-[300px]">
-        <h1 className="text-xl font-bold mb-4">Perfil de Usuario</h1>
-        <p>Nombre de usuario: {user.name}</p>
-        <p>Descripcion: {user.description}</p>
-        <p>Nit: {user.nit}</p>
-        <p>Dirección: {user.address}</p>
-        <p>Ciudad: {user.city}</p>
-        <p>Titular: {user.titular}</p>
+      <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+        <h1 className="text-2xl font-bold mb-6 text-center">Perfil de Usuario</h1>
+        {user.photoUrl && (
+          <img 
+            src={user.photoUrl} 
+            alt="Logo de la Empresa" 
+            className="w-full h-auto mb-4 rounded-lg"
+          />
+        )}
+
+        <div className="space-y-4">
+          <p><strong>Nombre de usuario:</strong> {user.name}</p>
+          <p><strong>Descripción:</strong> {user.description}</p>
+          <p><strong>NIT:</strong> {user.nit}</p>
+          <p><strong>Dirección:</strong> {user.address}</p>
+          <p><strong>Ciudad:</strong> {user.city}</p>
+          <p><strong>Titular:</strong> {user.titular}</p>
+        </div>
+        
         <button
-          className="mt-4 p-2 bg-[#00A082] font-bold text-white rounded"
+          className="mt-6 p-3 bg-[#00A082] font-bold text-white rounded w-full hover:bg-[#008F6D]"
           onClick={onClose}
         >
           Cerrar
