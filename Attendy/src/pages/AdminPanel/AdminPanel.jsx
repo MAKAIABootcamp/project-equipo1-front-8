@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { writeBatch } from "firebase/firestore";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   collection,
   getDoc,
@@ -14,14 +14,28 @@ import {
 } from "firebase/firestore";
 import { database } from "../../Firebase/firebaseConfig";
 import SideBar from "../../components/SideBar";
+import { CiLogout } from "react-icons/ci";
+import { logoutThunk } from "../../redux/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const AdminPanel = () => {
-  const { user } = useSelector((store) => store.auth);
+  const { user, isAuthenticated } = useSelector((store) => store.auth);
   const [isOpen, setIsOpen] = useState(false);
   const [orders, setOrders] = useState([]);
   const [completedOrders, setCompletedOrders] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  const handleClickLogin = () => {
+    navigate("/Login");
+  };
+
+  const handleLogout = () => {
+    dispatch(logoutThunk()).then(() => {
+      navigate("/");
+    });
+  };
   useEffect(() => {
     const fetchPendingOrders = async () => {
       if (!user) {
@@ -132,7 +146,7 @@ const AdminPanel = () => {
             >
               Bienvenido, {user ? user.name : "Usuario"}
             </p>
-            <button className="bg-[#00A082] text-white px-5 rounded-2xl flex items-center">
+            {/* <button className="bg-[#00A082] text-white px-5 rounded-2xl flex items-center">
               <img
                 className="lg:w-[3rem] w-[40px]"
                 src="/icons/userBlanco.svg"
@@ -141,7 +155,36 @@ const AdminPanel = () => {
               <span className="lg:block hidden">
                 {user ? user.name : "Usuario"}
               </span>
-            </button>
+            </button> */}
+            {isAuthenticated ? (
+              <div className="flex items-center">
+                <span className="text-[#00A082] font-poppins text-lg mr-4 text-end">
+                  {/* {isMobile ? user.name.trim().split(/\s+/)[0] : user.name} */}
+                </span>
+                <button
+                  className="bg-[#00A082] text-white px-5 p-2 rounded-2xl flex items-center"
+                  onClick={handleLogout}
+                >
+                  <span className="hidden md:inline">Cerrar sesión</span>
+                  <CiLogout className="w-5 h-5 md:hidden" />
+                </button>
+              </div>
+            ) : (
+              <button
+                className="bg-[#00A082] text-white px-5 rounded-2xl flex items-center"
+                onClick={handleClickLogin}
+              >
+                <img
+                  className="w-[35px]"
+                  src="/icons/userBlanco.svg"
+                  alt="Login"
+                />
+
+                <span className="ml-2 hidden lg:block">
+                  {user ? user.name : "Iniciar sesión"}
+                </span>
+              </button>
+            )}
           </div>
         </div>
 
