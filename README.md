@@ -5,7 +5,7 @@
 </p> 
 
 
-**Attendy** es una aplicación web que permite a las empresas de domicilios dar a conocer sus servicios, aasí como recibir y gestionar sus pedidos. Al mismo tiempo, ofrece a los clientes un servicio amigable, rápido efectivo y seguro.
+**Attendy** es una aplicación web que permite a las empresas de domicilios dar a conocer sus servicios, así como recibir y gestionar sus pedidos. Al mismo tiempo, ofrece a los clientes un servicio amigable, rápido efectivo y seguro.
 
 **Attendy** es una aplicación web innovadora que conecta a empresas de domicilios con clientes, ofreciendo un servicio rápido, efectivo y seguro.
 
