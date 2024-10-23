@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { writeBatch } from "firebase/firestore";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   collection,
   getDoc,
@@ -14,27 +14,14 @@ import {
 } from "firebase/firestore";
 import { database } from "../../Firebase/firebaseConfig";
 import SideBar from "../../components/SideBar";
-import { CiLogout } from "react-icons/ci";
-import { logoutThunk } from "../../redux/auth/authSlice";
-import { useNavigate } from "react-router-dom";
-
 
 const AdminPanel = () => {
-  const { user, isAuthenticated } = useSelector((store) => store.auth);
+  const { user } = useSelector((store) => store.auth);
   const [isOpen, setIsOpen] = useState(false);
   const [orders, setOrders] = useState([]);
   const [completedOrders, setCompletedOrders] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
-  const handleClickLogin = () => {
-    navigate("/Login");
-  };
-
-  const handleLogout = () => {
-    dispatch(logoutThunk());
-  };
   useEffect(() => {
     const fetchPendingOrders = async () => {
       if (!user) {
@@ -71,7 +58,6 @@ const AdminPanel = () => {
     try {
       const orderSnapshot = await getDoc(orderRef);
       const orderData = orderSnapshot.data();
-
       if (newStatus === "Entregado") {
         const completedOrdersRef = collection(
           database,
@@ -81,9 +67,7 @@ const AdminPanel = () => {
           ...orderData,
           completedAt: new Date(),
         });
-
         await deleteDoc(orderRef);
-
         setOrders((prevOrders) =>
           prevOrders.filter((order) => order.id !== orderId)
         );
@@ -102,7 +86,6 @@ const AdminPanel = () => {
 
   const fetchCompletedOrders = async () => {
     if (!user) return;
-
     try {
       const completedOrdersArray = [];
       const completedOrdersRef = collection(
@@ -116,13 +99,11 @@ const AdminPanel = () => {
           ...doc.data(),
         });
       });
-
       setCompletedOrders(completedOrdersArray);
     } catch (error) {
       console.error("Error al obtener las órdenes completadas:", error);
     }
   };
-
   const handleClearHistory = async () => {
     try {
       const completedOrdersRef = collection(
@@ -134,61 +115,37 @@ const AdminPanel = () => {
       completedOrdersSnapshot.forEach((doc) => {
         batch.delete(doc.ref);
       });
-
       await batch.commit();
       setCompletedOrders([]);
     } catch (err) {
       console.error("Error al limpiar el historial de órdenes:", err);
     }
   };
-
   return (
     <div className="flex flex-col">
-      <SideBar isOpen={isOpen} toggleMenu={() => setIsOpen(!isOpen)} />
       <div className="flex-grow flex flex-col">
-        <div className="bg-[#E1E1E1] lg:h-20 h-[70px] lg:p-6 p-6 flex justify-between items-center w-full">
-          <p
-            className={`text-[#00A082] lg:text-2xl font-poppins lg:ml-[230px] ml-12`}
-          >
-            Bienvenido, {user ? user.name : "Usuario"}
-          </p>
-{/*           <button className="bg-[#00A082] text-white px-5 rounded-2xl flex items-center">
-            <img
-              className="lg:w-[3rem] w-[40px]"
-              src="/icons/userBlanco.svg"
-              alt=""
-            />
-            <span className="lg:block hidden">
-              {user ? user.name : "Usuario"}
-            </span>
-          </button> */}
-        {isAuthenticated ? (
-          <div className="flex items-center">
-            <span className="text-[#00A082] font-poppins text-lg mr-4 text-end">
-              {/* {isMobile ? user.name.trim().split(/\s+/)[0] : user.name} */}
-            </span>
-            <button
-              className="bg-[#00A082] text-white px-5 p-2 rounded-2xl flex items-center"
-              onClick={handleLogout}
+        <div className="flex bg-[#E1E1E1]">
+          <SideBar isOpen={isOpen} toggleMenu={() => setIsOpen(!isOpen)} />
+          <div className=" lg:h-20 h-[70px] lg:p-6 p-6 flex justify-between items-center w-full">
+            <p
+              className={`text-[#00A082] lg:text-2xl font-poppins lg:ml-[230px] ml-12`}
             >
-              <span className="hidden md:inline">Cerrar sesión</span>
-              <CiLogout className="w-5 h-5 md:hidden" />
+              Bienvenido, {user ? user.name : "Usuario"}
+            </p>
+            <button className="bg-[#00A082] text-white px-5 rounded-2xl flex items-center">
+              <img
+                className="lg:w-[3rem] w-[40px]"
+                src="/icons/userBlanco.svg"
+                alt=""
+              />
+              <span className="lg:block hidden">
+                {user ? user.name : "Usuario"}
+              </span>
             </button>
           </div>
-        ) : (
-          <button
-            className="bg-[#00A082] text-white px-5 rounded-2xl flex items-center"
-            onClick={handleClickLogin}
-          >
-            <img className="w-[35px]" src="/icons/userBlanco.svg" alt="Login" />
-
-            <span className="ml-2 hidden lg:block">
-              {user ? user.name : "Iniciar sesión"}
-            </span>
-          </button>
-        )}
         </div>
-        <div className="flex justify-start w-[73%] m-auto mt-5">
+
+        <div className="flex justify-start lg:w-[73%] w-[80%] m-auto mt-5">
           <button
             onClick={() => {
               setShowModal(true);
@@ -198,21 +155,18 @@ const AdminPanel = () => {
           >
             Ver historial de órdenes
           </button>
-
           {showModal && (
             <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center font-poppins">
-              <div className="bg-white p-8 rounded-lg w-[23%] max-h-[80vh] relative">
+              <div className="bg-white p-8 rounded-lg lg:w-[23%] w-[80%] max-h-[80vh] relative">
                 <button
                   onClick={() => setShowModal(false)}
                   className="absolute top-2 right-4 text-[#00A082] text-3xl focus:outline-none"
                 >
                   &times;
                 </button>
-
                 <h2 className="text-[25px] text-[#00A082] mb-4 text-center">
                   Historial de Órdenes Completadas
                 </h2>
-
                 <div className="overflow-y-auto max-h-[60vh] mb-10 scrollable">
                   {completedOrders.length > 0 ? (
                     completedOrders.map((order) => (
@@ -250,8 +204,7 @@ const AdminPanel = () => {
             </div>
           )}
         </div>
-
-        <div className="flex flex-col lg:ml-64 lg:mr-28 mt-10 w-4/5 m-auto gap-10">
+        <div className="flex flex-col lg:ml-64 lg:mr-28 mt-10 w-4/5 m-auto gap-10 mb-10 font-poppins">
           {orders.length > 0 ? (
             orders.map((order) => (
               <div
@@ -260,9 +213,33 @@ const AdminPanel = () => {
               >
                 <div className="flex justify-between">
                   <div>
-                    <h3 className="lg:text-[18px] text-[] font-bold mb-2">
-                      Orden De {order.name}
-                    </h3>
+                    <div className="flex justify-between items-center mb-5">
+                      <h3 className="lg:text-[18px] font-bold mb-2 ">
+                        {/* Mostrar el nombre completo en pantallas grandes */}
+                        <span className="hidden lg:block">{order.name}</span>
+                        {/* Mostrar solo el primer nombre y el segundo apellido en móviles */}
+                        <span className="block lg:hidden">
+                          {order.name.split(" ").slice(0, 1).join(" ") +
+                            " " +
+                            order.name.split(" ")[2]}
+                        </span>
+                      </h3>
+                      <div>
+                        <select
+                          className="bg-bg-gray lg:px-4 py-2 rounded-md text-[15px]"
+                          onChange={(e) =>
+                            handleChangeStatus(order.id, e.target.value)
+                          }
+                        >
+                          <option value="">
+                            <span>Actualizar estado</span>
+                          </option>
+                          <option value="Confirmado">Confirmado</option>
+                          <option value="En camino">En camino</option>
+                          <option value="Entregado">Entregado</option>
+                        </select>
+                      </div>
+                    </div>
                     <p className="text-gray-700">
                       <span className="text-[#00A082] font-semibold">
                         Fecha:
@@ -289,19 +266,6 @@ const AdminPanel = () => {
                       </span>{" "}
                       {order.description || "Sin descripcion"}
                     </p>
-                  </div>
-                  <div>
-                    <select
-                      className="bg-bg-gray lg:px-4 py-2 rounded-md "
-                      onChange={(e) =>
-                        handleChangeStatus(order.id, e.target.value)
-                      }
-                    >
-                      <option value="">Actualizar estado</option>
-                      <option value="Confirmado">Confirmado</option>
-                      <option value="En camino">En camino</option>
-                      <option value="Entregado">Entregado</option>
-                    </select>
                   </div>
                 </div>
               </div>

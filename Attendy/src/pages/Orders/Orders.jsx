@@ -1,21 +1,12 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import {
-  collection,
-  getDocs,
-  query,
-  where,
-  doc,
-  setDoc,
-} from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { database } from "../../Firebase/firebaseConfig";
 import SideBar from "../../components/SideBar";
 
 const Orders = () => {
   const { user } = useSelector((store) => store.auth);
   const [orders, setOrders] = useState([]);
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [selectedOrder, setSelectedOrder] = useState(null);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -58,47 +49,26 @@ const Orders = () => {
     fetchOrders();
   }, [user]);
 
-  const handleOrderClick = (order) => {
-    setSelectedOrder(order);
-    setModalOpen(true);
-  };
-  const handleRate = async (rating) => {
-    if (!selectedOrder) return;
-
-    const ratingsRef = collection(
-      database,
-      `companies/${selectedOrder.companyId}/orders/${selectedOrder.id}/ratings`
-    );
-    const newRatingRef = doc(ratingsRef);
-
-    try {
-      await setDoc(newRatingRef, { rating, userId: user.id });
-      console.log(
-        `Calificación guardada para ${selectedOrder.companyName}: ${rating}`
-      );
-    } catch (error) {
-      console.error("Error al guardar la calificación", error);
-    }
-    setModalOpen(false);
-  };
   return (
     <div className="flex">
-      <SideBar />
       <div className="flex-grow flex flex-col lg:ml-16">
-        <div className="bg-[#E1E1E1] w-full lg:h-20 h-[70px] lg:p-6 flex justify-between items-center ">
-          <p className="text-[#00A082] lg:text-2xl font-poppins lg:ml-[230px] ml-20">
-            Tus órdenes
-          </p>
-          <button className="bg-[#00A082] text-white px-5 rounded-2xl flex items-center mr-5">
-            <img
-              className="lg:w-[3rem] w-[40px]"
-              src="/icons/userBlanco.svg"
-              alt=""
-            />
-            <span className="lg:block hidden">
-              {user ? user.name : "Usuario"}
-            </span>
-          </button>
+        <div className="flex bg-[#E1E1E1] ">
+          <SideBar />
+          <div className="w-full lg:h-20 h-[70px] lg:p-6 flex justify-between items-center ">
+            <p className="text-[#00A082] lg:text-2xl font-poppins lg:ml-[230px] ml-20">
+              Tus órdenes
+            </p>
+            <button className="bg-[#00A082] text-white px-5 rounded-2xl flex items-center mr-5">
+              <img
+                className="lg:w-[3rem] w-[40px]"
+                src="/icons/userBlanco.svg"
+                alt=""
+              />
+              <span className="lg:block hidden">
+                {user ? user.name : "Usuario"}
+              </span>
+            </button>
+          </div>
         </div>
         <div className="flex flex-col lg:ml-64 lg:mr-28 mt-10 w-4/5 m-auto gap-10 font-poppins">
           <div className="flex justify-between items-center mb-2">
@@ -109,7 +79,6 @@ const Orders = () => {
               <div
                 key={order.id}
                 className="bg-white rounded-lg shadow-md p-4 mb-4"
-                onClick={() => handleOrderClick(order)}
               >
                 <div className="flex justify-between items-center mb-2">
                   <p>

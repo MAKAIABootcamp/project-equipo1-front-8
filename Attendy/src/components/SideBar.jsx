@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ModalProfile from "./modalProfile"; // Asegúrate de importar el modal correctamente
+import ModalProfile from "./modalProfile";
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false); // Nuevo estado para controlar el modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleClickHome = () => {
@@ -27,7 +27,7 @@ const SideBar = () => {
   return (
     <div>
       <button
-        className="fixed top-4 left-4 z-20 lg:hidden p-2 bg-[#00A082] text-white rounded-md focus:outline-none "
+        className="relative top-4 left-4 lg:hidden p-2 bg-[#00A082] text-white rounded-md focus:outline-none "
         onClick={toggleMenu}
       >
         {isOpen ? (
@@ -65,7 +65,7 @@ const SideBar = () => {
 
       <nav
         className={`fixed z-10 top-0 left-0 bottom-0 bg-[#00A082] transition-all duration-300 cursor-pointer ${
-          isOpen ? "lg:w-[250px]" : "-translate-x-full"
+          isOpen ? "lg:w-[250px] md:w-[300px]" : "-translate-x-full"
         } lg:translate-x-0 lg:w-[120px] lg:h-[100vh] lg:border-r-2`}
         onClick={toggleMenu}
       >
@@ -95,7 +95,7 @@ const SideBar = () => {
             {isOpen && (
               <button
                 className="font-poppins text-white ml-2 text-3xl"
-                onClick={openModal} // Abrir el modal al hacer clic
+                onClick={openModal}
               >
                 Cuenta
               </button>
@@ -104,7 +104,6 @@ const SideBar = () => {
         </div>
       </nav>
 
-      {/* Renderizado del modal */}
       <ModalProfile isOpen={isModalOpen} onClose={closeModal} />
 
       {isOpen && (

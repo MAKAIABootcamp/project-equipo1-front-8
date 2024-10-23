@@ -83,8 +83,8 @@ const Register = () => {
     navigate("/");
   };
   return (
-    <main className="flex lg:flex-row flex-col items-center overflow-y-auto">
-      <div className="flex flex-col justify-center items-center lg:w-1/2 w-[40%]">
+    <main className="flex lg:flex-row flex-col items-center overflow-y-auto min-h-screen justify-center">
+      <div className="flex flex-col justify-center items-center lg:w-1/2 md:w-[200px] w-[40%]">
         <img
           className="w-[650px] cursor-pointer"
           src="/icons/logo.svg"
@@ -292,7 +292,7 @@ const Register = () => {
                             id="nit"
                             value={values.nit || ""}
                             placeholder="NIT"
-                            className="lg:w-[212px] w-[150px]"
+                            className="lg:w-[212px] w-[140px]"
                           />
                         </div>
                         <ErrorMessage
@@ -309,7 +309,7 @@ const Register = () => {
                             id="address"
                             value={values.address || ""}
                             placeholder="Dirección"
-                            className="lg:w-[212px] w-[150px]"
+                            className="lg:w-[212px] w-[140px]"
                           />
                         </div>
                         <ErrorMessage
@@ -329,7 +329,7 @@ const Register = () => {
                             id="city"
                             value={values.city || ""}
                             placeholder="Ciudad"
-                            className="lg:w-[212px] w-[150px]"
+                            className="lg:w-[212px] w-[140px]"
                           />
                         </div>
                         <ErrorMessage
@@ -417,7 +417,7 @@ const Register = () => {
                             id="password"
                             type="password"
                             placeholder="Contraseña"
-                            className="lg:w-[212px] w-[150px]"
+                            className="lg:w-[212px] w-[140px]"
                           />
                         </div>
                         <ErrorMessage
