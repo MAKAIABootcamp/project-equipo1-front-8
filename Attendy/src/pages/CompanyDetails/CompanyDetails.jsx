@@ -3,8 +3,8 @@ import { useParams, Link } from "react-router-dom";
 import { database } from "../../Firebase/firebaseConfig";
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../../Firebase/firebaseConfig"; 
-import { onAuthStateChanged } from "firebase/auth"; 
+import { auth } from "../../Firebase/firebaseConfig";
+import { onAuthStateChanged } from "firebase/auth";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import AverageRatings from "../../components/AverageRatings";
@@ -14,13 +14,13 @@ const CompanyDetails = () => {
   const { id } = useParams();
   const [company, setCompany] = useState(null);
   const [otherCompanies, setOtherCompanies] = useState([]);
-  const [userId, setUserId] = useState(null); 
+  const [userId, setUserId] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUserId(user.uid); 
+        setUserId(user.uid);
       } else {
         setUserId(null);
       }
@@ -76,7 +76,7 @@ const CompanyDetails = () => {
   };
 
   return (
-    <main>
+    <main className="font-poppins">
       <Header />
       <div className="p-9 m-14 rounded-2xl bg-bg-gray">
         <h1 className="text-3xl font-oleo mb-2 flex justify-center">
@@ -88,10 +88,16 @@ const CompanyDetails = () => {
             className="w-40 h-40 lg:mr-5 rounded-2xl lg:mb-0 mb-5"
             alt={company.name}
           />
-          <div className="flex flex-col justify-center items-center">
-            <div className="flex flex-col font-poppins text-center">
-              <p>Dirección: {company.address}</p>
-              <p>Horario: 8:00 am a 10:00 pm</p>
+          <div className="flex flex-col justify-center g:text-start text-center">
+            <div className="flex flex-col font-poppins l">
+              <p>
+                <span className="text-[#00A082] font-semibold">Dirección:</span>{" "}
+              </p>
+              <p>{company.address}</p>
+              <p>
+                <span className="text-[#00A082] font-semibold">Horario:</span>{" "}
+              </p>
+              <p>8:00 am a 10:00 pm</p>
             </div>
             <div className="flex items-center mr-2">
               {userId && <RatingComponent companyId={id} userId={userId} />}
