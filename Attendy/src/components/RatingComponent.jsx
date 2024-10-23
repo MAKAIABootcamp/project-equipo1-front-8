@@ -8,6 +8,7 @@ import {
   where,
   getDocs,
 } from "firebase/firestore";
+import PropTypes from "prop-types";
 
 const RatingComponent = ({ companyId, userId }) => {
   const [rating, setRating] = useState(0);
@@ -94,6 +95,11 @@ const RatingComponent = ({ companyId, userId }) => {
       {hasRated && <p>{alertMessage}</p>}
     </div>
   );
+};
+
+RatingComponent.propTypes = {
+  companyId: PropTypes.string.isRequired,
+  userId: PropTypes.string.isRequired,
 };
 
 export default RatingComponent;
