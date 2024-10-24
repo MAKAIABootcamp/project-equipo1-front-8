@@ -29,10 +29,7 @@ const validationSchemaUsuario = Yup.object().shape({
 const validationSchemaEmpresa = Yup.object().shape({
   name: Yup.string().required("El nombre de la empresa es obligatorio"),
   telefono: Yup.string()
-    .matches(
-      /^\d{10}$/,
-      "El numero telefonico debe ser de 10 dígitos numéricos"
-    )
+    .length(10, "El numero telefonico debe ser de 10 digitos")
     .required("El numero telefonico es obligatorio"),
   address: Yup.string().required("La direccion de la empresa es obligatorio"),
   city: Yup.string().required("La ciudad es obligatorio"),
