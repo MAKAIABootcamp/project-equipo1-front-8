@@ -20,7 +20,7 @@ const Home = () => {
           Pedir domicilio
         </button>
         <img
-          className="w-full h-[30rem] object-cover lg:object-bottom-60 md:object-bottom-60 object-[10%_60%] transform -scale-x-100 aspect-[16/10]"
+          className="w-full h-[30rem] object-cover lg:object-bottom-60 md:object-bottom-60 object-[12%_60%] transform -scale-x-100 aspect-[16/10]"
           src="/gif/descarga.gif"
           alt="Logo"
         />
