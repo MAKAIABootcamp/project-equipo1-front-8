@@ -44,7 +44,7 @@ const Search = () => {
         <div className="flex items-center justify-center">
           <img
             className="w-full lg:max-w-[35%] h-auto m-4 mt-7"
-            src="/public/images/motico.png"
+            src="/images/motico.png"
             alt="OrderImage"
           />
         </div>

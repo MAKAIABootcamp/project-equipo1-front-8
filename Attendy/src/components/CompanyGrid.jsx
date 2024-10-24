@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import AverageRatings from "./AverageRatings";
+import PropTypes from "prop-types";
 
 const CompanyGrid = ({ companies }) => {
   return (
@@ -22,8 +23,8 @@ const CompanyGrid = ({ companies }) => {
               Horario: 8:00 am a 10:00 pm
             </p>
             <div className="flex items-center mt-1">
-            <AverageRatings companyId={company.id} />
-              </div>
+              <AverageRatings companyId={company.id} />
+            </div>
             <Link to={`/companydetails/${company.id}`}>
               <button className="mt-4 py-2 px-4 font-semibold rounded-[30px] w-[200px] transition-all duration-300 bg-bg-gray text-[#00A082] hover:bg-[#00A082] hover:text-white border-[1px] border-[#00A082]">
                 Ver más
@@ -34,6 +35,10 @@ const CompanyGrid = ({ companies }) => {
       ))}
     </div>
   );
+};
+
+CompanyGrid.propTypes = {
+  companies: PropTypes.isRequired,
 };
 
 export default CompanyGrid;
