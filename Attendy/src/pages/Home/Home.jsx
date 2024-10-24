@@ -20,14 +20,14 @@ const Home = () => {
           Pedir domicilio
         </button>
         <img
-          className="w-full h-[30rem] object-cover object-bottom-60 transform -scale-x-100 "
+          className="w-full h-[30rem] object-cover lg:object-bottom-60 md:object-bottom-60 object-[10%_60%] transform -scale-x-100 aspect-[16/10]"
           src="/gif/descarga.gif"
           alt="Logo"
         />
       </div>
       <div className="md:flex p-5 lg:w-4/5 md:w-full w-4/5 m-auto lg:mt-16 mb-16">
         <div className="md:px-10 flex flex-col justify-center">
-          <h2 className="text-[#3C3C3C] lg:text-[75px] md:text-[50px] text-[48px] font-oleo">
+          <h2 className="text-[#3C3C3C] lg:text-[75px] md:text-[50px] text-[48px] font-oleo lg:text-left md:text-left text-center">
             ¿Quienes somos?
           </h2>
           <p className="lg:text-[25px] text-[20px] text-[#3C3C3C] py-4 font-poppins lg:text-justify md:text-left text-center">
@@ -38,7 +38,7 @@ const Home = () => {
           </p>
         </div>
         <img
-          className="lg:w-[30rem] md:w-[23rem] w-[30rem h-full self-center rounded-2xl"
+          className="lg:w-[30rem] md:w-[23rem] w-[30rem h-full self-center rounded-2xl aspect-[16/9]"
           src="/gif/home_truc.gif"
           alt=""
         />
@@ -58,7 +58,7 @@ const Home = () => {
             eficiente y de calidad.
           </p>
           <button
-            className="bg-[#f2f2f2] text-[#00A082] p-4 rounded-2xl text-2xl font-oleo hover:text-black"
+            className="bg-[#f2f2f2] text-[#00A082] p-4 rounded-2xl text-2xl font-oleo hover:text-black aspect-[16/9]"
             onClick={handleClicklogin}
           >
             Conoce más

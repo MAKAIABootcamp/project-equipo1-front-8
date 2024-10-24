@@ -37,7 +37,6 @@ const RatingComponent = ({ companyId, userId }) => {
         const userRating = querySnapshot.docs[0].data().rating;
         setRating(userRating);
         setHasRated(true);
-        console.log(`User has already rated: ${userRating}`);
       } else {
         console.log("No previous rating found.");
       }
@@ -47,8 +46,6 @@ const RatingComponent = ({ companyId, userId }) => {
   }, [userId, companyId]);
 
   const handleRating = async (value) => {
-    console.log("Handling rating:", value);
-
     if (!userId || !companyId) {
       alert("Error: Debes estar autenticado para calificar.");
       return;
