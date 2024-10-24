@@ -90,14 +90,28 @@ const CompanyDetails = () => {
           />
           <div className="flex flex-col justify-center g:text-start text-center">
             <div className="flex flex-col font-poppins l">
-              <p>
-                <span className="text-[#00A082] font-semibold">Dirección:</span>{" "}
-              </p>
-              <p>{company.address}</p>
-              <p>
-                <span className="text-[#00A082] font-semibold">Horario:</span>{" "}
-              </p>
-              <p>8:00 am a 10:00 pm</p>
+              <div>
+                <p>
+                  <span className="text-[#00A082] font-semibold">
+                    Telefono:
+                  </span>{" "}
+                </p>
+                <p>{company.telefono}</p>
+              </div>
+              <div>
+                <p>
+                  <span className="text-[#00A082] font-semibold">
+                    Dirección:
+                  </span>{" "}
+                </p>
+                <p>{company.address}</p>
+              </div>
+              <div>
+                <p>
+                  <span className="text-[#00A082] font-semibold">Horario:</span>{" "}
+                </p>
+                <p>8:00 am a 10:00 pm</p>
+              </div>
             </div>
             <div className="flex items-center mr-2">
               {userId && <RatingComponent companyId={id} userId={userId} />}

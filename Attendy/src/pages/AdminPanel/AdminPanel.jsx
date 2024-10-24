@@ -246,9 +246,7 @@ const AdminPanel = () => {
                   <div>
                     <div className="flex justify-between items-center mb-5">
                       <h3 className="lg:text-[18px] font-bold mb-2 ">
-                        {/* Mostrar el nombre completo en pantallas grandes */}
                         <span className="hidden lg:block">{order.name}</span>
-                        {/* Mostrar solo el primer nombre y el segundo apellido en móviles */}
                         <span className="block lg:hidden">
                           {order.name.split(" ").slice(0, 1).join(" ") +
                             " " +
