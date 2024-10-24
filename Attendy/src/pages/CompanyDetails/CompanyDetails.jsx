@@ -60,7 +60,6 @@ const CompanyDetails = () => {
       <div>
         <div className="w-full absolute py-8 text-center">
           <h2 className="text-[2rem] text-[#00A082]">Loading</h2>
-          {/* SVG loading icon */}
         </div>
       </div>
     );
@@ -79,7 +78,7 @@ const CompanyDetails = () => {
     <main className="font-poppins">
       <Header />
       <div className="p-9 m-14 rounded-2xl bg-bg-gray">
-        <h1 className="text-3xl font-oleo mb-2 flex justify-center">
+        <h1 className="text-3xl font-oleo mb-2 flex justify-center text-center">
           {company.name}
         </h1>
         <div className="flex lg:flex-row flex-col items-center justify-center m-5">
@@ -119,7 +118,7 @@ const CompanyDetails = () => {
           </div>
         </div>
         <div className="flex flex-col items-center">
-          <p className="lg:m-10 font-poppins lg:text-justify text-center text-wrap lg:text-[25px] text-[15px]">
+          <p className="lg:m-10 font-poppins lg:text-justify text-center text-wrap lg:text-[25px] text-[15px] break-words lg:max-w-[100%] max-w-[200px]">
             {company.description}
           </p>
           <div className="flex justify-center pt-5 text-[20px]">
