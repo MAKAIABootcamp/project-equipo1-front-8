@@ -35,7 +35,7 @@ export const createAccountThunk = createAsyncThunk(
           id: user.uid,
           email,
           name: companyData.name,
-          nit: companyData.nit,
+          telefono: companyData.telefono,
           address: companyData.address,
           city: companyData.city,
           department: companyData.department,

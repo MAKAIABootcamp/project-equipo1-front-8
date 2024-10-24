@@ -28,9 +28,9 @@ const validationSchemaUsuario = Yup.object().shape({
 
 const validationSchemaEmpresa = Yup.object().shape({
   name: Yup.string().required("El nombre de la empresa es obligatorio"),
-  nit: Yup.string()
-    .length(9, "El NIT debe ser 9 digitos")
-    .required("El NIT es obligatorio"),
+  telefono: Yup.string()
+    .length(10, "El numero telefonico debe ser de 10 digitos")
+    .required("El numero telefonico es obligatorio"),
   address: Yup.string().required("La direccion de la empresa es obligatorio"),
   city: Yup.string().required("La ciudad es obligatorio"),
   department: Yup.string().required("El departamento es obligatorio"),
@@ -127,7 +127,7 @@ const Register = () => {
             isCompany
               ? {
                   name: "",
-                  nit: "",
+                  telefono: "",
                   address: "",
                   city: "",
                   department: "",
@@ -166,7 +166,7 @@ const Register = () => {
                   isCompany: true,
                   companyData: {
                     name: values.name,
-                    nit: values.nit,
+                    telefono: values.telefono,
                     address: values.address,
                     city: values.city,
                     department: values.department,
@@ -288,15 +288,15 @@ const Register = () => {
                         <div className="border-[1px] rounded-[30px] border-gray-500 py-2 px-4 mr-2 lg:w-[238px] w-[170px] mb-2">
                           <Field
                             type="text"
-                            name="nit"
-                            id="nit"
-                            value={values.nit || ""}
-                            placeholder="NIT"
+                            name="telefono"
+                            id="telefono"
+                            value={values.telefono || ""}
+                            placeholder="Numero Telefonico"
                             className="lg:w-[212px] w-[140px]"
                           />
                         </div>
                         <ErrorMessage
-                          name="nit"
+                          name="telefono"
                           component="div"
                           className="text-red-500 text-sm"
                         />
