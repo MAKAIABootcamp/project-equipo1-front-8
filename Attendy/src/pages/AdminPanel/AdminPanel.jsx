@@ -243,8 +243,8 @@ const AdminPanel = () => {
                 className="bg-white border border-gray-300 rounded-lg shadow-md p-4"
               >
                 <div className="flex justify-between">
-                  <div>
-                    <div className="flex justify-between items-center mb-5">
+                  <div className="w-full">
+                    <div className="flex justify-between items-center mb-5 w-full">
                       <h3 className="lg:text-[18px] font-bold mb-2 ">
                         <span className="hidden lg:block">{order.name}</span>
                         <span className="block lg:hidden">
