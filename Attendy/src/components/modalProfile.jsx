@@ -26,8 +26,7 @@ const ModalProfile = ({ isOpen, onClose }) => {
           {user.isCompany ? (
             <>
               <p>
-                <strong className="text-[#00A082]">Nombre de usuario:</strong>{" "}
-                {user.name}
+                <strong className="text-[#00A082]">Empresa:</strong> {user.name}
               </p>
 
               <p className="break-words">
