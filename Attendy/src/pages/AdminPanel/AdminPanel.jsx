@@ -36,34 +36,34 @@ const AdminPanel = () => {
       navigate("/");
     });
   };
-  useEffect(() => {
-    const fetchPendingOrders = async () => {
-      if (!user) {
-        console.log("No hay usuario autenticado.");
-        return;
-      }
+  const fetchPendingOrders = async () => {
+    if (!user) {
+      console.log("No hay usuario autenticado.");
+      return;
+    }
 
-      try {
-        const ordersArray = [];
-        const ordersQuery = query(
-          collection(database, `companies/${user.id}/orders`),
-          where("status", "==", "pending")
-        );
+    try {
+      const ordersArray = [];
+      const ordersQuery = query(
+        collection(database, `companies/${user.id}/orders`),
+        where("status", "==", "pending")
+      );
 
-        const ordersSnapshot = await getDocs(ordersQuery);
-        ordersSnapshot.forEach((orderDoc) => {
-          ordersArray.push({
-            id: orderDoc.id,
-            ...orderDoc.data(),
-          });
+      const ordersSnapshot = await getDocs(ordersQuery);
+      ordersSnapshot.forEach((orderDoc) => {
+        ordersArray.push({
+          id: orderDoc.id,
+          ...orderDoc.data(),
         });
+      });
 
-        setOrders(ordersArray);
-      } catch (error) {
-        console.error("Error al obtener las órdenes pendientes:", error);
-      }
-    };
+      setOrders(ordersArray);
+    } catch (error) {
+      console.error("Error al obtener las órdenes pendientes:", error);
+    }
+  };
 
+  useEffect(() => {
     fetchPendingOrders();
   }, [user]);
 
@@ -176,15 +176,21 @@ const AdminPanel = () => {
           </div>
         </div>
 
-        <div className="flex justify-start lg:w-[73%] w-[80%] m-auto mt-5">
+        <div className="flex justify-between lg:w-[80%] w-[80%] m-auto mt-5">
           <button
             onClick={() => {
               setShowModal(true);
               fetchCompletedOrders();
             }}
-            className="bg-[#00A082] text-white rounded-[30px] px-5 py-2"
+            className="bg-[#00A082] text-white rounded-[30px] lg:px-5 lg:py-5 px-1 py-2 lg:ml-[65px]"
           >
             Ver historial de órdenes
+          </button>
+          <button
+            onClick={fetchPendingOrders}
+            className="bg-[#00A082] text-white rounded-[30px] lg:px-5 lg:py-5 px-2 py-2 lg:mr-[-55px]"
+          >
+            Actualizar Órdenes
           </button>
           {showModal && (
             <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center font-poppins">
